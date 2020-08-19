@@ -1,7 +1,13 @@
+import java.util.ArrayList;
 
 public class C206_CaseStudy {
 
 	public static void main(String[] args) {
+		
+		ArrayList<Registration> regList = new ArrayList<Registration>();
+		ArrayList<CourseSchedule> courseList = new ArrayList<CourseSchedule>();
+		ArrayList<CourseCategory> categoryList = new ArrayList<CourseCategory>();
+		
 		int option = -1;
 		while (option != 0) {
 
@@ -54,11 +60,12 @@ public class C206_CaseStudy {
 
 				// Registration Options
 			} else if (option == 13) {
-				C206_CaseStudy.setHeader("REGISTER FOR COURSE SCHEDULE ");		
-				C206_CaseStudy.registerForCourseSchedule();
+				C206_CaseStudy.setHeader("REGISTER FOR COURSE SCHEDULE ");
+				Registration rc = inputRegistration();
+				C206_CaseStudy.registerForCourseSchedule(regList, rc);
 			} else if (option == 14) {
 				C206_CaseStudy.setHeader("VIEW ALL REGISTRATIONS");		
-				C206_CaseStudy.viewAllRegistrations();
+				C206_CaseStudy.viewAllRegistrations(regList);
 			} else if (option == 15) {
 				C206_CaseStudy.setHeader("DELETE REGISTRATION");	
 				C206_CaseStudy.deleteRegistration();
@@ -192,18 +199,39 @@ public class C206_CaseStudy {
 
 	}
 
-	/* Registration Options */
+	/* Registration Options by Boaz*/
 
-	public static void registerForCourseSchedule() {
-		// TODO Auto-generated method stub
-		Helper.readString("To be completed... (Press Enter)");
+	public static Registration inputRegistration() {
+		String reg_id = Helper.readString("Enter Registration ID > ");
+		String course_name = Helper.readString("Enter Course to register for > ");
+		
 
+		Registration rc = new Registration(reg_id, course_name);
+		return rc;
+		
+	}
+	public static void registerForCourseSchedule(ArrayList<Registration> regList,Registration rc) {
+		
+		
+		regList.add(rc);
+		System.out.println("Registration added");
 	}
 
-	public static void viewAllRegistrations() {
-		// TODO Auto-generated method stub
-		Helper.readString("To be completed... (Press Enter)");
+	
 
+	public static String retrieveAllRegistrations(ArrayList<Registration> regList) {
+		String output = "";
+
+		for (int i = 0; i < regList.size(); i++) {
+			output += String.format("%-20s %-30s\n", regList.get(i).getCourse_name(), regList.get(i).getReg_id());
+		}
+		return output;
+	}	
+	public static void viewAllRegistrations(ArrayList<Registration> regList) {
+		C206_CaseStudy.setHeader("REGISTRATION LIST");
+		String output = String.format("%-20s %-30s\n", "REGISTRATION ID", "COURSE NAME");
+		output += retrieveAllRegistrations(regList);	
+		System.out.println(output);
 	}
 
 	public static void deleteRegistration() {
