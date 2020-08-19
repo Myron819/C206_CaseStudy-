@@ -221,7 +221,7 @@ public class C206_CaseStudy {
 
 	public static String retrieveAllRegistrations(ArrayList<Registration> regList) {
 		String output = "";
-
+ 
 		for (int i = 0; i < regList.size(); i++) {
 			output += String.format("%-20s %-30s\n", regList.get(i).getCourse_name(), regList.get(i).getReg_id());
 		}
@@ -230,7 +230,7 @@ public class C206_CaseStudy {
 	public static void viewAllRegistrations(ArrayList<Registration> regList) {
 		C206_CaseStudy.setHeader("REGISTRATION LIST");
 		String output = String.format("%-20s %-30s\n", "REGISTRATION ID", "COURSE NAME");
-		output += retrieveAllRegistrations(regList);	
+		output += retrieveAllRegistrations(regList);	  
 		System.out.println(output);
 	}
 
@@ -241,5 +241,5 @@ public class C206_CaseStudy {
 	}
 
 
-
+//t 
 }
