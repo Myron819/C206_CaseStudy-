@@ -17,6 +17,6 @@ public class Registration extends CourseSchedule{
 		return reg_id;
 	}
 	
-	//t
+	//t 
 
 }
