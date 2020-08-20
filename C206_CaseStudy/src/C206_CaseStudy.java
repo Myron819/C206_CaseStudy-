@@ -33,10 +33,10 @@ public class C206_CaseStudy {
 				// Course Options
 			} else if (option == 4) {
 				C206_CaseStudy.setHeader("ADD COURSE");	
-				C206_CaseStudy.addCourse(Course);
+				C206_CaseStudy.addCourse(Course, CourseCategoryList);
 			} else if (option == 5) {
 				C206_CaseStudy.setHeader("VIEW ALL COURSES");	
-				C206_CaseStudy.getCourseList(Course);
+				C206_CaseStudy.viewCourseList(Course);
 			} else if (option == 6) {
 				C206_CaseStudy.setHeader("DELETE COURSE");
 				C206_CaseStudy.deleteCourse(Course);
@@ -188,8 +188,9 @@ public class C206_CaseStudy {
 
 	/* Course Options By yiqian*/
 	//add course
-	public static void addCourse(ArrayList<Course> courseList) {
+	public static void addCourse(ArrayList<Course> courseList, ArrayList<CourseCategory> catList) {
 		boolean unique=true;
+		boolean categoryFound=false;
 		int id = Helper.readInt("Enter course id > ");
 		String name = Helper.readString("Enter course name > ");
 		String des = Helper.readString("Enter description > ");
@@ -201,12 +202,19 @@ public class C206_CaseStudy {
 				System.out.println("Course id not unique, cannot add!");
 				unique=false;
 			}
+			if(courseList.get(i).getCourse_cat().equalsIgnoreCase(cat)) {
+				categoryFound=true;
+			}
 		}
-		if(unique==true) {
+		if(unique==true && categoryFound==true) {
 			Course co = new Course(id,name,des,cat,schedule);
 			courseList.add(co);
 			System.out.println("Course added.");
 		}
+		else {
+			System.out.println("Course's category not found.");
+		}
+		
 	}
 	public static void addCourse(ArrayList<Course> courseList, Course co) {
 		courseList.add(co);
@@ -219,21 +227,25 @@ public class C206_CaseStudy {
 		String output="";
 		
 		for(int i=0; i<courseList.size(); i++) {
-			output += String.format("%-10d %-30s %-20s %-20s\n", courseList.get(i).getCourse_id(), courseList.get(i).getDescription(), courseList.get(i).getCourse_cat(),courseList.get(i).getIsAvailable());
+			output += String.format("%-10d %-15s %-15s %-10b\n", courseList.get(i).getCourse_id(), courseList.get(i).getCourse_name(), courseList.get(i).getDescription(), courseList.get(i).getCourse_cat(),courseList.get(i).getIsAvailable());
 		}
 		return output;
 	}
 	public static void viewCourseList(ArrayList<Course> courseList) {
-		C206_CaseStudy.setHeader("Course List");
-		String output = String.format("%-10d %-30s %-20s %-20s\n", "ID", "DESCRIPTION", "CATEGORY", "AVAILABLE");
-		output += getCourseList(courseList);
-		System.out.println(output);
+		if(courseList!=null) {
+			String output = String.format("%-10s %-15s %-15s %-10s\n", "ID", "NAME", "DESCRIPTION", "CATEGORY", "AVAILABLE");
+			output += getCourseList(courseList);
+			System.out.println(output);
+		}
+		else {
+			System.out.println("No courses in the list.");
+		}
 	}
 	
 	//delete course
 	public static void deleteCourse(ArrayList<Course> courseList) {
 		Course toDelete = null;
-		int id = Helper.readInt("Enter course id> ");
+		int id = Helper.readInt("Enter course id > ");
 		if(courseList==null) {
 			System.out.println("No course to delete!");
 		}
@@ -247,6 +259,7 @@ public class C206_CaseStudy {
 				System.out.println("Error, cannot delete!");
 			}
 			else {
+				courseList.remove(toDelete);
 				System.out.println("Course deleted successfully");
 			}
 		}

@@ -188,5 +188,12 @@ public class C206_CaseStudyTest {
 			assertEquals("Check that getCourseList", testOutput, allCourses);
 			
 		}
+		
+		@Test
+		public void deleteCourse() {
+			assertNotNull("Test if there are courses in the course arraylist", courseList);
+			
+			
+		}
 
 }
