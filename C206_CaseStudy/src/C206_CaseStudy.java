@@ -9,7 +9,7 @@ public class C206_CaseStudy {
 		ArrayList<CourseCategory> CourseCategoryList = new ArrayList<CourseCategory>();
 		ArrayList<CourseSchedule> courseScheduleList = new ArrayList<CourseSchedule>();
 		ArrayList<Registration> registrationList = new ArrayList<Registration>();
-		
+		MemberList.add(new Member("John","Male",84440720,"John@gmail.com","22/07/2020","Singapore","pass1234"));		
 		int option = -1;
 		while (option != 0) {
 
@@ -19,10 +19,11 @@ public class C206_CaseStudy {
 			// Member Options
 			if (option == 1) {
 				C206_CaseStudy.setHeader("ADD NEW MEMBER");
-				C206_CaseStudy.addNewMember();
+				Member m = inputMember();
+				C206_CaseStudy.addNewMember(MemberList, m);
 			} else if (option == 2) {
 				C206_CaseStudy.setHeader("VIEW ALL MEMBERS");	
-				C206_CaseStudy.viewAllMembers();
+				C206_CaseStudy.viewAllMembers(MemberList);
 			} else if (option == 3) {
 				C206_CaseStudy.setHeader("DELETE MEMBER");
 				C206_CaseStudy.deleteMember();
@@ -123,17 +124,52 @@ public class C206_CaseStudy {
 	}
 
 	/* Member Options */
+	public static Member inputMember() {
+		String name = Helper.readString("Enter name > ");
+		String gender = Helper.readString("Enter gender > ");
+		int moblie = Helper.readInt("Enter moblie > ");
+		String email = Helper.readString("Enter email > ");
+		String DOB = Helper.readString("Enter DOB > ");
+		String country = Helper.readString("Enter country > ");
+		String password = Helper.readString("Enter password > ");
 
-	public static void addNewMember() {
-		// TODO Auto-generated method stub
-		Helper.readString("To be completed... (Press Enter)");
+		Member m= new Member(name, gender, moblie, email, DOB, country, password);
+		return m;
+		
+	}
+	public static void addNewMember(ArrayList<Member> MemberList, Member m) {
+		
+		MemberList.add(m);
+		System.out.println("Member added");
+	}
+//Retrieve
+	public static String retrieveAllMember(ArrayList<Member> MemberList) {
+		String output = "";
 
+		for (int i = 0; i < MemberList.size(); i++) {
+
+			output += String.format("%-84s\n", MemberList.get(i).toString());
+		}
+		return output;
 	}
 
-	public static void viewAllMembers() {
-		// TODO Auto-generated method stub
-		Helper.readString("To be completed... (Press Enter)");
-
+	private static String retrieveMember(ArrayList<Member> MemberList, String output, int i) {
+		String Member_name = MemberList.get(i).getName();
+		String Member_gender = MemberList.get(i).getGender();
+		int Member_mobile = MemberList.get(i).getMoblie();
+		String Member_email = MemberList.get(i).getEmail();
+		String Member_DOB = MemberList.get(i).getDOB();
+		String Member_country = MemberList.get(i).getCountry();
+		String Member_password = MemberList.get(i).getPassword();
+		output += String.format("%-10s %-10s %-10s %-40s %-10s %-20s %-20s\n", Member_name,Member_gender,Member_mobile,Member_email,Member_DOB,Member_country,Member_password);
+		return output;
+	}
+	public static void viewAllMembers(ArrayList<Member> MemberList) {
+		C206_CaseStudy.setHeader("MEMBER LIST");
+		String output = String.format("%-10s %-10s %-10s %-40s %-10s %-20s %-20s\n", "NAME", "GENDER",
+				"MOBILE", "EMAIL","DOB","COUNTRY","PASSWORD");
+		 output += retrieveAllMember(MemberList);	
+		System.out.println(output);
 	}
 
 	public static void deleteMember() {
