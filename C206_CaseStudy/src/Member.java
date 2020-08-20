@@ -71,7 +71,7 @@ public class Member {
 
 	public void setCountry(String country) {
 		this.country = country;
-	}s
+	}
 
 	public String getPassword() {
 		return password;
