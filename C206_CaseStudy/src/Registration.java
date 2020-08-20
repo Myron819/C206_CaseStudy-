@@ -13,7 +13,7 @@ public class Registration {
 		this.reg_id = reg_id;
 	}
 	
-	  
+	   
 
 
 	public String getCourse_name() {

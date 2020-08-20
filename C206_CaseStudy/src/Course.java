@@ -22,7 +22,7 @@ public class Course {
 	public String toString() {
 		
 		// Write your codes here
-		return String.format("%-10s %-30s %-10s %-10s", );
+		return String.format("%-10s %-30s %-10s %-10s" );
 	}
 	public String getCourse_name() {
 		return course_name;
