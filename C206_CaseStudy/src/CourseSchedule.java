@@ -2,7 +2,7 @@
 public class CourseSchedule {
 	
 	private int course_schedule_id;
-	private Course course;
+	private String course;
 	private int price;
 	private String start_date;
 	private String end_date;
@@ -10,7 +10,7 @@ public class CourseSchedule {
 	private String end_time;
 	private String location;
 	
-	public CourseSchedule(int course_schedule_id, Course course, int price, String start_date, String end_date,
+	public CourseSchedule(int course_schedule_id, String course, int price, String start_date, String end_date,
 			String start_time, String end_time, String location) {
 		super();
 		this.course_schedule_id = course_schedule_id;
@@ -28,10 +28,10 @@ public class CourseSchedule {
 	public void setCourse_schedule_id(int course_schedule_id) {
 		this.course_schedule_id = course_schedule_id;
 	}
-	public Course getCourse() {
+	public String getCourse() {
 		return course;
 	}
-	public void setCourse(Course course) {
+	public void setCourse(String course) {
 		this.course = course;
 	}
 	public int getPrice() {
