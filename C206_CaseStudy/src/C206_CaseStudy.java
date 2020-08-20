@@ -239,7 +239,7 @@ public class C206_CaseStudy {
 		String categoryDescription=Helper.readString("Enter Category Description >");
 		boolean uniqueName = true;
 		for (int i = 0; i < caList.size(); i++) {
-			if(category == caList.get(i).getCategory()) {
+			if(category.equalsIgnoreCase(caList.get(i).getCategory())) {
 				uniqueName=false;
 			}
 		}
