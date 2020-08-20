@@ -1,6 +1,7 @@
 
 public class CourseSchedule {
 	
+	private String course_name;
 	private String price;
 	private String start_date;
 	private String end_date;
@@ -24,8 +25,8 @@ public class CourseSchedule {
 
 
 
-	public String getprice() {
-		return price;
+	public String getCourse_name() {
+		return course_name;
 	}
 	
 	
