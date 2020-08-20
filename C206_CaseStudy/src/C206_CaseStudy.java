@@ -199,7 +199,6 @@ public class C206_CaseStudy {
 		
 		for(int i=0; i<courseList.size(); i++) {
 			if(courseList.get(i).getCourse_id()==id) {
-				System.out.println("Course id not unique, cannot add!");
 				unique=false;
 			}
 			if(courseList.get(i).getCourse_cat().equalsIgnoreCase(cat)) {
@@ -211,17 +210,18 @@ public class C206_CaseStudy {
 			courseList.add(co);
 			System.out.println("Course added.");
 		}
-		else {
+		else if(categoryFound!=true) {
 			System.out.println("Course's category not found.");
 		}
-		
+		else if(unique!=true) {
+			System.out.println("Course id not unique, cannot add!");
+		}
 	}
 	public static void addCourse(ArrayList<Course> courseList, Course co) {
 		courseList.add(co);
 		System.out.println("Course added.");
 	}	
 
-	
 	//view courseList
 	public static String getCourseList(ArrayList<Course> courseList) {
 		String output="";
