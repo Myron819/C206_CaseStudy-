@@ -7,7 +7,8 @@ public class C206_CaseStudy {
 		ArrayList<Registration> regList = new ArrayList<Registration>();
 		ArrayList<CourseSchedule> courseList = new ArrayList<CourseSchedule>();
 		ArrayList<CourseCategory> categoryList = new ArrayList<CourseCategory>();
-		
+		categoryList.add(new CourseCategory("Sport"));
+		courseList.add(new CourseSchedule("12/12/2020", "12/12/2020", "12:00", "13:00", "Class", 10));
 		int option = -1;
 		while (option != 0) {
 
@@ -39,7 +40,8 @@ public class C206_CaseStudy {
 				// Course Category Options
 			} else if (option == 7) {
 				C206_CaseStudy.setHeader("ADD COURSE CATEGORY");
-				C206_CaseStudy.addCourseCategory();	
+				CourseCategory cs = inputCourseCategory();
+				C206_CaseStudy.addCourseCategory(categoryList, cs);	
 			} else if (option == 8) {
 				C206_CaseStudy.setHeader("VIEW ALL COURSE CATEGORIES");
 				C206_CaseStudy.viewAllCourseCategories();	
@@ -50,7 +52,8 @@ public class C206_CaseStudy {
 				// Course Schedule Options
 			} else if (option == 10) {
 				C206_CaseStudy.setHeader("ADD COURSE SCHEDULE ");	
-				C206_CaseStudy.addCourseSchedule();
+				CourseSchedule cs = inputCourseSchedule();
+				C206_CaseStudy.addCourseSchedule(courseList, cs);
 			} else if (option == 11) {
 				C206_CaseStudy.setHeader("VIEW ALL COURSE SCHEDULES");	
 				C206_CaseStudy.viewAllCourseSchedules();
@@ -161,6 +164,19 @@ public class C206_CaseStudy {
 
 	/* Course Category Options */
 
+	public static CourseCategory inputCourseCategory() {
+		String category = Helper.readString("Enter category > ");
+		
+
+		CourseCategory cs= new CourseCategory(category);
+		return cs;
+		
+	}
+	public static void addCourseCategory(ArrayList<CourseCategory> categoryList, CourseCategory cs) {
+		
+		categoryList.add(cs);
+		System.out.println("CourseSchedule added");
+	}
 	public static void addCourseCategory() {
 		// TODO Auto-generated method stub
 		Helper.readString("To be completed... (Press Enter)");
@@ -181,10 +197,22 @@ public class C206_CaseStudy {
 
 	/* Course Schedule Options */
 
-	public static void addCourseSchedule() {
-		// TODO Auto-generated method stub
-		Helper.readString("To be completed... (Press Enter)");
+	public static CourseSchedule inputCourseSchedule() {
+		String date_start = Helper.readString("Enter start date > ");
+		String date_end = Helper.readString("Enter end date > ");
+		String time_start = Helper.readString("Enter start time > ");
+		String time_end = Helper.readString("Enter end time > ");
+		String location = Helper.readString("Enter location > ");
+		int price = Helper.readInt("Enter price > ");
 
+		CourseSchedule cs= new CourseSchedule(date_start,date_end,time_start,time_end,location,price);
+		return cs;
+		
+	}
+	public static void addCourseSchedule(ArrayList<CourseSchedule> courseList, CourseSchedule cs) {
+		
+		courseList.add(cs);
+		System.out.println("CourseSchedule added");
 	}
 
 	public static void viewAllCourseSchedules() {
