@@ -80,7 +80,7 @@ public class C206_CaseStudy {
 
 			} else {
 				Helper.readString("\nInvalid option... (Press Enter)");
-			}
+			} 
 		}
 	}
 
