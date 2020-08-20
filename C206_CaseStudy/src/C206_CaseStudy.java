@@ -43,14 +43,14 @@ public class C206_CaseStudy {
 				// Course Category Options
 			} else if (option == 7) {
 				C206_CaseStudy.setHeader("ADD COURSE CATEGORY");
-				CourseCategory cs = inputCourseCategory();
-				C206_CaseStudy.addCourseCategory(CourseCategoryList, cs);	
+				C206_CaseStudy.addCourseCategory(CourseCategoryList);
+			
 			} else if (option == 8) {
 				C206_CaseStudy.setHeader("VIEW ALL COURSE CATEGORIES");
-				C206_CaseStudy.viewAllCourseCategories();	
+				C206_CaseStudy.viewAllCourseCategories(CourseCategoryList);	
 			} else if (option == 9) {
 				C206_CaseStudy.setHeader("DELETE COURSE CATEGORY");
-				C206_CaseStudy.deleteCourseCategory();
+				C206_CaseStudy.deleteCourseCategory(CourseCategoryList);
 
 				// Course Schedule Options
 			} else if (option == 10) {
@@ -205,33 +205,51 @@ public class C206_CaseStudy {
 
 	/* Course Category Options */
 
-	public static CourseCategory inputCourseCategory() {
-		String category = Helper.readString("Enter category > ");
-		
+	public static void addCourseCategory(ArrayList<CourseCategory> caList) {
+		String category=Helper.readString("Enter Category Name >");
+		String categoryDescription=Helper.readString("Enter Category Description >");
+		boolean uniqueName = true;
+		for (int i = 0; i < caList.size(); i++) {
+			if(category == caList.get(i).getCategory()) {
+				uniqueName=false;
+			}
+		}
+		CourseCategory cc= new CourseCategory(category, categoryDescription);
+		if (uniqueName) {
+			caList.add(cc);
+			System.out.println("Category added");
+		}else {
+			System.out.println("Category name is not unique");
+		}
 
-		CourseCategory cs= new CourseCategory(category);
-		return cs;
-		
-	}
-	public static void addCourseCategory(ArrayList<CourseCategory> categoryList, CourseCategory cs) {
-		
-		categoryList.add(cs);
-		System.out.println("CourseSchedule added");
-	}
+	}	
 	
+	public static String retrieveAllCourseCategories(ArrayList<CourseCategory> cList) {
+		String output = "";
 
-	public static void viewAllCourseCategories() {
-		// TODO Auto-generated method stub
-		Helper.readString("To be completed... (Press Enter)");
+		for (int i = 0; i < cList.size(); i++) {
 
+			output+= cList.get(i).toString();
+		}
+		return output;
 	}
-
-	public static void deleteCourseCategory() {
+	public static void viewAllCourseCategories(ArrayList<CourseCategory> cList) {
 		// TODO Auto-generated method stub
-		Helper.readString("To be completed... (Press Enter)");
-
+		C206_CaseStudy.setHeader("CATEGORY LIST");
+		String output = String.format("%-20s %-30s\n", "CATEGORY NAME", "DESCRIPTION");
+		 output += retrieveAllCourseCategories(cList);	
+		System.out.println(output);
 	}
-
+//	
+	public static void deleteCourseCategory(ArrayList<CourseCategory> cList) {
+		// TODO Auto-generated method stub
+		String catName = Helper.readString("Enter Category's name to delete > ");
+		for (int i = 0; i < cList.size(); i++) {
+			if(catName == cList.get(i).getCategory()) {
+				cList.remove(i);
+			}
+		}
+	}
 	/* Course Schedule Options */
 
 	public static void addCourseSchedule() {
