@@ -232,7 +232,7 @@ public class C206_CaseStudy {
 		}
 	}
 
-	/* Course Category Options */
+	/* Course Category Options Daryl*/
 
 	public static void addCourseCategory(ArrayList<CourseCategory> caList) {
 		String category=Helper.readString("Enter Category Name >");
