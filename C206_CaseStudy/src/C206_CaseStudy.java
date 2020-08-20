@@ -43,7 +43,7 @@ public class C206_CaseStudy {
 			} else if (option == 7) {
 				C206_CaseStudy.setHeader("ADD COURSE CATEGORY");
 				CourseCategory cs = inputCourseCategory();
-				C206_CaseStudy.addCourseCategory(categoryList, cs);	
+				C206_CaseStudy.addCourseCategory(CourseCategoryList, cs);	
 			} else if (option == 8) {
 				C206_CaseStudy.setHeader("VIEW ALL COURSE CATEGORIES");
 				C206_CaseStudy.viewAllCourseCategories();	
@@ -66,13 +66,13 @@ public class C206_CaseStudy {
 			} else if (option == 13) {
 				C206_CaseStudy.setHeader("REGISTER FOR COURSE SCHEDULE ");
 				Registration rc = inputRegistration();
-				C206_CaseStudy.registerForCourseSchedule(regList, rc);
+				C206_CaseStudy.registerForCourseSchedule(registrationList, rc);
 			} else if (option == 14) {
 				C206_CaseStudy.setHeader("VIEW ALL REGISTRATIONS");		
-				C206_CaseStudy.viewAllRegistrations(regList);
+				C206_CaseStudy.viewAllRegistrations(registrationList);
 			} else if (option == 15) {
 				C206_CaseStudy.setHeader("DELETE REGISTRATION");	
-				C206_CaseStudy.deleteRegistration();
+				C206_CaseStudy.deleteRegistration(registrationList);
 
 				// Other Options
 			} else if (option == 0) {
@@ -261,31 +261,37 @@ public class C206_CaseStudy {
 		return rc;
 		
 	}
-	public static void registerForCourseSchedule(ArrayList<Registration> regList,Registration rc) {
+	public static void registerForCourseSchedule(ArrayList<Registration> registrationList,Registration rc) {
 		
 		
-		regList.add(rc);
+		registrationList.add(rc);
 		System.out.println("Registration added");
 	}
 
 	
 
-	public static String retrieveAllRegistrations(ArrayList<Registration> regList) {
+	public static String retrieveAllRegistrations(ArrayList<Registration> registrationList) {
 		String output = "";
  
-		for (int i = 0; i < regList.size(); i++) {
-			output += String.format("%-20s %-30s\n", regList.get(i).getCourse_name(), regList.get(i).getReg_id());
+		for (int i = 0; i < registrationList.size(); i++) {
+			output += String.format("%-20s %-30s\n", registrationList.get(i).getCourse_name(), registrationList.get(i).getReg_id());
 		}
 		return output;
 	}	
-	public static void viewAllRegistrations(ArrayList<Registration> regList) {
+	public static void viewAllRegistrations(ArrayList<Registration> registrationList) {
 		C206_CaseStudy.setHeader("REGISTRATION LIST");
 		String output = String.format("%-20s %-30s\n", "REGISTRATION ID", "COURSE NAME");
-		output += retrieveAllRegistrations(regList);	  
+		output += retrieveAllRegistrations(registrationList);	  
 		System.out.println(output);
 	}
 
-	public static void deleteRegistration() {
+	public static void deleteRegistration(ArrayList<Registration> registrationList) {
+		String reg_id = Helper.readString("Enter ID of Registration to delete > ");
+		for (int i = 0; i < registrationList.size(); i++) {
+			if(reg_id == registrationList.get(i).getReg_id()) {
+				registrationList.remove(i);
+			}
+		}
 		// TODO Auto-generated method stub
 		Helper.readString("To be completed... (Press Enter)");
 
