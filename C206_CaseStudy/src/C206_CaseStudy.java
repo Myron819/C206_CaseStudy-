@@ -283,8 +283,6 @@ public class C206_CaseStudy {
 		}else {
 			System.out.println("Category name is not unique");
 		}
-
-
 	}	
 
 	public static void addCourseCategory(ArrayList<CourseCategory> categoryList, CourseCategory cs) {
@@ -303,6 +301,7 @@ public class C206_CaseStudy {
 		}
 		return output;
 	}
+	
 	public static void viewAllCourseCategories(ArrayList<CourseCategory> cList) {
 		// TODO Auto-generated method stub
 		C206_CaseStudy.setHeader("CATEGORY LIST");
@@ -320,6 +319,7 @@ public class C206_CaseStudy {
 			}
 		}
 	}
+	
 	/* Course Schedule Options; by Myron */
 
 	public static void addCourseSchedule(ArrayList<CourseSchedule> courseScheduleList) {
@@ -372,7 +372,6 @@ public class C206_CaseStudy {
 
 		if (!found)
 			Helper.readString("\nUnable to delete course schedule.");
-
 	}
 
 	/* Registration Options by Boaz*/
@@ -381,14 +380,10 @@ public class C206_CaseStudy {
 		int reg_id = Helper.readInt("Enter Registration ID > ");
 		String course_name = Helper.readString("Enter Course to register for > ");
 
-
 		Registration rc = new Registration(course_name, reg_id);
 		return rc;
-
 	}
 	public static void registerForCourseSchedule(ArrayList<Registration> registrationList,Registration rc) {
-
-
 		registrationList.add(rc);
 		System.out.println("Registration added");
 	}
@@ -403,6 +398,7 @@ public class C206_CaseStudy {
 		}
 		return output;
 	}	
+	
 	public static void viewAllRegistrations(ArrayList<Registration> registrationList) {
 		C206_CaseStudy.setHeader("REGISTRATION LIST");
 		String output = String.format("%-20s %-30s\n", "COURSE NAME", "REGISTRATION ID");
@@ -418,8 +414,6 @@ public class C206_CaseStudy {
 			}
 		}
 	}
-
-
 }
 
 
