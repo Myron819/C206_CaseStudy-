@@ -26,7 +26,7 @@ public class C206_CaseStudy {
 				C206_CaseStudy.viewAllMembers(MemberList);
 			} else if (option == 3) {
 				C206_CaseStudy.setHeader("DELETE MEMBER");
-				C206_CaseStudy.deleteMember();
+				C206_CaseStudy.deleteMember(MemberList);
 
 				// Course Options
 			} else if (option == 4) {
@@ -172,8 +172,13 @@ public class C206_CaseStudy {
 		System.out.println(output);
 	}
 
-	public static void deleteMember() {
-		// TODO Auto-generated method stub
+	public static void deleteMember(ArrayList<Member> MemberList) {
+		String name = Helper.readString("Enter member's name to delete > ");
+		for (int i = 0; i < MemberList.size(); i++) {
+			if(name == MemberList.get(i).getName()) {
+				MemberList.remove(i);
+			}
+		}
 		Helper.readString("To be completed... (Press Enter)");
 
 	}
