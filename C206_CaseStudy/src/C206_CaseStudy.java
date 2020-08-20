@@ -286,17 +286,17 @@ public class C206_CaseStudy {
 	}
 
 	public static void deleteRegistration(ArrayList<Registration> registrationList) {
-		String reg_id = Helper.readString("Enter ID of Registration to delete > ");
-		for (int i = 0; i < registrationList.size(); i++) {
-			if(reg_id == registrationList.get(i).getReg_id()) {
-				registrationList.remove(i);
-			}
-		}
-		// TODO Auto-generated method stub
-		Helper.readString("To be completed... (Press Enter)");
-
+		int index = Helper.readInt("Enter member index > ");
+		int m = index-1;
+		registrationList.remove(m);
 	}
 
+		
+	}
+		
+		
 
-//t  
-}
+	
+			
+		
+		
