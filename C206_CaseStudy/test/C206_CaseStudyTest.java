@@ -16,9 +16,13 @@ public class C206_CaseStudyTest {
 	private Course c1;
 	private Course c2;
 
+	private CourseCategory cc1;
+	private CourseCategory cc2;
+	
 	private ArrayList<Member> MemberList; //jonathan
 	private ArrayList<Registration> regList; //Boaz
 	private ArrayList<Course> courseList; //yiqian
+	private ArrayList<CourseCategory> categoryList;//daryl
 	
 	@Before
 	public void setUp() throws Exception {
@@ -32,9 +36,13 @@ public class C206_CaseStudyTest {
 		c1 = new Course(1,"Addition","1+1","Math","Tuesdays"); //yiqian
 		c2 = new Course(2,"Subtraction","1-1","Math","Tuesdays"); //yiqian
 		
+		cc1 = new CourseCategory("Political Science", "Something about politics");
+		cc2 = new CourseCategory("English", "Something about england");
+		
 		MemberList= new ArrayList<Member>(); //jonathan
 		regList = new ArrayList<Registration>(); //Boaz
 		courseList = new ArrayList<Course>(); //yiqian
+		categoryList = new ArrayList<CourseCategory>();//Daryl
 	}
 
 	@After
@@ -188,5 +196,49 @@ public class C206_CaseStudyTest {
 			assertEquals("Check that getCourseList", testOutput, allCourses);
 			
 		}
-
+		//daryl
+		public void addCourseCategory() {
+			assertNotNull("Test if there is valid course arraylist to add to", categoryList);
+			
+			C206_CaseStudy.addCourseCategory(categoryList, cc1);
+			assertEquals("Test if that categoryList arraylist size is 1?", 1, categoryList.size());
+			
+			assertSame("Test that course is added same as 1st item of the list?", c1, categoryList.get(0));
+			
+			C206_CaseStudy.addCourseCategory(categoryList, cc2);
+			assertEquals("Test that categoryList arraylist size is 2?", 2, categoryList.size());
+		}
+		//daryl
+		public void retrieveAllCategoryTest() {
+			// Test if Registration list is not null but empty -boundary
+			assertNotNull("Test if there is valid CategoryList arraylist to retrieve the catgory list", categoryList);
+			
+			//Given an empty list, after adding 2 items, test if the size of the list is 2 - normal
+			C206_CaseStudy.addCourseCategory(categoryList, cc1);
+			C206_CaseStudy.addCourseCategory(categoryList, cc2);
+			assertEquals("Test that Registration arraylist size is 2", 2, categoryList.size());
+			
+			//test if the expected output string same as the list of Registration retrieved from the SourceCentre	
+			String orignalOutput= C206_CaseStudy.retrieveAllCourseCategories(categoryList);
+			String testOutput = String.format("%-20s %-30s\n","1234", "DBIS");
+			testOutput += String.format("%-20s %-30s\n","4321", "DBA");
+		
+			assertEquals("Test that ViewAllRegistrations", testOutput, orignalOutput);
+		}
+		//daryl
+		public void deleteCategoryTest() {
+			// Test if Registration list is not null so there member to delete -boundary
+			
+			assertNotNull("Test if there is valid Category arraylist to retrieve item", categoryList);
+			C206_CaseStudy.addCourseCategory(categoryList, cc1);
+			//Given a list of 1 Registration, after deleting a Registration check if list is 0 -normal
+			C206_CaseStudy.deleteCourseCategory(categoryList);
+			assertEquals("Test that Registration arraylist size is 0",0,regList.size());
+			//Given a list of 2 Registration, after deleting a Registration check if list is 1 -normal
+			C206_CaseStudy.addCourseCategory(categoryList, cc1);
+			C206_CaseStudy.addCourseCategory(categoryList, cc2);
+			C206_CaseStudy.deleteCourseCategory(categoryList);
+			assertEquals("Test that Registration arraylist size is 1",1,regList.size());
+		
+	}
 }
