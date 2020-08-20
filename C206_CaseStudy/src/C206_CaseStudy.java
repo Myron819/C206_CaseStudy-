@@ -177,11 +177,7 @@ public class C206_CaseStudy {
 		categoryList.add(cs);
 		System.out.println("CourseSchedule added");
 	}
-	public static void addCourseCategory() {
-		// TODO Auto-generated method stub
-		Helper.readString("To be completed... (Press Enter)");
-
-	}
+	
 
 	public static void viewAllCourseCategories() {
 		// TODO Auto-generated method stub
