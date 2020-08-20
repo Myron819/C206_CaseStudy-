@@ -79,6 +79,7 @@ public class C206_CaseStudyTest {
 		//Given a list of 2 member, after deleting a member check if list is 1 -normal
 		C206_CaseStudy.deleteMember(MemberList,1);
 		assertEquals("Test that Member arraylist size is 1",1,MemberList.size());
+		
 	}
 
 }
