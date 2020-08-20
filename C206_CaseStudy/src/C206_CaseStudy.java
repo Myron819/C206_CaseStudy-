@@ -9,14 +9,14 @@ public class C206_CaseStudy {
 		ArrayList<CourseCategory> CourseCategoryList = new ArrayList<CourseCategory>();
 		ArrayList<CourseSchedule> courseScheduleList = new ArrayList<CourseSchedule>();
 		ArrayList<Registration> registrationList = new ArrayList<Registration>();
-		MemberList.add(new Member("John","Male",84440720,"John@gmail.com","22/07/2020","Singapore","pass1234"));		
+		MemberList.add(new Member("John","Male",84440720,"John@gmail.com","22/07/2020","Singapore","pass1234"));	//Jonathan, I wrote this casue i dont think the arry works without it	
 		int option = -1;
 		while (option != 0) {
 
 			C206_CaseStudy.menu();
 			option = Helper.readInt("Enter an option > ");
 
-			// Member Options
+			// Member Options Jonathan
 			if (option == 1) {
 				C206_CaseStudy.setHeader("ADD NEW MEMBER");
 				Member m = inputMember();
@@ -124,6 +124,7 @@ public class C206_CaseStudy {
 	}
 
 	/* Member Options */
+	//Adding Jonathan
 	public static Member inputMember() {
 		String name = Helper.readString("Enter name > ");
 		String gender = Helper.readString("Enter gender > ");
@@ -142,7 +143,7 @@ public class C206_CaseStudy {
 		MemberList.add(m);
 		System.out.println("Member added");
 	}
-//Retrieve
+//Retrieve Jonathan
 	public static String retrieveAllMember(ArrayList<Member> MemberList) {
 		String output = "";
 
@@ -171,6 +172,7 @@ public class C206_CaseStudy {
 		 output += retrieveAllMember(MemberList);	
 		System.out.println(output);
 	}
+	//delete jonathan
 
 	public static void deleteMember(ArrayList<Member> MemberList) {
 		String name = Helper.readString("Enter member's name to delete > ");
