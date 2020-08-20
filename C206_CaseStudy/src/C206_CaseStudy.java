@@ -213,7 +213,7 @@ public class C206_CaseStudy {
 		String output = String.format("%-10d %-30s %-20s %-20s\n", "ID", "DESCRIPTION", "CATEGORY", "AVAILABLE");
 		output += getCourseList(courseList);
 		System.out.println(output);
-	} // jk
+	} // a
 	
 	//delete course
 	public static void deleteCourse(ArrayList<Course> courseList) {

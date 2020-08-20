@@ -38,7 +38,7 @@ public class Course {
 	
 	public String getCourse_schedule() {
 		return course_schedule;
-	}// e
+	}// e0
 
 	public void setCourse_schedule(String course_schedule) {
 		this.course_schedule = course_schedule;
