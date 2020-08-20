@@ -211,6 +211,36 @@ public class C206_CaseStudy {
 		System.out.println("CourseSchedule added");
 	}
 
+	//HERE BITCH
+	public static String retrieveAllCamcorder(ArrayList<Camcorder> courseList) {
+		String output = "";
+
+		for (int i = 0; i < courseList.size(); i++) {
+
+			output += String.format("%-84s\n", courseList.get(i).toString());
+		}
+		return output;
+	}
+
+	private static String retrieveCamcorder(ArrayList<CourseSchedule> courseList, String output, int i) {
+		String Camcorder_AssetTag = courseList.get(i).getAssetTag();
+		String Camcorder_Description = courseList.get(i).getDescription();
+		String Camcorder_showAvailability = C206_CaseStudy.showAvailability(courseList.get(i).getIsAvailable());
+		String Camcorder_dueDate = courseList.get(i).getDueDate();
+		int Camcorder_opticalZoom = courseList.get(i).getOpticalZoom();
+		output += String.format("%-10s %-30s %-10s %-10s %-20d\n", Camcorder_AssetTag,
+				Camcorder_Description, 
+				Camcorder_showAvailability,
+				Camcorder_dueDate,Camcorder_opticalZoom);
+		return output;
+	}
+	public static void viewAllCourseSchedules(ArrayList<CourseSchedule> courseList) {
+		C206_CaseStudy.setHeader("CourseSchedules LIST");
+		String output = String.format("%-10s %-30s %-10s %-10s %-20s\n", "ASSET TAG", "DESCRIPTION",
+				"AVAILABLE", "DUE DATE","OPTICAL ZOOM");
+		 output += retrieveAllCourseSchedule(courseList);	
+		System.out.println(output);
+	}
 	public static void viewAllCourseSchedules() {
 		// TODO Auto-generated method stub
 		Helper.readString("To be completed... (Press Enter)");
