@@ -9,15 +9,24 @@ import org.junit.Test;
 public class C206_CaseStudyTest {
 	private Member m1; //jonathan
 	private Member m2; //jonathan
+	
+	private Registration r1;
+	private Registration r2;
 
 	private ArrayList<Member> MemberList; //jonathan
+	private ArrayList<Registration> regList; //Boaz
 	
 	@Before
 	public void setUp() throws Exception {
 		
 		m1 = new Member("John","Male",84440720,"John@gmail.com","22/07/2020","Singapore","pass1234"); //jonathan
 		m2 = new Member("May","Female",84440721,"May@gmail.com","21/07/2010","Singapore","pass12345"); //jonathan
+		
+		r1 = new Registration("1234", "DBIS"); //Boaz
+		r2 = new Registration("4321", "DBA"); //Boaz
+		
 		MemberList= new ArrayList<Member>(); //jonathan
+		regList = new ArrayList<Registration>(); //Boaz
 	}
 
 	@After
@@ -81,5 +90,57 @@ public class C206_CaseStudyTest {
 		assertEquals("Test that Member arraylist size is 1",1,MemberList.size());
 		
 	}
+	@Test //Boaz
+	public void RegisterForCourseScheduleTest() {
+		// Registration list is not null, so that can add a new item - boundary
+		assertNotNull("Test if there is valid Registration arraylist to add to", regList);
+		
+		//Given an empty list, after adding 1 Registration, the size of the list is 1 - normal
+		//The Registration just added is as same as the first item of the list
+		C206_CaseStudy.registerForCourseSchedule(regList, r1);		
+		assertEquals("Test that Chromebook arraylist size is 1", 1, regList.size());
+		assertSame("Test that Registration is added", r1, regList.get(0));
+		
+		//Add another Registration. test The size of the list is 2? - normal
+		//The Registration just added is as same as the second Registration of the list
+		C206_CaseStudy.registerForCourseSchedule(regList, r2);
+		assertEquals("Test that regList arraylist size is 2", 2, regList.size());
+		assertSame("Test that Chromebook is added", r2, regList.get(1));
+	
 
+}
+	@Test //Boaz
+	public void retrieveAllRegistrationsTest() {
+		// Test if Registration list is not null but empty -boundary
+		assertNotNull("Test if there is valid Registration arraylist to retrieve item", regList);
+		
+		//test if the list of Registration retrieved from the SourceCentre is empty - boundary
+		String allRegistration= C206_CaseStudy.retrieveAllRegistrations(regList);
+		String testOutput = "";
+		assertEquals("Check that ViewAllRegistrationlist", testOutput, allRegistration);
+		
+		//Given an empty list, after adding 2 items, test if the size of the list is 2 - normal
+		C206_CaseStudy.registerForCourseSchedule(regList, r1);
+		C206_CaseStudy.registerForCourseSchedule(regList, r2);
+		assertEquals("Test that Registration arraylist size is 2", 2, regList.size());
+		
+		//test if the expected output string same as the list of Registration retrieved from the SourceCentre	
+		allRegistration= C206_CaseStudy.retrieveAllRegistrations(regList);
+		testOutput = String.format("%-20s %-30s\n","1234", "DBIS");
+		testOutput += String.format("%-20s %-30s\n","4321", "DBA");
+	
+		assertEquals("Test that ViewAllRegistrations", testOutput, allRegistration);
+}
+	@Test //Boaz
+	public void deleteRegistrationTest() {
+		// Test if Registration list is not null so there member to delete -boundary
+		assertNotNull("Test if there is valid Registration arraylist to retrieve item", regList);
+		//Given a list of 1 Registration, after deleting a Registration check if list is 0 -normal
+		C206_CaseStudy.deleteRegistration(regList);
+		assertEquals("Test that Registration arraylist size is 0",0,regList.size());
+		//Given a list of 2 Registration, after deleting a Registration check if list is 1 -normal
+		C206_CaseStudy.deleteRegistration(regList);
+		assertEquals("Test that Registration arraylist size is 1",1,regList.size());
+	
+}
 }
