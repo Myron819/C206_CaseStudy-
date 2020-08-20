@@ -241,7 +241,7 @@ public class C206_CaseStudy {
 		CourseCategory cs= new CourseCategory(category);
 		return cs;
 		
-	}
+	} 
 	public static void addCourseCategory(ArrayList<CourseCategory> categoryList, CourseCategory cs) {
 		
 		categoryList.add(cs);
