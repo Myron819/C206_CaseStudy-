@@ -302,7 +302,7 @@ public class C206_CaseStudy {
 		// TODO Auto-generated method stub
 		String catName = Helper.readString("Enter Category's name to delete > ");
 		for (int i = 0; i < cList.size(); i++) {
-			if(catName == cList.get(i).getCategory()) {
+			if(catName.equalsIgnoreCase(cList.get(i).getCategory())) {
 				cList.remove(i);
 			}
 		}
