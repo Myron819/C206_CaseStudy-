@@ -26,6 +26,7 @@ public class C206_CaseStudy {
 				C206_CaseStudy.viewAllMembers(MemberList);
 			} else if (option == 3) {
 				C206_CaseStudy.setHeader("DELETE MEMBER");
+			
 				C206_CaseStudy.deleteMember(MemberList);
 
 				// Course Options
@@ -175,13 +176,10 @@ public class C206_CaseStudy {
 	//delete jonathan
 
 	public static void deleteMember(ArrayList<Member> MemberList) {
-		String name = Helper.readString("Enter member's name to delete > ");
-		for (int i = 0; i < MemberList.size(); i++) {
-			if(name == MemberList.get(i).getName()) {
-				MemberList.remove(i);
-			}
-		}
-		Helper.readString("To be completed... (Press Enter)");
+		int index = Helper.readInt("Enter member index > ");
+		int m = index-1;
+		MemberList.remove(m);
+		
 
 	}
 
