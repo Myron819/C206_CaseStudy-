@@ -350,6 +350,7 @@ public class C206_CaseStudy {
 
 	// Delete Course Schedule
 	public static void DeleteCourseSchedule(ArrayList<CourseSchedule> courseScheduleList) {
+		// Check that list is not empty.
 		if(courseScheduleList.size() == 0) {
 			Helper.readString("\nNo course schedules to delete.... (Press Enter)");
 			return;
@@ -359,12 +360,15 @@ public class C206_CaseStudy {
 		int id = Helper.readInt("Enter ID of course schedule to delete > ");
 		CourseSchedule cs = getCoursescheduleFromListByID(courseScheduleList, id);
 
-		if (cs != null) {
-			courseScheduleList.remove(cs);
-			Helper.readString("\nCourse schedule deleted successfully.");
-		} else {
+		// Check that course schedule was found.
+		if (cs == null) {
 			Helper.readString("\nCourse schedule not found... (Press Enter)");
+			return;
 		}
+
+		courseScheduleList.remove(cs);
+		Helper.readString("\nCourse schedule deleted successfully... (Press Enter)");
+
 	}
 
 	// CourseSchedule Other - 1
@@ -374,6 +378,7 @@ public class C206_CaseStudy {
 				return cs;		
 		return null;
 	}	
+
 	// CourseSchedule Other - 2
 	public static void printAllCourseschedules(ArrayList<CourseSchedule> courseScheduleList) {
 		String output="";
@@ -395,6 +400,7 @@ public class C206_CaseStudy {
 		Registration rc = new Registration(course_name, reg_id);
 		return rc;
 	}
+
 	public static void registerForCourseSchedule(ArrayList<Registration> registrationList,Registration rc) {
 		registrationList.add(rc);
 		System.out.println("Registration added");
