@@ -10,6 +10,7 @@ public class C206_CaseStudy {
 		ArrayList<CourseSchedule> courseScheduleList = new ArrayList<CourseSchedule>();
 		ArrayList<Registration> registrationList = new ArrayList<Registration>();
 		MemberList.add(new Member("John","Male",84440720,"John@gmail.com","22/07/2020","Singapore","pass1234"));	//Jonathan, I wrote this casue i dont think the arry works without it	
+		Course.add(new Course(1,"Addition","1+1","Math","Tuesdays"));
 		int option = -1;
 		while (option != 0) {
 
@@ -32,7 +33,7 @@ public class C206_CaseStudy {
 				// Course Options
 			} else if (option == 4) {
 				C206_CaseStudy.setHeader("ADD COURSE");	
-				C206_CaseStudy.inputCourse();
+				C206_CaseStudy.addCourse(Course);
 			} else if (option == 5) {
 				C206_CaseStudy.setHeader("VIEW ALL COURSES");	
 				C206_CaseStudy.getCourseList(Course);
@@ -185,18 +186,25 @@ public class C206_CaseStudy {
 
 	/* Course Options By yiqian*/
 	//add course
-	public static Course inputCourse() {
-		int id = Helper.readInt("Enter course id> ");
-		String des = Helper.readString("Enter description> ");
-		String cat = Helper.readString("Enter course category> ");
-		String schedule = Helper.readString("Enter course schedule> ");
+	public static void addCourse(ArrayList<Course> courseList) {
+		boolean unique=true;
+		int id = Helper.readInt("Enter course id > ");
+		String name = Helper.readString("Enter course name > ");
+		String des = Helper.readString("Enter description > ");
+		String cat = Helper.readString("Enter course category > ");
+		String schedule = Helper.readString("Enter course schedule > ");
 		
-		Course co = new Course(id,des,cat,schedule);
-		return co;
-	}
-	public static void addCourse(ArrayList<Course> courseList, Course co) {
-		courseList.add(co);
-		System.out.println("Course added.");
+		for(int i=0; i<courseList.size(); i++) {
+			if(courseList.get(i).getCourse_id()==id) {
+				System.out.println("Course id not unique, cannot add!");
+				unique=false;
+			}
+		}
+		if(unique==true) {
+			Course co = new Course(id,name,des,cat,schedule);
+			courseList.add(co);
+			System.out.println("Course added.");
+		}
 	}
 	
 	//view courseList
@@ -213,22 +221,27 @@ public class C206_CaseStudy {
 		String output = String.format("%-10d %-30s %-20s %-20s\n", "ID", "DESCRIPTION", "CATEGORY", "AVAILABLE");
 		output += getCourseList(courseList);
 		System.out.println(output);
-	} // a
+	}
 	
 	//delete course
 	public static void deleteCourse(ArrayList<Course> courseList) {
 		Course toDelete = null;
 		int id = Helper.readInt("Enter course id> ");
-		for(int i=0; i<courseList.size(); i++) {
-			if(courseList.get(i).getCourse_id()==id) {
-				toDelete = courseList.get(i);
-			}
-		}
-		if(toDelete.getCourse_cat()!=null || toDelete.getCourse_schedule()!=null) {
-			System.out.println("Error, cannot delete!");
+		if(courseList==null) {
+			System.out.println("No course to delete!");
 		}
 		else {
-			System.out.println("Course deleted successfully");
+			for(int i=0; i<courseList.size(); i++) {
+				if(courseList.get(i).getCourse_id()==id) {
+					toDelete = courseList.get(i);
+				}
+			}
+			if(toDelete.getCourse_cat()!=null || toDelete.getCourse_schedule()!=null) {
+				System.out.println("Error, cannot delete!");
+			}
+			else {
+				System.out.println("Course deleted successfully");
+			}
 		}
 	}
 
