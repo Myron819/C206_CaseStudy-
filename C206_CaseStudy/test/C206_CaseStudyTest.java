@@ -91,10 +91,10 @@ public class C206_CaseStudyTest {
 		// Test if Member list is not null so there member to delete -boundary
 		assertNotNull("Test if there is valid Member arraylist to retrieve item", MemberList);
 		//Given a list of 1 member, after deleting a member check if list is 0 -normal
-		C206_CaseStudy.deleteMember(MemberList,1);
+		C206_CaseStudy.deleteMember(MemberList,"John");
 		assertEquals("Test that Member arraylist size is 0",0,MemberList.size());
 		//Given a list of 2 member, after deleting a member check if list is 1 -normal
-		C206_CaseStudy.deleteMember(MemberList,1);
+		C206_CaseStudy.deleteMember(MemberList,"John");
 		assertEquals("Test that Member arraylist size is 1",1,MemberList.size());
 		
 	}

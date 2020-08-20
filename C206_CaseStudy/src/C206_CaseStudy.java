@@ -27,7 +27,7 @@ public class C206_CaseStudy {
 				C206_CaseStudy.viewAllMembers(MemberList);
 			} else if (option == 3) {
 				C206_CaseStudy.setHeader("DELETE MEMBER");
-				int z = dMember();
+				String z = dMember();
 				C206_CaseStudy.deleteMember(MemberList,z);
 
 				// Course Options
@@ -175,13 +175,21 @@ public class C206_CaseStudy {
 		System.out.println(output);
 	}
 	//delete jonathan
-	public static int dMember() {
-		int z = Helper.readInt("Enter member index > ");
+	public static String dMember() {
+		String z = Helper.readString("Enter member Name > ");
 		return z;
 	}
-	public static void deleteMember(ArrayList<Member> MemberList, int z) {
+	public static void deleteMember(ArrayList<Member> MemberList, String z) {
+		for(int i = 0; i < MemberList.size(); i++) {
+			if(z.equalsIgnoreCase(MemberList.get(i).getName()))  {
+				MemberList.remove(i);
+				System.out.println("Member deleted");
+			}
+			else {
+				System.out.println("Member "+z+" not found");
+			}
+		}
 		
-		MemberList.remove(z-1);
 		
 
 	}
