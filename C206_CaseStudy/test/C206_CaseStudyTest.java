@@ -1,6 +1,9 @@
 import static org.junit.Assert.*;
 
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import org.junit.After;
 import org.junit.Before;
@@ -18,11 +21,15 @@ public class C206_CaseStudyTest {
 
 	private CourseCategory cc1;
 	private CourseCategory cc2;
+	
+	//private CourseSchedule cs1; // Myron
+	//private CourseSchedule cs2; // Myron
 
 	private ArrayList<Member> MemberList; //jonathan
 	private ArrayList<Registration> regList; //Boaz
 	private ArrayList<Course> courseList; //yiqian
 	private ArrayList<CourseCategory> categoryList;//daryl
+	private ArrayList<CourseSchedule> courseScheduleList; //Myron
 
 	@Before
 	public void setUp() throws Exception {
@@ -36,13 +43,17 @@ public class C206_CaseStudyTest {
 		c1 = new Course(1,"Addition","1+1","Math","Tuesdays"); //yiqian
 		c2 = new Course(2,"Subtraction","1-1","Math","Tuesdays"); //yiqian
 
-		cc1 = new CourseCategory("Political Science", "Something about politics");//daryl
-		cc2 = new CourseCategory("English", "Something about england");
+		cc1 = new CourseCategory("Political Science", "Something about politics"); //daryl
+		cc2 = new CourseCategory("English", "Something about england"); //daryl
+
+		//cs1 = new CourseSchedule(1, "course1", 111, "1/1/1", "2/2/2", "0100", "0101", "location one"); // Myron
+		//cs1 = new CourseSchedule(2, "course2", 2222, "2/2/2", "3/3/3", "0200", "0202", "location two"); // Myron
 
 		MemberList= new ArrayList<Member>(); //jonathan
 		regList = new ArrayList<Registration>(); //Boaz
 		courseList = new ArrayList<Course>(); //yiqian
 		categoryList = new ArrayList<CourseCategory>();//Daryl
+		courseScheduleList = new ArrayList<CourseSchedule>(); // Myron
 	}
 
 	@After
@@ -249,6 +260,46 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.addCourseCategory(categoryList, cc2);
 		C206_CaseStudy.deleteCourseCategory(categoryList);
 		assertEquals("Test that Registration arraylist size is 1",1,regList.size());
-
 	}
+	
+	/* Myron */
+	@Test
+	public void addCourseScheduleTest() {
+		
+		// Item list is not null, so that can add a new item - boundary
+		assertNotNull("Check if there is valid CourseSchedule arraylist to add to", courseScheduleList);
+		
+		//Given an empty list, after adding 1 item, the size of the list is 1 - normal
+		//The item just added is as same as the first item of the list
+		C206_CaseStudy.doAddCourseSchedule(courseScheduleList, 1, "course1", 111, "1/1/1", "2/2/2", "0100", "0101", "location one");
+		assertEquals("Check that CourseSchedule arraylist size is 1", 1, courseScheduleList.size());
+		assertSame("Check that CourseSchedule is added", new CourseSchedule(1, "course1", 111, "1/1/1", "2/2/2", "0100", "0101", "location one"), courseScheduleList.get(0));
+		
+		//Add another item. test The size of the list is 2? -normal
+		//The item just added is as same as the second item of the list
+		C206_CaseStudy.doAddCourseSchedule(courseScheduleList, 2, "course2", 2222, "2/2/2", "3/3/3", "0200", "0202", "location two");
+		assertEquals("Check that CourseSchedule arraylist size is 2", 2, courseScheduleList.size());
+		assertSame("Check that CourseSchedule is added", new CourseSchedule(2, "course2", 2222, "2/2/2", "3/3/3", "0200", "0202", "location two"), courseScheduleList.get(0));
+		
+		System.out.println("Pass - addCourseScheduleTest()");
+	}
+	
+
+	
+	public static class IntegerAsker {
+	    private final Scanner scanner;
+	    private final PrintStream out;
+
+	    public IntegerAsker(InputStream in, PrintStream out) {
+	        scanner = new Scanner(in);
+	        this.out = out;
+	    }
+
+	    public int ask(String message) {
+	        out.println(message);
+	        return scanner.nextInt();
+	    }
+	}
+	
+	
 }

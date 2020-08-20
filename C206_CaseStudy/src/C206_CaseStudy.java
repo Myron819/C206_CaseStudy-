@@ -9,15 +9,17 @@ public class C206_CaseStudy {
 		ArrayList<CourseCategory> CourseCategoryList = new ArrayList<CourseCategory>();
 		ArrayList<CourseSchedule> courseScheduleList = new ArrayList<CourseSchedule>();
 		ArrayList<Registration> registrationList = new ArrayList<Registration>();
-		MemberList.add(new Member("John","Male",84440720,"John@gmail.com","22/07/2020","Singapore","pass1234"));	//Jonathan, I wrote this casue i dont think the arry works without it	
+		
+		MemberList.add(new Member("John","Male",84440720,"John@gmail.com","22/07/2020","Singapore","pass1234"));	
 		Course.add(new Course(1,"Addition","1+1","Math","Tuesdays"));
+		
 		int option = -1;
 		while (option != 0) {
 
 			C206_CaseStudy.menu();
 			option = Helper.readInt("Enter an option > ");
 
-			// Member Options; Jonathan
+			// Member Options (Jonathan)
 			if (option == 1) {
 				C206_CaseStudy.setHeader("ADD NEW MEMBER");
 				Member m = inputMember();
@@ -322,7 +324,7 @@ public class C206_CaseStudy {
 
 	/* Course Schedule Options; by Myron */
 
-	// Add Course Schedule
+	// Add Course Schedule 1/2
 	public static void addCourseSchedule(ArrayList<CourseSchedule> courseScheduleList) {
 		int id = Helper.readInt("Enter Course Schedule ID > ");
 		String course = Helper.readString("Enter Course that the Schedule is for > ");
@@ -333,8 +335,14 @@ public class C206_CaseStudy {
 		String end_time= Helper.readString("Enter Course Schedule End Time> ");
 		String location = Helper.readString("Enter Course Schedule Location > ");
 
-		courseScheduleList.add(new CourseSchedule(id, course, price, start_date, end_date, start_time, end_time, location));
+		doAddCourseSchedule(courseScheduleList, id, course, price, start_date, end_date, start_time, end_time, location);
 		Helper.readString("\nCourse schedule added... (Press Enter)");
+	}
+
+	// Add Course Schedule 2/2
+	public static void doAddCourseSchedule(ArrayList<CourseSchedule> courseScheduleList, int id, String course,
+			int price, String start_date, String end_date, String start_time, String end_time, String location) {
+		courseScheduleList.add(new CourseSchedule(id, course, price, start_date, end_date, start_time, end_time, location));
 	}
 
 	// View All Course Schedules
