@@ -208,6 +208,11 @@ public class C206_CaseStudy {
 			System.out.println("Course added.");
 		}
 	}
+	public static void addCourse(ArrayList<Course> courseList, Course co) {
+		courseList.add(co);
+		System.out.println("Course added.");
+	}	
+
 	
 	//view courseList
 	public static String getCourseList(ArrayList<Course> courseList) {

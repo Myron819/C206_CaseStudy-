@@ -12,9 +12,13 @@ public class C206_CaseStudyTest {
 	
 	private Registration r1;
 	private Registration r2;
+	
+	private Course c1;
+	private Course c2;
 
 	private ArrayList<Member> MemberList; //jonathan
 	private ArrayList<Registration> regList; //Boaz
+	private ArrayList<Course> courseList; //yiqian
 	
 	@Before
 	public void setUp() throws Exception {
@@ -25,8 +29,12 @@ public class C206_CaseStudyTest {
 		r1 = new Registration("1234", "DBIS"); //Boaz
 		r2 = new Registration("4321", "DBA"); //Boaz
 		
+		c1 = new Course(1,"Addition","1+1","Math","Tuesdays"); //yiqian
+		c2 = new Course(2,"Subtraction","1-1","Math","Tuesdays"); //yiqian
+		
 		MemberList= new ArrayList<Member>(); //jonathan
 		regList = new ArrayList<Registration>(); //Boaz
+		courseList = new ArrayList<Course>(); //yiqian
 	}
 
 	@After
@@ -143,4 +151,42 @@ public class C206_CaseStudyTest {
 		assertEquals("Test that Registration arraylist size is 1",1,regList.size());
 	
 }
+
+
+//By yiqian
+		@Test
+		public void addCourse() {
+			assertNotNull("Test if there is valid course arraylist to add to", courseList);
+			
+			C206_CaseStudy.addCourse(courseList, c1);
+			assertEquals("Test if that course arraylist size is 1?", 1, courseList.size());
+			
+			assertSame("Test that course is added same as 1st item of the list?", c1, courseList.get(0));
+			
+			C206_CaseStudy.addCourse(courseList, c2);
+			assertEquals("Test that course arraylist size is 2?", 2, courseList.size());
+		}
+		
+		@Test
+		public void getCourseList() {
+
+			assertNotNull("Test if there is valid course arraylist to add to", courseList);
+			
+			String allCourses= C206_CaseStudy.getCourseList(courseList);
+			String testOutput = "";
+			assertEquals("Check that getCourseList", testOutput, allCourses);
+					
+			C206_CaseStudy.addCourse(courseList, c1);
+			C206_CaseStudy.addCourse(courseList, c2);
+			assertEquals("Test if that Camcorder arraylist size is 2?", 2, courseList.size());
+			
+			allCourses= C206_CaseStudy.getCourseList(courseList);
+
+			testOutput = String.format("%-10d %-30s %-20s %-20s\n", 1,"SUBTRACTION", "1-1", "MATH", "TUESDAY");
+			testOutput += String.format("%-10d %-30s %-20s %-20s\n", 1,"SUBTRACTION", "1-1", "MATH", "TUESDAY");
+		
+			assertEquals("Check that getCourseList", testOutput, allCourses);
+			
+		}
+
 }
