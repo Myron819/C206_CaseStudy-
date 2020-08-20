@@ -3,12 +3,13 @@ import java.util.ArrayList;
 public class C206_CaseStudy {
 
 	public static void main(String[] args) {
+
+		ArrayList<Member> MemberList = new ArrayList<Member>();
+		ArrayList<Course> Course = new ArrayList<Course>();
+		ArrayList<CourseCategory> CourseCategoryList = new ArrayList<CourseCategory>();
+		ArrayList<CourseSchedule> courseScheduleList = new ArrayList<CourseSchedule>();
+		ArrayList<Registration> registrationList = new ArrayList<Registration>();
 		
-		ArrayList<Registration> regList = new ArrayList<Registration>();
-		ArrayList<CourseSchedule> courseList = new ArrayList<CourseSchedule>();
-		ArrayList<CourseCategory> categoryList = new ArrayList<CourseCategory>();
-		categoryList.add(new CourseCategory("Sport"));
-		courseList.add(new CourseSchedule("12/12/2020", "12/12/2020", "12:00", "13:00", "Class", 10));
 		int option = -1;
 		while (option != 0) {
 
