@@ -216,6 +216,7 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.addCourseCategory(categoryList, cc2);
 		assertEquals("Test that categoryList arraylist size is 2?", 2, categoryList.size());
 	}
+	
 	//daryl
 	public void retrieveAllCategoryTest() {
 		// Test if Registration list is not null but empty -boundary
@@ -233,6 +234,7 @@ public class C206_CaseStudyTest {
 
 		assertEquals("Test that ViewAllRegistrations", testOutput, orignalOutput);
 	}
+	
 	//daryl
 	public void deleteCategoryTest() {
 		// Test if Registration list is not null so there member to delete -boundary

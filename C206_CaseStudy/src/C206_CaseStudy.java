@@ -104,12 +104,12 @@ public class C206_CaseStudy {
 		System.out.println("9. Delete Course Category");
 		System.out.println("");
 		System.out.println("Course Schedule Options");
-		System.out.println("10. Add Course Schedule ");
+		System.out.println("10. Add Course Schedule");
 		System.out.println("11. View All Course Schedules");
 		System.out.println("12. Delete Course Schedule");
 		System.out.println("");
 		System.out.println("Registration Options");
-		System.out.println("13. Register for Course Schedule ");
+		System.out.println("13. Register for Course Schedule");
 		System.out.println("14. View All Registrations");
 		System.out.println("15. Delete Registration");
 		System.out.println("");
@@ -301,7 +301,7 @@ public class C206_CaseStudy {
 		}
 		return output;
 	}
-	
+
 	public static void viewAllCourseCategories(ArrayList<CourseCategory> cList) {
 		// TODO Auto-generated method stub
 		C206_CaseStudy.setHeader("CATEGORY LIST");
@@ -319,11 +319,11 @@ public class C206_CaseStudy {
 			}
 		}
 	}
-	
+
 	/* Course Schedule Options; by Myron */
 
+	// Add Course Schedule
 	public static void addCourseSchedule(ArrayList<CourseSchedule> courseScheduleList) {
-		// TODO Auto-generated method stub
 		int id = Helper.readInt("Enter Course Schedule ID > ");
 		String course = Helper.readString("Enter Course that the Schedule is for > ");
 		int price = Helper.readInt("Enter Course Schedule Price > ");
@@ -334,44 +334,56 @@ public class C206_CaseStudy {
 		String location = Helper.readString("Enter Course Schedule Location > ");
 
 		courseScheduleList.add(new CourseSchedule(id, course, price, start_date, end_date, start_time, end_time, location));
-
 		Helper.readString("\nCourse schedule added... (Press Enter)");
 	}
 
+	// View All Course Schedules
 	public static void viewAllCourseSchedules(ArrayList<CourseSchedule> courseScheduleList) {
-		// TODO Auto-generated method stub
-		System.out.println(String.format("%-10s %-30s %-20s %-20s %-20s %-20s %-20s %-20s\\n", "ID", "FOR COURSE", "PRICE", "START DATE", "END DATE", "START TIME", "END TIME", "LOCATION"));
-
-		String output="";
-		for(int i=0; i<courseScheduleList.size(); i++) {
-			output += String.format("%-10d %-30s %-20d %-20s %-20s %-20s %-20s %-20s\n", courseScheduleList.get(i).getCourse_schedule_id(), courseScheduleList.get(i).getCourse(), courseScheduleList.get(i).getPrice(), courseScheduleList.get(i).getStart_date(), courseScheduleList.get(i).getEnd_date(), courseScheduleList.get(i).getStart_time(), courseScheduleList.get(i).getEnd_time(), courseScheduleList.get(i).getLocation());
-		}
-		System.out.println(output);
-
-		Helper.readString("\nCourse schedules displayed... (Press Enter)");
-	}
-
-	public static void DeleteCourseSchedule(ArrayList<CourseSchedule> courseScheduleList) {
-		// TODO Auto-generated method stub
-		if(courseScheduleList.size() == 0) {
-			Helper.readString("No course schedules to delete.... (Press Enter)");
+		if (courseScheduleList.size() == 0) {
+			Helper.readString("\nNo course schedules to display... (Press Enter)");
 			return;
 		}
 
-		int id = Helper.readInt("Enter ID of course schedule to delete > ");
+		printAllCourseschedules(courseScheduleList);
+		Helper.readString("Course schedules displayed... (Press Enter)");
+	}
 
-		boolean found = false; 
-		for(CourseSchedule cs : courseScheduleList) {
-			if(cs.getCourse_schedule_id() == id) {
-				courseScheduleList.remove(cs);
-				found = true;
-				Helper.readString("\nCourse schedule deleted successfully.");
-				return;
-			}
+	// Delete Course Schedule
+	public static void DeleteCourseSchedule(ArrayList<CourseSchedule> courseScheduleList) {
+		if(courseScheduleList.size() == 0) {
+			Helper.readString("\nNo course schedules to delete.... (Press Enter)");
+			return;
 		}
 
-		if (!found)
-			Helper.readString("\nUnable to delete course schedule.");
+		printAllCourseschedules(courseScheduleList);
+		int id = Helper.readInt("Enter ID of course schedule to delete > ");
+		CourseSchedule cs = getCoursescheduleFromListByID(courseScheduleList, id);
+
+		if (cs != null) {
+			courseScheduleList.remove(cs);
+			Helper.readString("\nCourse schedule deleted successfully.");
+		} else {
+			Helper.readString("\nCourse schedule not found... (Press Enter)");
+		}
+	}
+
+	// CourseSchedule Other - 1
+	public static CourseSchedule getCoursescheduleFromListByID(ArrayList<CourseSchedule> courseScheduleList, int id) {
+		for(CourseSchedule cs : courseScheduleList) 
+			if(cs.getCourse_schedule_id() == id)
+				return cs;		
+		return null;
+	}	
+	// CourseSchedule Other - 2
+	public static void printAllCourseschedules(ArrayList<CourseSchedule> courseScheduleList) {
+		String output="";
+		output += String.format("%-10s %-30s %-20s %-20s %-20s %-20s %-20s %-20s\n", "ID", "FOR COURSE", "PRICE", "START DATE", "END DATE", "START TIME", "END TIME", "LOCATION");
+
+		for(int i=0; i<courseScheduleList.size(); i++) {
+			output += String.format("%-10d %-30s %-20d %-20s %-20s %-20s %-20s %-20s\n", courseScheduleList.get(i).getCourse_schedule_id(), courseScheduleList.get(i).getCourse(), courseScheduleList.get(i).getPrice(), courseScheduleList.get(i).getStart_date(), courseScheduleList.get(i).getEnd_date(), courseScheduleList.get(i).getStart_time(), courseScheduleList.get(i).getEnd_time(), courseScheduleList.get(i).getLocation());
+		}
+
+		System.out.println(output);
 	}
 
 	/* Registration Options by Boaz*/
@@ -398,7 +410,7 @@ public class C206_CaseStudy {
 		}
 		return output;
 	}	
-	
+
 	public static void viewAllRegistrations(ArrayList<Registration> registrationList) {
 		C206_CaseStudy.setHeader("REGISTRATION LIST");
 		String output = String.format("%-20s %-30s\n", "COURSE NAME", "REGISTRATION ID");
