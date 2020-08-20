@@ -26,9 +26,9 @@ public class C206_CaseStudyTest {
 		m1 = new Member("John","Male",84440720,"John@gmail.com","22/07/2020","Singapore","pass1234"); //jonathan
 		m2 = new Member("May","Female",84440721,"May@gmail.com","21/07/2010","Singapore","pass12345"); //jonathan
 		
-		r1 = new Registration("1234", "DBIS"); //Boaz
-		r2 = new Registration("4321", "DBA"); //Boaz
-		
+		r1 = new Registration("DBIS", 1234); //Boaz
+		r2 = new Registration("DBA", 4321); //Boaz
+		 
 		c1 = new Course(1,"Addition","1+1","Math","Tuesdays"); //yiqian
 		c2 = new Course(2,"Subtraction","1-1","Math","Tuesdays"); //yiqian
 		

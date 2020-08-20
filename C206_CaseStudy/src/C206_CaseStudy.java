@@ -366,11 +366,11 @@ public class C206_CaseStudy {
 	/* Registration Options by Boaz*/
 
 	public static Registration inputRegistration() {
-		String reg_id = Helper.readString("Enter Registration ID > ");
+		int reg_id = Helper.readInt("Enter Registration ID > ");
 		String course_name = Helper.readString("Enter Course to register for > ");
 		
 
-		Registration rc = new Registration(reg_id, course_name);
+		Registration rc = new Registration(course_name, reg_id);
 		return rc;
 		
 	}
@@ -381,7 +381,7 @@ public class C206_CaseStudy {
 		System.out.println("Registration added");
 	}
 
-	
+	 
 
 	public static String retrieveAllRegistrations(ArrayList<Registration> registrationList) {
 		String output = "";
@@ -393,15 +393,18 @@ public class C206_CaseStudy {
 	}	
 	public static void viewAllRegistrations(ArrayList<Registration> registrationList) {
 		C206_CaseStudy.setHeader("REGISTRATION LIST");
-		String output = String.format("%-20s %-30s\n", "REGISTRATION ID", "COURSE NAME");
+		String output = String.format("%-20s %-30s\n", "COURSE NAME", "REGISTRATION ID");
 		output += retrieveAllRegistrations(registrationList);	  
 		System.out.println(output);
 	}
 
 	public static void deleteRegistration(ArrayList<Registration> registrationList) {
-		int index = Helper.readInt("Enter member index > ");
-		int m = index-1;
-		registrationList.remove(m);
+		int reg_id = Helper.readInt("Enter Registration ID to delete > ");
+		for (int i = 0; i < registrationList.size(); i++) {
+			if(reg_id == registrationList.get(i).getReg_id()) {
+				registrationList.remove(i);
+			}
+		}
 	}
 
 		
