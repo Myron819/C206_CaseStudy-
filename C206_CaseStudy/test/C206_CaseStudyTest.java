@@ -36,7 +36,7 @@ public class C206_CaseStudyTest {
 		c1 = new Course(1,"Addition","1+1","Math","Tuesdays"); //yiqian
 		c2 = new Course(2,"Subtraction","1-1","Math","Tuesdays"); //yiqian
 		
-		cc1 = new CourseCategory("Political Science", "Something about politics");
+		cc1 = new CourseCategory("Political Science", "Something about politics");//daryl
 		cc2 = new CourseCategory("English", "Something about england");
 		
 		MemberList= new ArrayList<Member>(); //jonathan
