@@ -32,13 +32,13 @@ public class C206_CaseStudy {
 				// Course Options
 			} else if (option == 4) {
 				C206_CaseStudy.setHeader("ADD COURSE");	
-				C206_CaseStudy.addCourse();
+				C206_CaseStudy.inputCourse();
 			} else if (option == 5) {
 				C206_CaseStudy.setHeader("VIEW ALL COURSES");	
-				C206_CaseStudy.viewAllCourses();
+				C206_CaseStudy.getCourseList(Course);
 			} else if (option == 6) {
 				C206_CaseStudy.setHeader("DELETE COURSE");
-				C206_CaseStudy.deleteCourses();
+				C206_CaseStudy.deleteCourse(Course);
 
 				// Course Category Options
 			} else if (option == 7) {
@@ -183,24 +183,53 @@ public class C206_CaseStudy {
 
 	}
 
-	/* Course Options */
-
-	public static void addCourse() {
-		// TODO Auto-generated method stub
-		Helper.readString("To be completed... (Press Enter)");
-
+	/* Course Options By yiqian*/
+	//add course
+	public static Course inputCourse() {
+		int id = Helper.readInt("Enter course id> ");
+		String des = Helper.readString("Enter description> ");
+		String cat = Helper.readString("Enter course category> ");
+		String schedule = Helper.readString("Enter course schedule> ");
+		
+		Course co = new Course(id,des,cat,schedule);
+		return co;
 	}
-
-	public static void viewAllCourses() {
-		// TODO Auto-generated method stub
-		Helper.readString("To be completed... (Press Enter)");
-
+	public static void addCourse(ArrayList<Course> courseList, Course co) {
+		courseList.add(co);
+		System.out.println("Course added.");
 	}
-
-	public static void deleteCourses() {
-		// TODO Auto-generated method stub
-		Helper.readString("To be completed... (Press Enter)");
-
+	
+	//view courseList
+	public static String getCourseList(ArrayList<Course> courseList) {
+		String output="";
+		
+		for(int i=0; i<courseList.size(); i++) {
+			output += String.format("%-10d %-30s %-20s %-20s\n", courseList.get(i).getCourse_id(), courseList.get(i).getDescription(), courseList.get(i).getCourse_cat(),courseList.get(i).getIsAvailable());
+		}
+		return output;
+	}
+	public static void viewCourseList(ArrayList<Course> courseList) {
+		C206_CaseStudy.setHeader("Course List");
+		String output = String.format("%-10d %-30s %-20s %-20s\n", "ID", "DESCRIPTION", "CATEGORY", "AVAILABLE");
+		output += getCourseList(courseList);
+		System.out.println(output);
+	} // a
+	
+	//delete course
+	public static void deleteCourse(ArrayList<Course> courseList) {
+		Course toDelete = null;
+		int id = Helper.readInt("Enter course id> ");
+		for(int i=0; i<courseList.size(); i++) {
+			if(courseList.get(i).getCourse_id()==id) {
+				toDelete = courseList.get(i);
+			}
+		}
+		if(toDelete.getCourse_cat()!=null || toDelete.getCourse_schedule()!=null) {
+			System.out.println("Error, cannot delete!");
+		}
+		else {
+			System.out.println("Course deleted successfully");
+		}
 	}
 
 	/* Course Category Options */
