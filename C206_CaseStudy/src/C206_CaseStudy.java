@@ -356,7 +356,7 @@ public class C206_CaseStudy {
 		Helper.readString("Course schedules displayed... (Press Enter)");
 	}
 
-	// Delete Course Schedule
+	// Delete Course Schedule 1/2
 	public static void DeleteCourseSchedule(ArrayList<CourseSchedule> courseScheduleList) {
 		// Check that list is not empty.
 		if(courseScheduleList.size() == 0) {
@@ -374,9 +374,14 @@ public class C206_CaseStudy {
 			return;
 		}
 
-		courseScheduleList.remove(cs);
+		doDeleteCourseschedule(courseScheduleList, cs);
 		Helper.readString("\nCourse schedule deleted successfully... (Press Enter)");
 
+	}
+	
+	// Delete Course Schedule 2/2
+	public static void doDeleteCourseschedule(ArrayList<CourseSchedule> courseScheduleList, CourseSchedule cs) {
+		courseScheduleList.remove(cs);
 	}
 
 	// CourseSchedule Other - 1
