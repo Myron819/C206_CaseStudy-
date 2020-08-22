@@ -397,7 +397,7 @@ public class C206_CaseStudy {
 
 	private static void updateCourseDetails(ArrayList<Course> course) {
 		// TODO Auto-generated method stub
-		Helper.readString("\nTodo.. (Press Enter)");
+		
 		
 	}
 
@@ -473,13 +473,37 @@ public class C206_CaseStudy {
 
 	private static void updateCourseCategoryDetails(ArrayList<CourseCategory> courseCategoryList) {
 		// TODO Auto-generated method stub
-		Helper.readString("\nTodo.. (Press Enter)");
+		String category=Helper.readString("Enter Category Name >");
+		String categoryDescription=Helper.readString("Enter Category Description >");
+
+		for (int i = 0; i <courseCategoryList.size(); i++) {
+			if (courseCategoryList.get(i).getCategory().equalsIgnoreCase(category)) {
+				courseCategoryList.get(i).setCategoryDesc(categoryDescription);
+				System.out.println("Member Updated");
+			}else {
+				System.out.println("Member "+category+" not found");
+			}
+		}
 		
 	}
 
 	private static void searchCourseCategoryByCategoryName(ArrayList<CourseCategory> courseCategoryList) {
 		// TODO Auto-generated method stub
-		Helper.readString("\nTodo.. (Press Enter)");
+		String category=Helper.readString("Enter Category Name >");
+		boolean found =false;
+		for (int i = 0; i < courseCategoryList.size(); i++) {
+			if (courseCategoryList.get(i).getCategory().equalsIgnoreCase(category)) {
+				C206_CaseStudy.setHeader("CATEGORY FOUND");
+				String output = String.format("%-20s %-30s\n", "CATEGORY NAME", "DESCRIPTION");
+				output+= courseCategoryList.toString();
+				System.out.println(output);
+				found=true;
+			}
+		}
+		
+		if (!found) {
+			System.out.println("Category not found");
+		}
 		
 	}
 
