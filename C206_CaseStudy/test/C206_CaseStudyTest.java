@@ -37,8 +37,8 @@ public class C206_CaseStudyTest {
 		r1 = new Registration("DBIS", 1234); //Boaz
 		r2 = new Registration("DBA", 4321); //Boaz
 
-		c1 = new Course(1,"Addition","1+1","Math","Tuesdays"); //yiqian
-		c2 = new Course(2,"Subtraction","1-1","Math","Tuesdays"); //yiqian
+		c1 = new Course(1,"Addition","1+1","Math","Tuesdays", true); //yiqian
+		c2 = new Course(2,"Subtraction","1-1","Math","Tuesdays", false); //yiqian
 
 		cc1 = new CourseCategory("Political Science", "Something about politics"); //daryl
 		cc2 = new CourseCategory("English", "Something about england"); //daryl
