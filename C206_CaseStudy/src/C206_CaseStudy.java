@@ -131,48 +131,48 @@ public class C206_CaseStudy {
 
 	public static void menu() {
 		C206_CaseStudy.setHeader("COURSE MANAGEMENT SYSTEM");
-		System.out.println("Member Options");
-		System.out.println("1. Add New Member");
-		System.out.println("2. View All Members");
-		System.out.println("3. Delete Member");
-		System.out.println("4. Update Member Details");
-		System.out.println("5. Search Member by Country of Residence");
-		System.out.println("6. List All Courses for a Member");
-		System.out.println("");
-		System.out.println("Course Options");
-		System.out.println("7. Add Course");
-		System.out.println("8. View All Courses");
-		System.out.println("9. Delete Course");
-		System.out.println("10. Update Course Details");
-		System.out.println("11. Search Course by Category Name");
-		System.out.println("12. List all Course Schedules for Course");
-		System.out.println("");
-		System.out.println("Course Category Options");
-		System.out.println("13. Add Course Category");
-		System.out.println("14. View All Course Categories");
-		System.out.println("15. Delete Course Category");
-		System.out.println("16. Update Course Category Details");
-		System.out.println("17. Search Course Category by Category Name");
-		System.out.println("18. List All Courses Under a Category");
-		System.out.println("");
-		System.out.println("Course Schedule Options");
-		System.out.println("X. Add Course Schedule");
-		System.out.println("X. View All Course Schedules");
-		System.out.println("X. Delete Course Schedule");
-		System.out.println("X. Update Course Schedule Details");
-		System.out.println("X. Search Course Schedule by Price");
-		System.out.println("X. List All Members Registered for a Course Schedule");
-		System.out.println("");
-		System.out.println("Registration Options");
-		System.out.println("X. Register for Course Schedule");
-		System.out.println("X. View All Registrations");
-		System.out.println("X. Delete Registration");
-		System.out.println("X. Update Course Registration");
-		System.out.println("X. Search Registration Status by Course ID");
-		System.out.println("X. List All Course Schedules Listed By a Member");
-		System.out.println("");
-		System.out.println("Other Options");
-		System.out.println("0. Quit ");
+		System.out.println("Member Options\n" + 
+							"1. Add New Member\n" + 
+							"2. View All Members\n" + 
+							"3. Delete Member\n" + 
+							"4. Update Member Details\n" + 
+							"5. Search Member by Country of Residence\n" + 
+							"6. List All Courses for a Member\n" + 
+							"\n" + 
+							"Course Options\n" + 
+							"7. Add Course\n" + 
+							"8. View All Courses\n" + 
+							"9. Delete Course\n" + 
+							"10. Update Course Details\n" + 
+							"11. Search Course by Category Name\n" + 
+							"12. List all Course Schedules for Course\n" + 
+							"\n" + 
+							"Course Category Options\n" + 
+							"13. Add Course Category\n" + 
+							"14. View All Course Categories\n" + 
+							"15. Delete Course Category\n" + 
+							"16. Update Course Category Details\n" + 
+							"17. Search Course Category by Category Name\n" + 
+							"18. List All Courses Under a Category\n" + 
+							"\n" + 
+							"Course Schedule Options\n" + 
+							"19. Add Course Schedule\n" + 
+							"20. View All Course Schedules\n" + 
+							"21. Delete Course Schedule\n" + 
+							"22. Update Course Schedule Details\n" + 
+							"23. Search Course Schedule by Price\n" + 
+							"24. List All Members Registered for a Course Schedule\n" + 
+							"\n" + 
+							"Registration Options\n" + 
+							"25. Register for Course Schedule\n" + 
+							"26. View All Registrations\n" + 
+							"27. Delete Registration\n" + 
+							"28. Update Course Registration\n" + 
+							"29. Search Registration Status by Course ID\n" + 
+							"30. List All Course Schedules Listed By a Member\n" + 
+							"\n" + 
+							"Other Options\n" + 
+							"0. Quit");
 		Helper.line(80, "-");
 	}
 
