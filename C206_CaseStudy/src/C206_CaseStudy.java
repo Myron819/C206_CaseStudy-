@@ -57,8 +57,8 @@ public class C206_CaseStudy {
 				C206_CaseStudy.setHeader("UPDATE COURSE DETAILS");
 				C206_CaseStudy.updateCourseDetails(Course);
 			} else if (option == 11) {
-				C206_CaseStudy.setHeader("SEARCH FOR COURSE BY CATEGORY NAME");
-				C206_CaseStudy.searchForCourseByCategoryName(Course);
+				C206_CaseStudy.setHeader("SEARCH COURSE BY CATEGORY NAME");
+				C206_CaseStudy.searchCourseByCategoryName(Course);
 			} else if (option == 12) {
 				C206_CaseStudy.setHeader("LIST ALL COURSE SCHEDULES FOR COURSE");
 				C206_CaseStudy.listAllCourseSchedulesForACourse(Course);
@@ -142,7 +142,7 @@ public class C206_CaseStudy {
 		System.out.println("8. View All Courses");
 		System.out.println("9. Delete Course");
 		System.out.println("10. Update Course Details");
-		System.out.println("11. Search for Course by Category Name");
+		System.out.println("11. Search Course by Category Name");
 		System.out.println("12. List all Course Schedules for Course");
 		System.out.println("");
 		System.out.println("Course Category Options");
@@ -157,11 +157,17 @@ public class C206_CaseStudy {
 		System.out.println("X. Add Course Schedule");
 		System.out.println("X. View All Course Schedules");
 		System.out.println("X. Delete Course Schedule");
+		System.out.println("X. Update Course Schedule Details");
+		System.out.println("X. Search Course Schedule by Price");
+		System.out.println("X. List All Members Registered for a Course Schedule");
 		System.out.println("");
 		System.out.println("Registration Options");
 		System.out.println("X. Register for Course Schedule");
 		System.out.println("X. View All Registrations");
 		System.out.println("X. Delete Registration");
+		System.out.println("X. Update Course Registration");
+		System.out.println("X. Search Registration Status by Course ID");
+		System.out.println("X. List All Course Schedules Listed By a Member");
 		System.out.println("");
 		System.out.println("Other Options");
 		System.out.println("0. Quit ");
@@ -339,7 +345,7 @@ public class C206_CaseStudy {
 		
 	}
 
-	private static void searchForCourseByCategoryName(ArrayList<Course> course) {
+	private static void searchCourseByCategoryName(ArrayList<Course> course) {
 		// TODO Auto-generated method stub
 		Helper.readString("\nTodo.. (Press Enter)");
 		
