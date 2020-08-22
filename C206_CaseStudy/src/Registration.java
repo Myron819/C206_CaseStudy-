@@ -1,14 +1,14 @@
 
 public class Registration {
 	
-	private String reg_id;
+	private int reg_id;
 	private String course_name;
 	
 	
-
-
+ 
+     
 		// TODO Auto-generated constructor stub
-	public Registration(String course_name, String reg_id) {
+	public Registration(String course_name, int reg_id) {
 		this.course_name = course_name;
 		this.reg_id = reg_id;
 	}
@@ -23,10 +23,10 @@ public class Registration {
 
 
 
-	public String getReg_id() {
+	public int getReg_id() {
 		return reg_id;
 	}
-	
+	 
 	
 
 }

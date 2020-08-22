@@ -7,13 +7,13 @@ public class Course {
 	private String course_schedule;
 	private boolean isAvailable;
 	
-	public Course(int course_id, String course_name, String description, String course_cat, String course_schedule) {
+	public Course(int course_id, String course_name, String description, String course_cat, String course_schedule, boolean isAvailable) {
 		this.course_id = course_id;
 		this.course_name = course_name;
 		this.description = description;
 		this.course_cat = course_cat;
 		this.course_schedule = course_schedule;
-		this.isAvailable = true;
+		this.isAvailable = isAvailable;
 	}
 	
 	public int getCourse_id() {
