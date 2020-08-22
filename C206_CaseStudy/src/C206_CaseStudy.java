@@ -34,10 +34,12 @@ public class C206_CaseStudy {
 				
 			} else if (option == 4) {
 				C206_CaseStudy.setHeader("UPDATE MEMBER DETAILS");
-				C206_CaseStudy.updateMemberDetails(MemberList);
+				String z = uMember();
+				C206_CaseStudy.updateMemberDetails(MemberList,z);
 			} else if (option == 5) {
 				C206_CaseStudy.setHeader("SEARCH MEMBER BY COUNTRY OF RESIDENCE");
-				C206_CaseStudy.searchMemberByCountryOfResidence(MemberList);
+				String z = sMember();
+				C206_CaseStudy.searchMemberByCountryOfResidence(MemberList,z);
 			} else if (option == 6) {
 				C206_CaseStudy.setHeader("LIST ALL COURSES FOR A MEMBER");
 				C206_CaseStudy.listAllCoursesForAMember(MemberList);
@@ -247,16 +249,48 @@ public class C206_CaseStudy {
 			}
 		}
     }
-
-	private static void updateMemberDetails(ArrayList<Member> memberList) {
-		// TODO Auto-generated method stub
-		Helper.readString("\nTodo.. (Press Enter)");
+	//update john
+	public static String uMember() {
+		String z = Helper.readString("Enter member Name to update> ");
+		return z;
+	}
+	private static void updateMemberDetails(ArrayList<Member> MemberList, String z) {
+		String password = Helper.readString("Enter password > ");
+		String country = Helper.readString("Enter country > ");
+		int moblie = Helper.readInt("Enter moblie (zero if no change) > ");
+		for(int i = 0; i < MemberList.size(); i++) {
+			if(z.equalsIgnoreCase(MemberList.get(i).getName()))  {
+				if(!password.equals("")) {
+					MemberList.get(i).setPassword(password);
+				}
+				if(!country.equals("")) {
+					MemberList.get(i).setCountry(country);
+				}
+				if(moblie!=0) {
+					MemberList.get(i).setMoblie(moblie);
+				}
+				
+				System.out.println("Member Updated");
+			}
+			else {
+				System.out.println("Member "+z+" not found");
+			}
+		}
 		
 	}
-
-	private static void searchMemberByCountryOfResidence(ArrayList<Member> memberList) {
-		// TODO Auto-generated method stub
-		Helper.readString("\nTodo.. (Press Enter)");
+	//search john
+	public static String sMember() {
+		String z = Helper.readString("Enter country> ");
+		return z;
+	}
+	private static void searchMemberByCountryOfResidence(ArrayList<Member> MemberList, String z) {
+		for(int i = 0; i < MemberList.size(); i++) {
+			if(z.equalsIgnoreCase(MemberList.get(i).getCountry()))  {
+				System.out.println(MemberList.get(i).toString());
+				
+			}
+			
+		}
 		
 	}
 
