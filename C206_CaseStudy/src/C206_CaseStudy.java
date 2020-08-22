@@ -11,7 +11,7 @@ public class C206_CaseStudy {
 		ArrayList<Registration> registrationList = new ArrayList<Registration>();
 		
 		MemberList.add(new Member("John","Male",84440720,"John@gmail.com","22/07/2020","Singapore","pass1234"));	
-		Course.add(new Course(1,"Addition","1+1","Math","Tuesdays",true));
+		Course.add(new Course(1,"Addition","1+1","Math","Tuesdays",null,null,true));
 		
 		int option = -1;
 		while (option != 0) {
@@ -271,14 +271,15 @@ public class C206_CaseStudy {
 	public static void addCourse(ArrayList<Course> courseList, ArrayList<CourseCategory> catList) {
 		boolean unique=true;
 		boolean categoryFound=false;
-		int id = Helper.readInt("Enter course id > ");
+		int code = Helper.readInt("Enter course code > ");
 		String name = Helper.readString("Enter course name > ");
 		String des = Helper.readString("Enter description > ");
 		String cat = Helper.readString("Enter course category > ");
-		String schedule = Helper.readString("Enter course schedule > ");
+		String duration = Helper.readString("Enter course duration > ");
+		String pre_requisite = Helper.readString("Enter pre_requisite course > ");
 
 		for(int i=0; i<courseList.size(); i++) {
-			if(courseList.get(i).getCourse_id()==id) {
+			if(courseList.get(i).getCourse_code()==code) {
 				unique=false;
 			}
 			if(courseList.get(i).getCourse_cat().equalsIgnoreCase(cat)) {
@@ -286,7 +287,7 @@ public class C206_CaseStudy {
 			}
 		}
 		if(unique==true && categoryFound==true) {
-			Course co = new Course(id,name,des,cat,schedule,true);
+			Course co = new Course(code,name,des,cat,null,duration,pre_requisite,true);
 			courseList.add(co);
 			System.out.println("Course added.");
 		}
@@ -307,13 +308,13 @@ public class C206_CaseStudy {
 		String output="";
 
 		for(int i=0; i<courseList.size(); i++) {
-			output += String.format("%-10d %-15s %-15s %-15s %-15s %-10b\n", courseList.get(i).getCourse_id(), courseList.get(i).getCourse_name(), courseList.get(i).getDescription(), courseList.get(i).getCourse_cat(), courseList.get(i).getCourse_schedule(), courseList.get(i).getIsAvailable());
+			output += String.format("%-10d %-15s %-15s %-15s %-15s %-10b\n", courseList.get(i).getCourse_code(), courseList.get(i).getCourse_title(), courseList.get(i).getCourse_cat(), courseList.get(i).getDescription(), courseList.get(i).getCourse_duration(), courseList.get(i).getPre_requisite_course(), courseList.get(i).getIsAvailable());
 		}
 		return output;
 	}
 	public static void viewCourseList(ArrayList<Course> courseList) {
 		if(courseList!=null) {
-			String output = String.format("%-10s %-15s %-15s %-15s %-15s %-10s\n", "ID", "NAME", "DESCRIPTION", "CATEGORY", "SCHEDULE", "AVAILABLE");
+			String output = String.format("%-10s %-15s %-15s %-20s %-15s %-10s\n", "CODE", "TITLE", "CATEGORY", "DESCRIPTION", "DURATION", "PRE-REQUISITE COURSE", "AVAILABLILITY");
 			output += getCourseList(courseList);
 			System.out.println(output);
 		}
@@ -325,13 +326,13 @@ public class C206_CaseStudy {
 	//delete course
 	public static void deleteCourse(ArrayList<Course> courseList) {
 		Course toDelete = null;
-		int id = Helper.readInt("Enter course id > ");
+		int code = Helper.readInt("Enter course code > ");
 		if(courseList==null) {
 			System.out.println("No course to delete!");
 		}
 		else {
 			for(int i=0; i<courseList.size(); i++) {
-				if(courseList.get(i).getCourse_id()==id) {
+				if(courseList.get(i).getCourse_code()==code) {
 					toDelete = courseList.get(i);
 				}
 			}

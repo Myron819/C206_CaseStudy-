@@ -1,33 +1,37 @@
 public class Course {
 	
-	private int course_id;
-	private String course_name;
+	private int course_code;
+	private String course_title;
 	private String description;
 	private String course_cat;
 	private String course_schedule;
+	private String course_duration;
+	private String pre_requisite_course;
 	private boolean isAvailable;
 	
-	public Course(int course_id, String course_name, String description, String course_cat, String course_schedule, boolean isAvailable) {
-		this.course_id = course_id;
-		this.course_name = course_name;
+	public Course(int course_code, String course_title, String description, String course_cat, String course_schedule, String course_duration, String pre_requisite_course, boolean isAvailable) {
+		this.course_code = course_code;
+		this.course_title = course_title;
 		this.description = description;
 		this.course_cat = course_cat;
 		this.course_schedule = course_schedule;
+		this.course_duration = course_duration;
+		this.pre_requisite_course = pre_requisite_course;
 		this.isAvailable = isAvailable;
 	}
 	
-	public int getCourse_id() {
-		return course_id;
+	public int getCourse_code() {
+		return course_code;
 	}
-	public void setCourse_id(int course_id) {
-		this.course_id = course_id;
+	public void setCourse_code(int course_code) {
+		this.course_code = course_code;
 	}
 	
-	public String getCourse_name() {
-		return course_name;
+	public String getCourse_title() {
+		return course_title;
 	}
-	public void setCourse_name(String course_name) {
-		this.course_name = course_name;
+	public void setCourse_title(String course_title) {
+		this.course_title = course_title;
 	}
 
 	public String getDescription() {
@@ -51,6 +55,22 @@ public class Course {
 
 	public void setCourse_schedule(String course_schedule) {
 		this.course_schedule = course_schedule;
+	}
+	
+	public String getCourse_duration() {
+		return course_duration;
+	}
+
+	public void setCourse_duration(String course_duration) {
+		this.course_duration = course_duration;
+	}
+	
+	public String getPre_requisite_course() {
+		return pre_requisite_course;
+	}
+
+	public void setPre_requisite_course(String pre_requisite_course) {
+		this.pre_requisite_course = pre_requisite_course;
 	}
 
 	public boolean getIsAvailable() {
