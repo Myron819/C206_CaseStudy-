@@ -20,6 +20,7 @@ public class C206_CaseStudy {
 			option = Helper.readInt("Enter an option > ");
 
 			// Member Options (Jonathan)
+			
 			if (option == 1) {
 				C206_CaseStudy.setHeader("ADD NEW MEMBER");
 				Member m = inputMember();
@@ -44,7 +45,8 @@ public class C206_CaseStudy {
 				C206_CaseStudy.setHeader("LIST ALL COURSES FOR A MEMBER");
 				C206_CaseStudy.listAllCoursesForAMember(MemberList);
 
-				// Course Options
+			// Course Options (Yi Qian) 
+				
 			} else if (option == 7) {
 				C206_CaseStudy.setHeader("ADD COURSE");	
 				C206_CaseStudy.addCourse(Course, CourseCategoryList);
@@ -65,7 +67,8 @@ public class C206_CaseStudy {
 				C206_CaseStudy.setHeader("LIST ALL COURSE SCHEDULES FOR COURSE");
 				C206_CaseStudy.listAllCourseSchedulesForACourse(Course);
 
-				// Course Category Options
+			// Course Category Options (Daryl)
+				
 			} else if (option == 13) {
 				C206_CaseStudy.setHeader("ADD COURSE CATEGORY");
 				C206_CaseStudy.addCourseCategory(CourseCategoryList);
@@ -86,38 +89,50 @@ public class C206_CaseStudy {
 				C206_CaseStudy.setHeader("LIST ALL COURSES UNDER A CATEGORY");
 				C206_CaseStudy.listAllCoursesUnderACategory(CourseCategoryList);
 
-				// Course Schedule Options
-			} else if (option == -1) {
+			// Course Schedule Options (Myron)
+				
+			} else if (option == 19) {
 				C206_CaseStudy.setHeader("ADD COURSE SCHEDULE ");	
 				C206_CaseStudy.addCourseSchedule(courseScheduleList);
-			} else if (option == -1) {
+			} else if (option == 20) {
 				C206_CaseStudy.setHeader("VIEW ALL COURSE SCHEDULES");	
 				C206_CaseStudy.viewAllCourseSchedules(courseScheduleList);
-			} else if (option == -1) {
+			} else if (option == 21) {
 				C206_CaseStudy.setHeader("DELETE COURSE SCHEDULE");	
 				C206_CaseStudy.DeleteCourseSchedule(courseScheduleList);
 
-			} else if (option == 10) {
-				C206_CaseStudy.setHeader("ADD COURSE SCHEDULE ");	
-				C206_CaseStudy.addCourseSchedule(courseScheduleList);
-			} else if (option == 11) {
-				C206_CaseStudy.setHeader("VIEW ALL COURSE SCHEDULES");	
-				C206_CaseStudy.viewAllCourseSchedules(courseScheduleList);
-			} else if (option == 12) {
-				C206_CaseStudy.setHeader("DELETE COURSE SCHEDULE");	
-				C206_CaseStudy.DeleteCourseSchedule(courseScheduleList);
+			} else if (option == 22) {
+				C206_CaseStudy.setHeader("UPDATE COURSE SCHEDULE DETAILS");	
+				C206_CaseStudy.updateCourseScheduleDetails(courseScheduleList);
+			} else if (option == 23) {
+				C206_CaseStudy.setHeader("SEARCH COURSE SCHEDULE BY PRICE");	
+				C206_CaseStudy.searchCourseScheduleByPrice(courseScheduleList);
+			} else if (option == 24) {
+				C206_CaseStudy.setHeader("LIST ALL MEMBERS REGISTERED FOR A COURSE SCHEDULE");	
+				C206_CaseStudy.listAllMembersRegisteredForASchedule(courseScheduleList);
 
-				// Registration Options
-			} else if (option == 13) {
+			// Registration Options (Boaz)
+
+			} else if (option == 25) {
 				C206_CaseStudy.setHeader("REGISTER FOR COURSE SCHEDULE ");
 				Registration rc = inputRegistration();
 				C206_CaseStudy.registerForCourseSchedule(registrationList, rc);
-			} else if (option == 14) {
+			} else if (option == 26) {
 				C206_CaseStudy.setHeader("VIEW ALL REGISTRATIONS");		
 				C206_CaseStudy.viewAllRegistrations(registrationList);
-			} else if (option == 15) {
+			} else if (option == 27) {
 				C206_CaseStudy.setHeader("DELETE REGISTRATION");	
 				C206_CaseStudy.deleteRegistration(registrationList);
+
+			} else if (option == 28) {
+				C206_CaseStudy.setHeader("UPDATE COURSE REGISTRATION ");
+				C206_CaseStudy.updateCourseRegistration(registrationList);
+			} else if (option == 29) {
+				C206_CaseStudy.setHeader("SEARCH REGISTRATION STATUS BY COURSE ID");		
+				C206_CaseStudy.searchRegistrationStatusByCourseID(registrationList);
+			} else if (option == 30) {
+				C206_CaseStudy.setHeader("LIST ALL COURSE SCHEDULES LISTED BY A MEMBER");	
+				C206_CaseStudy.listAllCourseSchedulesListedByAMember(registrationList);
 
 				// Other Options
 			} else if (option == 0) {
@@ -132,47 +147,47 @@ public class C206_CaseStudy {
 	public static void menu() {
 		C206_CaseStudy.setHeader("COURSE MANAGEMENT SYSTEM");
 		System.out.println("Member Options\n" + 
-							"1. Add New Member\n" + 
-							"2. View All Members\n" + 
-							"3. Delete Member\n" + 
-							"4. Update Member Details\n" + 
-							"5. Search Member by Country of Residence\n" + 
-							"6. List All Courses for a Member\n" + 
-							"\n" + 
-							"Course Options\n" + 
-							"7. Add Course\n" + 
-							"8. View All Courses\n" + 
-							"9. Delete Course\n" + 
-							"10. Update Course Details\n" + 
-							"11. Search Course by Category Name\n" + 
-							"12. List all Course Schedules for Course\n" + 
-							"\n" + 
-							"Course Category Options\n" + 
-							"13. Add Course Category\n" + 
-							"14. View All Course Categories\n" + 
-							"15. Delete Course Category\n" + 
-							"16. Update Course Category Details\n" + 
-							"17. Search Course Category by Category Name\n" + 
-							"18. List All Courses Under a Category\n" + 
-							"\n" + 
-							"Course Schedule Options\n" + 
-							"19. Add Course Schedule\n" + 
-							"20. View All Course Schedules\n" + 
-							"21. Delete Course Schedule\n" + 
-							"22. Update Course Schedule Details\n" + 
-							"23. Search Course Schedule by Price\n" + 
-							"24. List All Members Registered for a Course Schedule\n" + 
-							"\n" + 
-							"Registration Options\n" + 
-							"25. Register for Course Schedule\n" + 
-							"26. View All Registrations\n" + 
-							"27. Delete Registration\n" + 
-							"28. Update Course Registration\n" + 
-							"29. Search Registration Status by Course ID\n" + 
-							"30. List All Course Schedules Listed By a Member\n" + 
-							"\n" + 
-							"Other Options\n" + 
-							"0. Quit");
+				"1. Add New Member\n" + 
+				"2. View All Members\n" + 
+				"3. Delete Member\n" + 
+				"4. Update Member Details\n" + 
+				"5. Search Member by Country of Residence\n" + 
+				"6. List All Courses for a Member\n" + 
+				"\n" + 
+				"Course Options\n" + 
+				"7. Add Course\n" + 
+				"8. View All Courses\n" + 
+				"9. Delete Course\n" + 
+				"10. Update Course Details\n" + 
+				"11. Search Course by Category Name\n" + 
+				"12. List all Course Schedules for Course\n" + 
+				"\n" + 
+				"Course Category Options\n" + 
+				"13. Add Course Category\n" + 
+				"14. View All Course Categories\n" + 
+				"15. Delete Course Category\n" + 
+				"16. Update Course Category Details\n" + 
+				"17. Search Course Category by Category Name\n" + 
+				"18. List All Courses Under a Category\n" + 
+				"\n" + 
+				"Course Schedule Options\n" + 
+				"19. Add Course Schedule\n" + 
+				"20. View All Course Schedules\n" + 
+				"21. Delete Course Schedule\n" + 
+				"22. Update Course Schedule Details\n" + 
+				"23. Search Course Schedule by Price\n" + 
+				"24. List All Members Registered for a Course Schedule\n" + 
+				"\n" + 
+				"Registration Options\n" + 
+				"25. Register for Course Schedule\n" + 
+				"26. View All Registrations\n" + 
+				"27. Delete Registration\n" + 
+				"28. Update Course Registration\n" + 
+				"29. Search Registration Status by Course ID\n" + 
+				"30. List All Course Schedules Listed By a Member\n" + 
+				"\n" + 
+				"Other Options\n" + 
+				"0. Quit");
 		Helper.line(80, "-");
 	}
 
@@ -556,6 +571,24 @@ public class C206_CaseStudy {
 		System.out.println(output);
 	}
 
+	private static void updateCourseScheduleDetails(ArrayList<CourseSchedule> courseScheduleList) {
+		// TODO Auto-generated method stub
+		Helper.readString("\nTodo.. (Press Enter)");
+		
+	}
+
+	private static void searchCourseScheduleByPrice(ArrayList<CourseSchedule> courseScheduleList) {
+		// TODO Auto-generated method stub
+		Helper.readString("\nTodo.. (Press Enter)");
+		
+	}
+
+	private static void listAllMembersRegisteredForASchedule(ArrayList<CourseSchedule> courseScheduleList) {
+		// TODO Auto-generated method stub
+		Helper.readString("\nTodo.. (Press Enter)");
+		
+	}
+
 	/* Registration Options by Boaz*/
 
 	public static Registration inputRegistration() {
@@ -596,6 +629,24 @@ public class C206_CaseStudy {
 				registrationList.remove(i);
 			}
 		}
+	}
+
+	private static void updateCourseRegistration(ArrayList<Registration> registrationList) {
+		// TODO Auto-generated method stub
+		Helper.readString("\nTodo.. (Press Enter)");
+		
+	}
+
+	private static void searchRegistrationStatusByCourseID(ArrayList<Registration> registrationList) {
+		// TODO Auto-generated method stub
+		Helper.readString("\nTodo.. (Press Enter)");
+		
+	}
+
+	private static void listAllCourseSchedulesListedByAMember(ArrayList<Registration> registrationList) {
+		// TODO Auto-generated method stub
+		Helper.readString("\nTodo.. (Press Enter)");
+		
 	}
 }
 
