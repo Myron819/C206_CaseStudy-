@@ -316,7 +316,7 @@ public class C206_CaseStudy {
 			if(courseList.get(i).getCourse_code()==code) {
 				unique=false;
 			}
-			if(courseList.get(i).getCourse_cat().equalsIgnoreCase(cat)) {
+			if(catList.get(i).getCategory().equalsIgnoreCase(cat)) {
 				categoryFound=true;
 			}
 		}
@@ -342,13 +342,13 @@ public class C206_CaseStudy {
 		String output="";
 
 		for(int i=0; i<courseList.size(); i++) {
-			output += String.format("%-10d %-15s %-15s %-15s %-15s %-10b\n", courseList.get(i).getCourse_code(), courseList.get(i).getCourse_title(), courseList.get(i).getCourse_cat(), courseList.get(i).getDescription(), courseList.get(i).getCourse_duration(), courseList.get(i).getPre_requisite_course(), courseList.get(i).getIsAvailable());
+			output += String.format("%-10d %-15s %-15s %-20s %-10s %-22s %-10b\n", courseList.get(i).getCourse_code(), courseList.get(i).getCourse_title(), courseList.get(i).getCourse_cat(), courseList.get(i).getDescription(), courseList.get(i).getCourse_duration(), courseList.get(i).getPre_requisite_course(), courseList.get(i).getIsAvailable());
 		}
 		return output;
 	}
 	public static void viewCourseList(ArrayList<Course> courseList) {
 		if(courseList!=null) {
-			String output = String.format("%-10s %-15s %-15s %-20s %-15s %-10s\n", "CODE", "TITLE", "CATEGORY", "DESCRIPTION", "DURATION", "PRE-REQUISITE COURSE", "AVAILABLILITY");
+			String output = String.format("%-10s %-15s %-15s %-20s %-10s %-22s %-10s\n", "CODE", "TITLE", "CATEGORY", "DESCRIPTION", "DURATION", "PRE-REQUISITE COURSE", "AVAILABLILITY");
 			output += getCourseList(courseList);
 			System.out.println(output);
 		}
