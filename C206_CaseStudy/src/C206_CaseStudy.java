@@ -11,7 +11,7 @@ public class C206_CaseStudy {
 		ArrayList<Registration> registrationList = new ArrayList<Registration>();
 		
 		MemberList.add(new Member("John","Male",84440720,"John@gmail.com","22/07/2020","Singapore","pass1234"));	
-		Course.add(new Course(1,"Addition","1+1","Math","Tuesdays"));
+		Course.add(new Course(1,"Addition","1+1","Math","Tuesdays",true));
 		
 		int option = -1;
 		while (option != 0) {
@@ -208,7 +208,7 @@ public class C206_CaseStudy {
 			}
 		}
 		if(unique==true && categoryFound==true) {
-			Course co = new Course(id,name,des,cat,schedule);
+			Course co = new Course(id,name,des,cat,schedule,true);
 			courseList.add(co);
 			System.out.println("Course added.");
 		}
@@ -229,13 +229,13 @@ public class C206_CaseStudy {
 		String output="";
 
 		for(int i=0; i<courseList.size(); i++) {
-			output += String.format("%-10d %-15s %-15s %-10b\n", courseList.get(i).getCourse_id(), courseList.get(i).getCourse_name(), courseList.get(i).getDescription(), courseList.get(i).getCourse_cat(),courseList.get(i).getIsAvailable());
+			output += String.format("%-10d %-15s %-15s %-15s %-15s %-10b\n", courseList.get(i).getCourse_id(), courseList.get(i).getCourse_name(), courseList.get(i).getDescription(), courseList.get(i).getCourse_cat(), courseList.get(i).getCourse_schedule(), courseList.get(i).getIsAvailable());
 		}
 		return output;
 	}
 	public static void viewCourseList(ArrayList<Course> courseList) {
 		if(courseList!=null) {
-			String output = String.format("%-10s %-15s %-15s %-10s\n", "ID", "NAME", "DESCRIPTION", "CATEGORY", "AVAILABLE");
+			String output = String.format("%-10s %-15s %-15s %-15s %-15s %-10s\n", "ID", "NAME", "DESCRIPTION", "CATEGORY", "SCHEDULE", "AVAILABLE");
 			output += getCourseList(courseList);
 			System.out.println(output);
 		}
@@ -266,6 +266,8 @@ public class C206_CaseStudy {
 			}
 		}
 	}
+
+
 
 	/* Course Category Options Daryl*/
 
