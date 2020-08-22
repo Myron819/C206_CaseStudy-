@@ -31,31 +31,70 @@ public class C206_CaseStudy {
 				C206_CaseStudy.setHeader("DELETE MEMBER");
 				int z = dMember();
 				C206_CaseStudy.deleteMember(MemberList,z);
+				
+			} else if (option == 4) {
+				C206_CaseStudy.setHeader("UPDATE MEMBER DETAILS");
+				C206_CaseStudy.updateMemberDetails(MemberList);
+			} else if (option == 5) {
+				C206_CaseStudy.setHeader("SEARCH MEMBER BY COUNTRY OF RESIDENCE");
+				C206_CaseStudy.searchMemberByCountryOfResidence(MemberList);
+			} else if (option == 6) {
+				C206_CaseStudy.setHeader("LIST ALL COURSES FOR A MEMBER");
+				C206_CaseStudy.listAllCoursesForAMember(MemberList);
 
 				// Course Options
-			} else if (option == 4) {
+			} else if (option == 7) {
 				C206_CaseStudy.setHeader("ADD COURSE");	
 				C206_CaseStudy.addCourse(Course, CourseCategoryList);
-			} else if (option == 5) {
+			} else if (option == 8) {
 				C206_CaseStudy.setHeader("VIEW ALL COURSES");	
 				C206_CaseStudy.viewCourseList(Course);
-			} else if (option == 6) {
+			} else if (option == 9) {
 				C206_CaseStudy.setHeader("DELETE COURSE");
 				C206_CaseStudy.deleteCourse(Course);
 
+			} else if (option == 10) {
+				C206_CaseStudy.setHeader("UPDATE COURSE DETAILS");
+				C206_CaseStudy.updateCourseDetails(Course);
+			} else if (option == 11) {
+				C206_CaseStudy.setHeader("SEARCH FOR COURSE BY CATEGORY NAME");
+				C206_CaseStudy.searchForCourseByCategoryName(Course);
+			} else if (option == 12) {
+				C206_CaseStudy.setHeader("LIST ALL COURSE SCHEDULES FOR COURSE");
+				C206_CaseStudy.listAllCourseSchedulesForACourse(Course);
+
 				// Course Category Options
-			} else if (option == 7) {
+			} else if (option == 13) {
 				C206_CaseStudy.setHeader("ADD COURSE CATEGORY");
 				C206_CaseStudy.addCourseCategory(CourseCategoryList);
-
-			} else if (option == 8) {
+			} else if (option == 14) {
 				C206_CaseStudy.setHeader("VIEW ALL COURSE CATEGORIES");
 				C206_CaseStudy.viewAllCourseCategories(CourseCategoryList);	
-			} else if (option == 9) {
+			} else if (option == 15) {
 				C206_CaseStudy.setHeader("DELETE COURSE CATEGORY");
 				C206_CaseStudy.deleteCourseCategory(CourseCategoryList);
 
+			} else if (option == 16) {
+				C206_CaseStudy.setHeader("UPDATE COURSE CATEGORY DETAILS");
+				C206_CaseStudy.updateCourseCategoryDetails(CourseCategoryList);
+			} else if (option == 17) {
+				C206_CaseStudy.setHeader("SEARCH COURSE CATEGORY BY CATEGORY NAME");
+				C206_CaseStudy.searchCourseCategoryByCategoryName(CourseCategoryList);	
+			} else if (option == 18) {
+				C206_CaseStudy.setHeader("LIST ALL COURSES UNDER A CATEGORY");
+				C206_CaseStudy.listAllCoursesUnderACategory(CourseCategoryList);
+
 				// Course Schedule Options
+			} else if (option == -1) {
+				C206_CaseStudy.setHeader("ADD COURSE SCHEDULE ");	
+				C206_CaseStudy.addCourseSchedule(courseScheduleList);
+			} else if (option == -1) {
+				C206_CaseStudy.setHeader("VIEW ALL COURSE SCHEDULES");	
+				C206_CaseStudy.viewAllCourseSchedules(courseScheduleList);
+			} else if (option == -1) {
+				C206_CaseStudy.setHeader("DELETE COURSE SCHEDULE");	
+				C206_CaseStudy.DeleteCourseSchedule(courseScheduleList);
+
 			} else if (option == 10) {
 				C206_CaseStudy.setHeader("ADD COURSE SCHEDULE ");	
 				C206_CaseStudy.addCourseSchedule(courseScheduleList);
@@ -94,26 +133,35 @@ public class C206_CaseStudy {
 		System.out.println("1. Add New Member");
 		System.out.println("2. View All Members");
 		System.out.println("3. Delete Member");
+		System.out.println("4. Update Member Details");
+		System.out.println("5. Search Member by Country of Residence");
+		System.out.println("6. List All Courses for a Member");
 		System.out.println("");
 		System.out.println("Course Options");
-		System.out.println("4. Add Course");
-		System.out.println("5. View All Courses");
-		System.out.println("6. Delete Course");
+		System.out.println("7. Add Course");
+		System.out.println("8. View All Courses");
+		System.out.println("9. Delete Course");
+		System.out.println("10. Update Course Details");
+		System.out.println("11. Search for Course by Category Name");
+		System.out.println("12. List all Course Schedules for Course");
 		System.out.println("");
 		System.out.println("Course Category Options");
-		System.out.println("7. Add Course Category");
-		System.out.println("8. View All Course Categories");
-		System.out.println("9. Delete Course Category");
+		System.out.println("13. Add Course Category");
+		System.out.println("14. View All Course Categories");
+		System.out.println("15. Delete Course Category");
+		System.out.println("16. Update Course Category Details");
+		System.out.println("17. Search Course Category by Category Name");
+		System.out.println("18. List All Courses Under a Category");
 		System.out.println("");
 		System.out.println("Course Schedule Options");
-		System.out.println("10. Add Course Schedule");
-		System.out.println("11. View All Course Schedules");
-		System.out.println("12. Delete Course Schedule");
+		System.out.println("X. Add Course Schedule");
+		System.out.println("X. View All Course Schedules");
+		System.out.println("X. Delete Course Schedule");
 		System.out.println("");
 		System.out.println("Registration Options");
-		System.out.println("13. Register for Course Schedule");
-		System.out.println("14. View All Registrations");
-		System.out.println("15. Delete Registration");
+		System.out.println("X. Register for Course Schedule");
+		System.out.println("X. View All Registrations");
+		System.out.println("X. Delete Registration");
 		System.out.println("");
 		System.out.println("Other Options");
 		System.out.println("0. Quit ");
@@ -186,6 +234,24 @@ public class C206_CaseStudy {
 		MemberList.remove(z-1);
 
 
+	}
+
+	private static void updateMemberDetails(ArrayList<Member> memberList) {
+		// TODO Auto-generated method stub
+		Helper.readString("\nTodo.. (Press Enter)");
+		
+	}
+
+	private static void searchMemberByCountryOfResidence(ArrayList<Member> memberList) {
+		// TODO Auto-generated method stub
+		Helper.readString("\nTodo.. (Press Enter)");
+		
+	}
+
+	private static void listAllCoursesForAMember(ArrayList<Member> memberList) {
+		// TODO Auto-generated method stub
+		Helper.readString("\nTodo.. (Press Enter)");
+		
 	}
 
 	/* Course Options By yiqian*/
@@ -267,6 +333,24 @@ public class C206_CaseStudy {
 		}
 	}
 
+	private static void updateCourseDetails(ArrayList<Course> course) {
+		// TODO Auto-generated method stub
+		Helper.readString("\nTodo.. (Press Enter)");
+		
+	}
+
+	private static void searchForCourseByCategoryName(ArrayList<Course> course) {
+		// TODO Auto-generated method stub
+		Helper.readString("\nTodo.. (Press Enter)");
+		
+	}
+
+	private static void listAllCourseSchedulesForACourse(ArrayList<Course> course) {
+		// TODO Auto-generated method stub
+		Helper.readString("\nTodo.. (Press Enter)");
+		
+	}
+
 
 
 	/* Course Category Options Daryl*/
@@ -322,6 +406,25 @@ public class C206_CaseStudy {
 				cList.remove(i);
 			}
 		}
+	}
+	
+
+	private static void updateCourseCategoryDetails(ArrayList<CourseCategory> courseCategoryList) {
+		// TODO Auto-generated method stub
+		Helper.readString("\nTodo.. (Press Enter)");
+		
+	}
+
+	private static void searchCourseCategoryByCategoryName(ArrayList<CourseCategory> courseCategoryList) {
+		// TODO Auto-generated method stub
+		Helper.readString("\nTodo.. (Press Enter)");
+		
+	}
+
+	private static void listAllCoursesUnderACategory(ArrayList<CourseCategory> courseCategoryList) {
+		// TODO Auto-generated method stub
+		Helper.readString("\nTodo.. (Press Enter)");
+		
 	}
 
 	/* Course Schedule Options; by Myron */
