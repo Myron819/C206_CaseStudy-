@@ -10,8 +10,12 @@ public class C206_CaseStudy {
 		ArrayList<CourseSchedule> courseScheduleList = new ArrayList<CourseSchedule>();
 		ArrayList<Registration> registrationList = new ArrayList<Registration>();
 		
-		MemberList.add(new Member("John","Male",84440720,"John@gmail.com","22/07/2020","Singapore","pass1234"));	
-		Course.add(new Course(1,"Addition","1+1","Math","Tuesdays",null,null,true));
+		MemberList.add(new Member("John","Male",84440720,"John@gmail.com","22/07/2020","Singapore","pass1234"));
+		CourseSchedule cs1 = new CourseSchedule(1,"Math",50,"1/1/2020","1/5/2020",null,null,"Woodlands");
+		courseScheduleList.add(cs1);
+		CourseCategory cc1 = new CourseCategory("Math","1+1");
+		CourseCategoryList.add(cc1);
+		Course.add(new Course(1,"Addition","1+1",cc1,cs1,"From Jan to June",null,true));
 		
 		int option = -1;
 		while (option != 0) {
@@ -321,7 +325,7 @@ public class C206_CaseStudy {
 			}
 		}
 		if(unique==true && categoryFound==true) {
-			Course co = new Course(code,name,des,cat,null,duration,pre_requisite,true);
+			Course co = new Course(code,name,des,null,null,duration,pre_requisite,true);
 			courseList.add(co);
 			System.out.println("Course added.");
 		}
@@ -381,8 +385,12 @@ public class C206_CaseStudy {
 	}
 
 	private static void updateCourseDetails(ArrayList<Course> course) {
-		// TODO Auto-generated method stub
-		Helper.readString("\nTodo.. (Press Enter)");
+		int code = Helper.readInt("Enter course code > ");
+		String name = Helper.readString("Enter course name > ");
+		String des = Helper.readString("Enter description > ");
+		String cat = Helper.readString("Enter course category > ");
+		String duration = Helper.readString("Enter course duration > ");
+		String pre_requisite = Helper.readString("Enter pre_requisite course > ");
 		
 	}
 

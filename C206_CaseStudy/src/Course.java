@@ -3,13 +3,13 @@ public class Course {
 	private int course_code;
 	private String course_title;
 	private String description;
-	private String course_cat;
-	private String course_schedule;
+	private CourseCategory course_cat;
+	private CourseSchedule course_schedule;
 	private String course_duration;
 	private String pre_requisite_course;
 	private boolean isAvailable;
 	
-	public Course(int course_code, String course_title, String description, String course_cat, String course_schedule, String course_duration, String pre_requisite_course, boolean isAvailable) {
+	public Course(int course_code, String course_title, String description, CourseCategory course_cat, CourseSchedule course_schedule, String course_duration, String pre_requisite_course, boolean isAvailable) {
 		this.course_code = course_code;
 		this.course_title = course_title;
 		this.description = description;
@@ -41,19 +41,19 @@ public class Course {
 		this.description = description;
 	}
 
-	public String getCourse_cat() {
+	public CourseCategory getCourse_cat() {
 		return course_cat;
 	}
 
-	public void setCourse_cat(String course_cat) {
+	public void setCourse_cat(CourseCategory course_cat) {
 		this.course_cat = course_cat;
 	}
 	
-	public String getCourse_schedule() {
+	public CourseSchedule getCourse_schedule() {
 		return course_schedule;
 	}
 
-	public void setCourse_schedule(String course_schedule) {
+	public void setCourse_schedule(CourseSchedule course_schedule) {
 		this.course_schedule = course_schedule;
 	}
 	
