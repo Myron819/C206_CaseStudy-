@@ -9,7 +9,7 @@ public class Course {
 	private String pre_requisite_course;
 	private boolean isAvailable;
 	
-	public Course(int course_code, String course_title, String description, CourseCategory course_cat, CourseSchedule course_schedule, String course_duration, String pre_requisite_course, boolean isAvailable) {
+	public Course(int course_code, String course_title, String description, CourseCategory course_cat, CourseSchedule course_schedule, String course_duration, String pre_requisite_course) {
 		this.course_code = course_code;
 		this.course_title = course_title;
 		this.description = description;
@@ -17,14 +17,23 @@ public class Course {
 		this.course_schedule = course_schedule;
 		this.course_duration = course_duration;
 		this.pre_requisite_course = pre_requisite_course;
-		this.isAvailable = isAvailable;
+		this.isAvailable = true;
 	}
+	
+	public Course(int course_code, String course_title, String description, CourseCategory course_cat, String course_duration, String pre_requisite_course) {
+		this.course_code = course_code;
+		this.course_title = course_title;
+		this.description = description;
+		this.course_cat = course_cat;
+		this.course_duration = course_duration;
+		this.pre_requisite_course = pre_requisite_course;
+		this.isAvailable = true;
+	}
+	
+	
 	
 	public int getCourse_code() {
 		return course_code;
-	}
-	public void setCourse_code(int course_code) {
-		this.course_code = course_code;
 	}
 	
 	public String getCourse_title() {

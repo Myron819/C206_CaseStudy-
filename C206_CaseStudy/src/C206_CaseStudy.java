@@ -11,11 +11,13 @@ public class C206_CaseStudy {
 		ArrayList<Registration> registrationList = new ArrayList<Registration>();
 		
 		MemberList.add(new Member("John","Male",84440720,"John@gmail.com","22/07/2020","Singapore","pass1234"));
-		CourseSchedule cs1 = new CourseSchedule(1,"Math",50,"1/1/2020","1/5/2020",null,null,"Woodlands");
+		CourseSchedule cs1 = new CourseSchedule(1,"Math",50,"1/1/2020","1/5/2020","12pm","2pm","Woodlands");
 		courseScheduleList.add(cs1);
-		CourseCategory cc1 = new CourseCategory("Math","1+1");
+		CourseCategory cc1 = new CourseCategory("Math","Mathematics is the study of numbers, shapes and patterns.");
 		CourseCategoryList.add(cc1);
-		Course.add(new Course(1,"Addition","1+1",cc1,cs1,"From Jan to June",null,true));
+		CourseCategory cc2 = new CourseCategory("Science", "Science is the pursuit and application of knowledge and understanding of the natural and social world following a systematic methodology based on evidence.");
+		CourseCategoryList.add(cc2);
+		Course.add(new Course(1,"Addition","1+1",cc1,cs1,"From Jan to June",null));
 		
 		int option = -1;
 		while (option != 0) {
@@ -62,8 +64,7 @@ public class C206_CaseStudy {
 				C206_CaseStudy.deleteCourse(Course);
 
 			} else if (option == 10) {
-				C206_CaseStudy.setHeader("UPDATE COURSE DETAILS");
-				C206_CaseStudy.updateCourseDetails(Course);
+				C206_CaseStudy.updateCourseDetails(Course,CourseCategoryList);
 			} else if (option == 11) {
 				C206_CaseStudy.setHeader("SEARCH COURSE BY CATEGORY NAME");
 				C206_CaseStudy.searchCourseByCategoryName(Course);
@@ -322,33 +323,39 @@ public class C206_CaseStudy {
 	/* Course Options By yiqian*/
 	//add course
 	public static void addCourse(ArrayList<Course> courseList, ArrayList<CourseCategory> catList) {
-		boolean unique=true;
+		boolean unique=false;
 		boolean categoryFound=false;
+		CourseCategory cc1 = null;
 		int code = Helper.readInt("Enter course code > ");
 		String name = Helper.readString("Enter course name > ");
 		String des = Helper.readString("Enter description > ");
 		String cat = Helper.readString("Enter course category > ");
 		String duration = Helper.readString("Enter course duration > ");
 		String pre_requisite = Helper.readString("Enter pre_requisite course > ");
-
+		
+		//check whether course code entered is inside the course list
 		for(int i=0; i<courseList.size(); i++) {
-			if(courseList.get(i).getCourse_code()==code) {
-				unique=false;
+			if(courseList.get(i).getCourse_code()!=code) {
+				unique=true;
 			}
+		}
+		//check whether course category is inside the course list
+		for(int i=0; i<catList.size();i++) {
 			if(catList.get(i).getCategory().equalsIgnoreCase(cat)) {
 				categoryFound=true;
+				cc1=catList.get(i);
 			}
 		}
 		if(unique==true && categoryFound==true) {
-			Course co = new Course(code,name,des,null,null,duration,pre_requisite,true);
+			Course co = new Course(code,name,des,cc1,duration,pre_requisite);
 			courseList.add(co);
 			System.out.println("Course added.");
 		}
-		else if(categoryFound!=true) {
+		else if(categoryFound==false) {
 			System.out.println("Course's category not found.");
 		}
-		else if(unique!=true) {
-			System.out.println("Course id not unique, cannot add!");
+		else if(unique==false) {
+			System.out.println("Course code not unique, cannot add!");
 		}
 	}
 	public static void addCourse(ArrayList<Course> courseList, Course co) {
@@ -361,13 +368,28 @@ public class C206_CaseStudy {
 		String output="";
 
 		for(int i=0; i<courseList.size(); i++) {
-			output += String.format("%-10d %-15s %-15s %-20s %-10s %-22s %-10b\n", courseList.get(i).getCourse_code(), courseList.get(i).getCourse_title(), courseList.get(i).getCourse_cat(), courseList.get(i).getDescription(), courseList.get(i).getCourse_duration(), courseList.get(i).getPre_requisite_course(), courseList.get(i).getIsAvailable());
+			Course current = courseList.get(i);
+			int code = current.getCourse_code();
+			String title = current.getCourse_title();
+			String cat = current.getCourse_cat().getCategory();
+			String description = current.getDescription();
+			String duration = current.getCourse_duration();
+			String pre = current.getPre_requisite_course();
+			String available = "";
+			if(current.getIsAvailable()) {
+				available = "Yes";
+			}
+			else {
+				available = "No";
+			}
+			
+			output += String.format("%-10d %-15s %-15s %-20s %-20s %-22s %-10s\n", code, title, cat, description, duration, pre, available);
 		}
 		return output;
 	}
 	public static void viewCourseList(ArrayList<Course> courseList) {
 		if(courseList!=null) {
-			String output = String.format("%-10s %-15s %-15s %-20s %-10s %-22s %-10s\n", "CODE", "TITLE", "CATEGORY", "DESCRIPTION", "DURATION", "PRE-REQUISITE COURSE", "AVAILABLILITY");
+			String output = String.format("%-10s %-15s %-15s %-20s %-20s %-22s %-10s\n", "CODE", "TITLE", "CATEGORY", "DESCRIPTION", "DURATION", "PRE-REQUISITE COURSE", "AVAILABLE");
 			output += getCourseList(courseList);
 			System.out.println(output);
 		}
@@ -399,14 +421,97 @@ public class C206_CaseStudy {
 		}
 	}
 
-	private static void updateCourseDetails(ArrayList<Course> course) {
-		int code = Helper.readInt("Enter course code > ");
-		String name = Helper.readString("Enter course name > ");
-		String des = Helper.readString("Enter description > ");
-		String cat = Helper.readString("Enter course category > ");
-		String duration = Helper.readString("Enter course duration > ");
-		String pre_requisite = Helper.readString("Enter pre_requisite course > ");
+	private static void updateCourseDetails(ArrayList<Course> course, ArrayList<CourseCategory> catList) {
+		boolean CourseFound=false;
+		Course object=null;
+		int editCourseCode = Helper.readInt("Enter the course code you want to edit >" );
 		
+		//find whether the course code entered is inside the list
+		for(int i=0; i<course.size();i++) {
+			if(course.get(i).getCourse_code()==editCourseCode) {
+				CourseFound=true;
+				object=course.get(i);
+			}
+		}
+		if(CourseFound==true) {
+			updateCourseMenu();
+			int option = -1;
+			while (option != 7) {
+			option = Helper.readInt("Enter an option > ");
+			
+			if(option==1) {
+				String title = Helper.readString("Enter new course title > ");
+				object.setCourse_title(title);
+				System.out.println("Course title updated!");
+			}
+			else if(option==2) {
+				CourseCategory found=null;
+				String cat = Helper.readString("Enter new course category > ");
+				for(int i=0; i<catList.size();i++) {
+					if(catList.get(i).getCategory().equalsIgnoreCase(cat)) {
+						found=catList.get(i);
+						object.setCourse_cat(found);
+						System.out.println("Course category updated!");
+					}
+					else {
+						System.out.println("Course category not found!");
+					}
+				}
+				
+			}
+			else if(option==3) {
+				String des = Helper.readString("Enter new description > ");
+				object.setDescription(des);
+				System.out.println("Course description updated!");
+			}
+			else if(option==4) {
+				String duration = Helper.readString("Enter new course duration > ");
+				object.setCourse_duration(duration);
+				System.out.println("Course duration updated!");
+			}
+			else if(option==5) {
+				String pre_requisite = Helper.readString("Enter new pre-requisite course > ");
+				object.setPre_requisite_course(pre_requisite);
+				System.out.println("Pre-requisite course updated!");
+			}
+			else if(option==6) {
+				boolean available=true;
+				String yn = Helper.readString("Enter new availability of course (Yes/No) > ");
+				if(yn.equalsIgnoreCase("yes")) {
+					available=true;
+				}
+				else {
+					available=false;
+				}
+				object.setIsAvailable(available);
+				System.out.println("Course availability updated!");
+			}
+			else if(option==7) {
+				System.out.println("Exit from update options.");
+			}
+			else {
+				System.out.println("Please enter a valid option!");
+				updateCourseMenu();
+			}
+		}
+		}
+		else {
+			System.out.println("Course not found.");
+		}	
+	}
+	
+	private static void updateCourseMenu() {
+		C206_CaseStudy.setHeader("COURSE MANAGEMENT SYSTEM");
+		System.out.println("UPDATE OPTIONS\n" + 
+				"1. Edit Course title\n" + 
+				"2. Edit Course category name\n" + 
+				"3. Edit Course description\n" + 
+				"4. Edit Course duration\n" + 
+				"5. Edit pre-requisite course\n" + 
+				"6. Edit course availability\n" +
+				"7. Exit Update Menu"
+				);
+		Helper.line(80, "-");
 	}
 
 	private static void searchCourseByCategoryName(ArrayList<Course> course) {
