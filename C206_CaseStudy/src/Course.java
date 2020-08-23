@@ -1,15 +1,17 @@
+import java.util.ArrayList;
+
 public class Course {
 	
 	private int course_code;
 	private String course_title;
 	private String description;
 	private CourseCategory course_cat;
-	private CourseSchedule course_schedule;
+	private ArrayList<CourseSchedule> course_schedule;
 	private String course_duration;
 	private String pre_requisite_course;
 	private boolean isAvailable;
 	
-	public Course(int course_code, String course_title, String description, CourseCategory course_cat, CourseSchedule course_schedule, String course_duration, String pre_requisite_course) {
+	public Course(int course_code, String course_title, String description, CourseCategory course_cat, ArrayList<CourseSchedule> course_schedule, String course_duration, String pre_requisite_course) {
 		this.course_code = course_code;
 		this.course_title = course_title;
 		this.description = description;
@@ -58,11 +60,11 @@ public class Course {
 		this.course_cat = course_cat;
 	}
 	
-	public CourseSchedule getCourse_schedule() {
+	public ArrayList<CourseSchedule> getCourse_schedule() {
 		return course_schedule;
 	}
 
-	public void setCourse_schedule(CourseSchedule course_schedule) {
+	public void setCourse_schedule(ArrayList<CourseSchedule> course_schedule) {
 		this.course_schedule = course_schedule;
 	}
 	
@@ -88,6 +90,12 @@ public class Course {
 
 	public void setIsAvailable(boolean isAvailable) {
 		this.isAvailable = isAvailable;
+	}
+	
+	@Override
+	public String toString() {
+		String output =String.format("%-10d %-10s %-25s %-15s %-15s %-15s %-15s\n",getCourse_code(), getCourse_title(), getDescription(), getCourse_cat().getCategory(), getCourse_duration(),getPre_requisite_course());
+		return output;
 	}
 }
 //By yiqian

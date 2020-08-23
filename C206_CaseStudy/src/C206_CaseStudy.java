@@ -11,13 +11,22 @@ public class C206_CaseStudy {
 		ArrayList<Registration> registrationList = new ArrayList<Registration>();
 		
 		MemberList.add(new Member("John","Male",84440720,"John@gmail.com","22/07/2020","Singapore","pass1234"));
+		
+		ArrayList<CourseSchedule> courseScheduleMathList = new ArrayList<CourseSchedule>();
+		ArrayList<CourseSchedule> courseScheduleScienceList = new ArrayList<CourseSchedule>();
 		CourseSchedule cs1 = new CourseSchedule(1,"Math",50,"1/1/2020","1/5/2020","12pm","2pm","Woodlands");
-		courseScheduleList.add(cs1);
+		courseScheduleMathList.add(cs1);
+		CourseSchedule cs2 = new CourseSchedule(2,"Math",70,"3/1/2020","3/3/2020","5pm","6pm","Bukit Batok" );
+		courseScheduleMathList.add(cs2);
+		CourseSchedule cs3 = new CourseSchedule(3,"Science",100,"1/1/2020","1/5/2020","12pm","2pm","Pasir Ris" );
+		courseScheduleScienceList.add(cs3);
 		CourseCategory cc1 = new CourseCategory("Math","Mathematics is the study of numbers, shapes and patterns.");
 		CourseCategoryList.add(cc1);
 		CourseCategory cc2 = new CourseCategory("Science", "Science is the pursuit and application of knowledge and understanding of the natural and social world following a systematic methodology based on evidence.");
 		CourseCategoryList.add(cc2);
-		Course.add(new Course(1,"Addition","1+1",cc1,cs1,"From Jan to June",null));
+		Course.add(new Course(1,"Addition","1+1",cc1,courseScheduleMathList,"From Jan to June",null));
+		Course.add(new Course(2,"Subtraction","1-1",cc1,courseScheduleMathList,"From Jan to June",null));
+		Course.add(new Course(3,"Science","Plants",cc2,courseScheduleScienceList,"From Feb to June",null));
 		
 		int option = -1;
 		while (option != 0) {
@@ -67,7 +76,7 @@ public class C206_CaseStudy {
 				C206_CaseStudy.updateCourseDetails(Course,CourseCategoryList);
 			} else if (option == 11) {
 				C206_CaseStudy.setHeader("SEARCH COURSE BY CATEGORY NAME");
-				C206_CaseStudy.searchCourseByCategoryName(Course);
+				C206_CaseStudy.searchCourseByCategoryName(Course,CourseCategoryList);
 			} else if (option == 12) {
 				C206_CaseStudy.setHeader("LIST ALL COURSE SCHEDULES FOR COURSE");
 				C206_CaseStudy.listAllCourseSchedulesForACourse(Course);
@@ -346,6 +355,7 @@ public class C206_CaseStudy {
 				cc1=catList.get(i);
 			}
 		}
+		//if the course is unique and the category can be found
 		if(unique==true && categoryFound==true) {
 			Course co = new Course(code,name,des,cc1,duration,pre_requisite);
 			courseList.add(co);
@@ -514,15 +524,46 @@ public class C206_CaseStudy {
 		Helper.line(80, "-");
 	}
 
-	private static void searchCourseByCategoryName(ArrayList<Course> course) {
-		// TODO Auto-generated method stub
-		Helper.readString("\nTodo.. (Press Enter)");
-		
+	private static void searchCourseByCategoryName(ArrayList<Course> course, ArrayList<CourseCategory> catList) {
+		boolean found=false;
+		ArrayList<Course> courseFound = new ArrayList<Course>();
+		String cat = Helper.readString("Enter the course category you want to search for >");
+		// find whether the category input is inside the category list
+		for(int i=0; i<catList.size();i++) {
+			if(catList.get(i).getCategory().equalsIgnoreCase(cat)) {
+				found=true;
+			}
+		}
+		if(found==true) {
+			for(int i=0;i<course.size();i++) {
+				if(course.get(i).getCourse_cat().getCategory().equalsIgnoreCase(cat)) {
+					courseFound.add(course.get(i));
+				}
+			}
+			viewCourseList(courseFound);
+		}
 	}
 
 	private static void listAllCourseSchedulesForACourse(ArrayList<Course> course) {
-		// TODO Auto-generated method stub
-		Helper.readString("\nTodo.. (Press Enter)");
+		boolean found=false;
+		Course courseFound=null;
+		String courseSearch = Helper.readString("Enter the course you want to search for >");
+		// find whether the course input is inside the course list
+		for(int i=0; i<course.size();i++) {
+			if(course.get(i).getCourse_title().equalsIgnoreCase(courseSearch)) {
+				courseFound=course.get(i);
+				found=true;
+			}
+		}
+		if(found==true) {
+			if(courseFound.getCourse_schedule()!=null) {
+				ArrayList<CourseSchedule> scheduleGet = courseFound.getCourse_schedule();
+				for(int i=0; i<scheduleGet.size();i++) {
+					String output = String.format("%-10s %-15s %-15s %-20s %-20s %-22s %-10s\n", "CODE", "TITLE", "CATEGORY", "DESCRIPTION", "DURATION", "PRE-REQUISITE COURSE", "AVAILABLE");
+					System.out.println("");
+				}
+			}
+		}
 		
 	}
 
