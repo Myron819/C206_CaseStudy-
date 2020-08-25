@@ -50,7 +50,7 @@ public class C206_CaseStudy {
 				
 			} else if (option == 4) {
 				C206_CaseStudy.setHeader("UPDATE MEMBER DETAILS");
-				String z = uMember();
+				Member z = uMember();
 				C206_CaseStudy.updateMemberDetails(MemberList,z);
 			} else if (option == 5) {
 				C206_CaseStudy.setHeader("SEARCH MEMBER BY COUNTRY OF RESIDENCE");
@@ -279,24 +279,26 @@ public class C206_CaseStudy {
 		}
     }
 	//update john
-	public static String uMember() {
-		String z = Helper.readString("Enter member Name to update> ");
-		return z;
-	}
-	private static void updateMemberDetails(ArrayList<Member> MemberList, String z) {
+	public static Member uMember() {
+		String name = Helper.readString("Enter member Name to update> ");
 		String password = Helper.readString("Enter password > ");
 		String country = Helper.readString("Enter country > ");
 		int moblie = Helper.readInt("Enter moblie (zero if no change) > ");
+		Member z= new Member(name, "", moblie, "", "", country, password);
+		return z;
+	}
+	public static void updateMemberDetails(ArrayList<Member> MemberList, Member z) {
+		
 		for(int i = 0; i < MemberList.size(); i++) {
-			if(z.equalsIgnoreCase(MemberList.get(i).getName()))  {
-				if(!password.equals("")) {
-					MemberList.get(i).setPassword(password);
+			if(z.getName().equalsIgnoreCase(MemberList.get(i).getName()))  {
+				if(!z.getPassword().equals("")) {
+					MemberList.get(i).setPassword(z.getPassword());
 				}
-				if(!country.equals("")) {
-					MemberList.get(i).setCountry(country);
+				if(!z.getCountry().equals("")) {
+					MemberList.get(i).setCountry(z.getCountry());
 				}
-				if(moblie!=0) {
-					MemberList.get(i).setMoblie(moblie);
+				if(z.getMoblie()!=0) {
+					MemberList.get(i).setMoblie(z.getMoblie());
 				}
 				
 				System.out.println("Member Updated");
@@ -312,7 +314,7 @@ public class C206_CaseStudy {
 		String z = Helper.readString("Enter country> ");
 		return z;
 	}
-	private static void searchMemberByCountryOfResidence(ArrayList<Member> MemberList, String z) {
+	public static void searchMemberByCountryOfResidence(ArrayList<Member> MemberList, String z) {
 		for(int i = 0; i < MemberList.size(); i++) {
 			if(z.equalsIgnoreCase(MemberList.get(i).getCountry()))  {
 				System.out.println(MemberList.get(i).toString());
