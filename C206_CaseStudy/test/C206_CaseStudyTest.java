@@ -255,7 +255,15 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.deleteCourseCategory(categoryList);
 		assertEquals("Test that Registration arraylist size is 1",1,regList.size());
 	}
-	
+	//daryl
+	public void updateCategoryTest() {
+		C206_CaseStudy.addCourseCategory(categoryList, cc1);
+		C206_CaseStudy.addCourseCategory(categoryList, cc2);
+		C206_CaseStudy.updateCourseCategoryDetails(categoryList);
+		assertEquals("Test if the description have change",categoryList.get(0).getCategoryDesc(),"Something about politics");
+		assertEquals("Test if the description did not change",categoryList.get(1).getCategoryDesc(),"Something about politics");
+		
+	}
 	/* Myron */
 	@Test
 	public void addCourseScheduleTest() {
