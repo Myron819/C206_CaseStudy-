@@ -850,10 +850,20 @@ public class C206_CaseStudy {
 	/* Registration Options by Boaz*/
 
 	public static Registration inputRegistration() {
-		int reg_id = Helper.readInt("Enter Registration ID > ");
-		String course_name = Helper.readString("Enter Course to register for > ");
+		int course_schedule_id = Helper.readInt("Enter course_schedule_id > ");
+		String course = Helper.readString("Enter Course > ");
+		int price = Helper.readInt("Enter price > ");
+		String start_date = Helper.readString("Enter start_date > ");
+		String end_date = Helper.readString("Enter end_date > ");
+		String start_time = Helper.readString("Enter start_time > ");
+		String end_time = Helper.readString("Enter end_time > ");
+		String location = Helper.readString("Enter location > ");
+		int reg_id = Helper.readInt("Enter reg_id > ");
+		String reg_date = Helper.readString("Enter reg_date > ");
+		boolean status = Helper.readBoolean("Enter status (true/ false) > ");
+		boolean statuscancel = Helper.readBoolean("Enter statuscancel (true/ false) > ");
 
-		Registration rc = new Registration(course_name, reg_id);
+		Registration rc = new Registration(course_schedule_id, course, price, start_date, end_date, start_time, end_time, location, course_schedule_id, course, price, start_date, end_date, start_time, end_time, location, reg_id, reg_date, status, statuscancel);
 		return rc;
 	}
 
