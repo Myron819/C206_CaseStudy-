@@ -139,8 +139,8 @@ public class C206_CaseStudy {
 				C206_CaseStudy.deleteRegistration(registrationList);
 
 			} else if (option == 28) {
-				C206_CaseStudy.setHeader("UPDATE COURSE REGISTRATION ");
-				C206_CaseStudy.updateCourseRegistration(registrationList);
+				C206_CaseStudy.setHeader("UPDATE COURSE REGISTRATION STATUS ");
+				C206_CaseStudy.updateRegistrationStatus(registrationList);
 			} else if (option == 29) {
 				C206_CaseStudy.setHeader("SEARCH REGISTRATION STATUS BY COURSE ID");		
 				C206_CaseStudy.searchRegistrationStatusByCourseID(registrationList);
@@ -906,13 +906,57 @@ public class C206_CaseStudy {
 			}
 		}
 	}
+	
+	
+	public static Registration getRegistrationListByID(ArrayList<Registration> registrationList, int id) {
+		for(Registration r : registrationList) 
+			if(r.getReg_id() == id)
+				return r;		
+		return null;
+	}	
 
-	private static void updateCourseRegistration(ArrayList<Registration> registrationList) {
+	private static void updateRegistrationStatus(ArrayList<Registration> registrationList) {
 		// TODO Auto-generated method stub
-		Helper.readString("\nTodo.. (Press Enter)");
+		Helper.readString("Update Registration Status");
+		if(registrationList.size() == 0) {
+			Helper.readString("\nNo Registration schedules to update.... (Press Enter)");
+			return;
+		}
+		viewAllRegistrations(registrationList);
+		
+		int id = Helper.readInt("Enter ID of Registration Status to update > ");
+		
+		
+		Registration  r = getRegistrationListByID(registrationList, id);
+		if (r == null) {
+			Helper.readString("\nRegistration not found... (Press Enter)");
+			return;
+		}
+		
+		
+		boolean status = Helper.readBoolean("Enter status (true/ false) > ");
+		boolean statuscancel = Helper.readBoolean("Enter statuscancel (true/ false) > ");
+		doUpdateRegistration( r, status, statuscancel);
+		
+		Helper.readString("\nCourse schedule updated... (Press Enter)");
+		
+	}
+	/**
+	 * @param status
+	 * @param statuscancel
+	 */
+	private static void doUpdateRegistration(Registration r, boolean status, boolean statuscancel) {
+		
+		// TODO Auto-generated method stub
+		r.setStatus(status);
+		r.setStatuscancel(statuscancel);
 		
 	}
 
+	
+
+	
+	
 	private static void searchRegistrationStatusByCourseID(ArrayList<Registration> registrationList) {
 		// TODO Auto-generated method stub
 		Helper.readString("\nTodo.. (Press Enter)");
