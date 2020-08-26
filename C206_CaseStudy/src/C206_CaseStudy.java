@@ -763,6 +763,8 @@ public class C206_CaseStudy {
 		printAllCourseschedules(courseScheduleList);
 		
 		int id = Helper.readInt("Enter ID of course schedule to update > ");
+		
+		// Get all course schedules from list by
 		CourseSchedule cs = getCoursescheduleFromListByID(courseScheduleList, id);
 		if (cs == null) {
 			Helper.readString("\nCourse schedule not found... (Press Enter)");
@@ -796,7 +798,7 @@ public class C206_CaseStudy {
 		cs.setLocation(location);
 	}
 
-	// Search Course Schedule by Price 1/2
+	// Search Course Schedule by Price
 	private static void searchCourseScheduleByPrice(ArrayList<CourseSchedule> courseScheduleList) {
 		// Check if list is empty
 		if(courseScheduleList.isEmpty()) {
@@ -807,7 +809,7 @@ public class C206_CaseStudy {
 		int price = Helper.readInt("Enter Price to Search Course Schedules By > ");
 		
 		// Get all course schedules of specified price from list and put into new list
-		ArrayList<CourseSchedule> foundCsList = getListOfCourseschedulesByPrice(courseScheduleList, price);
+		ArrayList<CourseSchedule> foundCsList = getCourseschedulesFromListByPrice(courseScheduleList, price);
 		
 		// Check if new list is empty
 		if (foundCsList.isEmpty()) {
@@ -820,8 +822,8 @@ public class C206_CaseStudy {
 		
 	}
 
-	// Search Course Schedule by Price 2/2
-	private static ArrayList<CourseSchedule> getListOfCourseschedulesByPrice(
+	// Course Schedule - Other 8
+	private static ArrayList<CourseSchedule> getCourseschedulesFromListByPrice(
 			ArrayList<CourseSchedule> courseScheduleList, int price) {
 		ArrayList<CourseSchedule> foundCsList = new ArrayList<CourseSchedule>();
 		for (CourseSchedule cs : courseScheduleList) {
@@ -833,7 +835,7 @@ public class C206_CaseStudy {
 	}
 
 	private static void listAllMembersRegisteredForASchedule(ArrayList<CourseSchedule> courseScheduleList) {
-		// TODO Auto-generated method stub
+		
 		
 		
 		
