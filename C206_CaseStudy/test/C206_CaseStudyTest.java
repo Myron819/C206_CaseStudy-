@@ -37,7 +37,11 @@ public class C206_CaseStudyTest {
 	private ArrayList<Registration> registrationList; //Boaz
 	private ArrayList<Course> courseList; //yiqian
 	private ArrayList<CourseCategory> categoryList;//daryl
+	
 	private ArrayList<CourseSchedule> courseScheduleList; //Myron
+	private CourseSchedule crssch3; //Myron
+	private CourseSchedule crssch4; //Myron
+	
 
 	@Before
 	public void setUp() throws Exception {
@@ -81,6 +85,11 @@ public class C206_CaseStudyTest {
 		c4 = new Course(4,"Addition","1+1",ccM,csl1,"From Jan to June",null); //yiqian
 		c5 = new Course(5,"Subtraction","1-1",ccM,csl1,"From Jan to June",null); //yiqian
 		c6 = new Course(6,"Science","Plants",ccS,csl2,"From Feb to June",null); //yiqian
+		// Adding course schedules
+		courseScheduleList.add(new CourseSchedule(1, "Course1", 100, "1/1/1", "2/2/2", "01:00", "01:01", "Location1")); // Myron
+		courseScheduleList.add(new CourseSchedule(2, "Course2", 200, "2/2/2", "3/3/3", "02:00", "02:02", "Location2")); // Myron
+		crssch3 = new CourseSchedule(3, "Course3", 300, "3/3/3", "4/4/4", "03:00", "03:03", "Location3"); // Myron
+		crssch4 = new CourseSchedule(4, "Course4", 400, "4/4/4", "5/5/5", "04:00", "04:04", "Location4"); // Myron
 	}
 
 	@After
@@ -88,11 +97,87 @@ public class C206_CaseStudyTest {
 	}
 
 	@Test
-	public void c206_test() {
-		//fail("Not yet implemented"); 
-		assertTrue("C206_CaseStudy_SampleTest ",true);
+	public void doAddCourseScheduleTest() { // Myron
+		// Item list is not null, so that can add a new item - boundary
+		assertNotNull("Check if there is valid CourseSchedule arraylist to add to", courseScheduleList);
+		System.out.println(">>> doAddCourseScheduleTest 1/3");
+		
+		//List has 2 items. After adding 1 item, the size of the list is 3 - normal
+		C206_CaseStudy.doAddCourseSchedule(courseScheduleList, 3, "Course3", 3, "3/3/3", "4/4/4", "03:00", "03:03", "Location3");
+		assertEquals("Check that CourseSchedule arraylist size is 3", 3, courseScheduleList.size());
+		System.out.println(">>> doAddCourseScheduleTest 2/3");
+		
+		// Check that the item added is the correct item
+		assertEquals("Check that CourseSchedule arraylist item 3 course name is Course3", "Course3", courseScheduleList.get(2).getCourse());
+		System.out.println(">>> doAddCourseScheduleTest 3/3");
+	}
+	
+	@Test
+	public void doDeleteCourseScheduleTest() { // Myron
+		// Item list is not null, so that can delete items - boundary
+		assertNotNull("Check if there is valid CourseSchedule arraylist to delete from", courseScheduleList);
+		System.out.println(">>> doDeleteCourseScheduleTest 1/2");
+		
+		//List has 2 items. After deleting 1 item, the size of the list is 1 - normal
+		C206_CaseStudy.doDeleteCourseschedule(courseScheduleList, courseScheduleList.get(1));
+		assertEquals("Check that CourseSchedule arraylist size is 1", 1, courseScheduleList.size());
+		System.out.println(">>> doDeleteCourseScheduleTest 2/2");
+	}
+	
+	@Test
+	public void doUpdateCourseScheduleTest() { // Myron
+		// Item list is not null, so that can update items - boundary
+		assertNotNull("Check if there is valid CourseSchedule arraylist to update from", courseScheduleList);
+		System.out.println(">>> doUpdateCourseScheduleTest 1/3");
+		
+		//Add 1 item, total 3. After updating 1 item, the value has been changed. - normal
+		C206_CaseStudy.doAddCourseSchedule(courseScheduleList, 3, "Course3", 3, "3/3/3", "4/4/4", "03:00", "03:03", "Location3");
+		assertEquals("Check that CourseSchedule arraylist item 3 course name is Course3", "Course3", courseScheduleList.get(2).getCourse());
+		System.out.println(">>> doUpdateCourseScheduleTest 2/3");
+		C206_CaseStudy.doUpdateCourseSchedule(courseScheduleList, courseScheduleList.get(2) , 4, "Course4", 4, "4/4/4", "5/5/5", "04:00", "04:04", "Location4");
+		assertEquals("Check that CourseSchedule arraylist item 3 course name is Course4", "Course4", courseScheduleList.get(2).getCourse());
+		System.out.println(">>> doUpdateCourseScheduleTest 3/3");
+	}
+	
+	@Test
+	public void getCoursescheduleFromListByIDTest() { // Myron
+		// Item list is not null, so that can get items - boundary
+		assertNotNull("Check if there is valid CourseSchedule arraylist to get from", courseScheduleList);
+		System.out.println(">>> getCoursescheduleFromListByIDTest 1/3");
+		
+		// There are 2 items in list. Try getting the first item by its coursescheduleID 0. - Normal
+		assertSame("Check that method returns the first item in the list when passing in it's id (1)", 
+				courseScheduleList.get(0), C206_CaseStudy.getCoursescheduleFromListByID(courseScheduleList, 1));
+		System.out.println(">>> getCoursescheduleFromListByIDTest 2/3");
+
+		// There are 2 items in list. Try getting a non-existant coursescheduleID. - Error
+		assertNull("Check that method returns null when passing in an id that is not found (3)", 
+				 C206_CaseStudy.getCoursescheduleFromListByID(courseScheduleList, 3));
+		System.out.println(">>> getCoursescheduleFromListByIDTest 3/3");
 	}
 
+	@Test
+	public void getCourseschedulesFromListByPriceTest() { // Myron
+		// Item list is not null, so that can get items - boundary
+		assertNotNull("Check if there is valid CourseSchedule arraylist to get from", courseScheduleList);
+		System.out.println(">>> getCourseschedulesFromListByPriceTest 1/3");
+		
+		// There are 2 items in list. Try getting the first item by its price 300. - Normal
+		ArrayList<CourseSchedule> foundCsList = new ArrayList<CourseSchedule>();
+		foundCsList.add(courseScheduleList.get(0));
+		
+		assertEquals("Check that method returns the correct arraylist when passing price 100", 
+				foundCsList, C206_CaseStudy.getCourseschedulesFromListByPrice(courseScheduleList, 100));
+		System.out.println(">>> getCourseschedulesFromListByPriceTest 2/3");
+
+		// There are 2 items in list. Try getting a non-existent coursescheduleID. - Error
+		ArrayList<CourseSchedule> foundCsList1 = new ArrayList<CourseSchedule>();
+		assertEquals("Check that method returns an empty arraylist a price that is not found (128)", 
+				foundCsList1, C206_CaseStudy.getCourseschedulesFromListByPrice(courseScheduleList, 128));
+		System.out.println(">>> getCourseschedulesFromListByPriceTest 3/3");
+	}
+
+	
 	@Test //jonathan
 	public void addMemberTest() {
 		// Item list is not null, so that can add a new member - boundary
@@ -401,45 +486,7 @@ public class C206_CaseStudyTest {
 		assertEquals("Test if the description did not change",categoryList.get(1).getCategoryDesc(),"Something about politics");
 		
 	}
-	/* Myron */
-	@Test
-	public void addCourseScheduleTest() {
-		
-		// Item list is not null, so that can add a new item - boundary
-		assertNotNull("Check if there is valid CourseSchedule arraylist to add to", courseScheduleList);
-		
-		//Given an empty list, after adding 1 item, the size of the list is 1 - normal
-		C206_CaseStudy.doAddCourseSchedule(courseScheduleList, 1, "course1", 111, "1/1/1", "2/2/2", "0100", "0101", "location one");
-		assertEquals("Check that CourseSchedule arraylist size is 1", 1, courseScheduleList.size());
-		assertSame("Check that CourseSchedule is added", new CourseSchedule(1, "course1", 111, "1/1/1", "2/2/2", "0100", "0101", "location one"), courseScheduleList.get(0));
-		
-		//Add another item. test The size of the list is 2? -normal
-		C206_CaseStudy.doAddCourseSchedule(courseScheduleList, 2, "course2", 2222, "2/2/2", "3/3/3", "0200", "0202", "location two");
-		assertEquals("Check that CourseSchedule arraylist size is 2", 2, courseScheduleList.size());
-		assertSame("Check that CourseSchedule is added", new CourseSchedule(2, "course2", 2222, "2/2/2", "3/3/3", "0200", "0202", "location two"), courseScheduleList.get(0));
-		
-	}
 	
-	@Test
-	public void DeleteCourseScheduleTest() {
-		
-		// Item list is not null, so that can delete items - boundary
-		assertNotNull("Check if there is valid CourseSchedule arraylist to add to", courseScheduleList);
-		
-		//Given an list of 2 items, after deleting 1 item, the size of the list is 1 - normal
-		C206_CaseStudy.doAddCourseSchedule(courseScheduleList, 1, "course1", 111, "1/1/1", "2/2/2", "0100", "0101", "location one");
-		C206_CaseStudy.doAddCourseSchedule(courseScheduleList, 2, "course2", 2222, "2/2/2", "3/3/3", "0200", "0202", "location two");
-		CourseSchedule cs1 = C206_CaseStudy.getCoursescheduleFromListByID(courseScheduleList, 1);
-		CourseSchedule cs2 = C206_CaseStudy.getCoursescheduleFromListByID(courseScheduleList, 2);
-		
-		C206_CaseStudy.doDeleteCourseschedule(courseScheduleList, cs1);
-		assertEquals("Check that CourseSchedule arraylist size is 1", 1, courseScheduleList.size());
-		
-		//Delete another item. test The size of the list is 2? -normal
-		C206_CaseStudy.doDeleteCourseschedule(courseScheduleList, cs2);
-		C206_CaseStudy.doAddCourseSchedule(courseScheduleList, 2, "course2", 2222, "2/2/2", "3/3/3", "0200", "0202", "location two");
-		assertEquals("Check that CourseSchedule arraylist size is 0", 0, courseScheduleList.size());
-		
-	}
+	
 	
 }

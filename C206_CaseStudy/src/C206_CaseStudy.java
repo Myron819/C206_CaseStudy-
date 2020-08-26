@@ -838,9 +838,8 @@ public class C206_CaseStudy {
 			return;
 		}
 
-		int price = Helper.readInt("Enter Price to Search Course Schedules By > ");
-
 		// Get all course schedules of specified price from list and put into new list
+		int price = Helper.readInt("Enter Price to Search Course Schedules By > ");
 		ArrayList<CourseSchedule> foundCsList = getCourseschedulesFromListByPrice(courseScheduleList, price);
 
 		// Check if new list is empty
@@ -890,7 +889,7 @@ public class C206_CaseStudy {
 	}	
 
 	// Course Schedule - Other 2
-	private static ArrayList<CourseSchedule> getCourseschedulesFromListByPrice(
+	public static ArrayList<CourseSchedule> getCourseschedulesFromListByPrice(
 			ArrayList<CourseSchedule> courseScheduleList, int price) {
 		ArrayList<CourseSchedule> foundCsList = new ArrayList<CourseSchedule>();
 		for (CourseSchedule cs : courseScheduleList) {
