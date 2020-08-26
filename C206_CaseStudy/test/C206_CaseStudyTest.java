@@ -41,16 +41,9 @@ public class C206_CaseStudyTest {
 		m1 = new Member("John","Male",84440720,"John@gmail.com","22/07/2020","Singapore","pass1234"); //jonathan
 		m2 = new Member("May","Female",84440721,"May@gmail.com","21/07/2010","Singapore","pass12345"); //jonathan
 
-		r1 = new Registration("DBIS", 1234); //Boaz
-		r2 = new Registration("DBA", 4321); //Boaz
+//		r1 = new Registration("DBIS", 1234); //Boaz
+//		r2 = new Registration("DBA", 4321); //Boaz
 
-		cs1 = new CourseSchedule(1,"Math",50,"1/1/2020","1/5/2020","12pm","2pm","Woodlands"); //yiqian
-		csl1.add(cs1); //yiqian
-		cs2 = new CourseSchedule(2,"Math",70,"3/1/2020","3/3/2020","5pm","6pm","Bukit Batok" ); //yiqian
-		csl2.add(cs2); //yiqian
-		c1 = new Course(1,"Addition","1+1",cc1,csl1,"From Jan to June",null); //yiqian
-		c2 = new Course(2,"Subtraction","1-1",cc1,csl1,"From Jan to June",null); //yiqian
-		c3 = new Course(3,"Science","Plants",cc2,csl2,"From Feb to June",null); //yiqian
 
 		cc1 = new CourseCategory("Political Science", "Something about politics"); //daryl
 		cc2 = new CourseCategory("English", "Something about england"); //daryl
@@ -60,6 +53,24 @@ public class C206_CaseStudyTest {
 		courseList = new ArrayList<Course>(); //yiqian
 		categoryList = new ArrayList<CourseCategory>();//Daryl
 		courseScheduleList = new ArrayList<CourseSchedule>(); // Myron
+		
+		csl1 = new ArrayList<CourseSchedule>(); //yiqian
+		csl2 = new ArrayList<CourseSchedule>(); //yiqian
+		//adding items in course schedule
+		cs1 = new CourseSchedule(1,"Math",50,"1/1/2020","1/5/2020","12pm","2pm","Woodlands"); //yiqian
+		csl1.add(cs1); //yiqian
+		cs2 = new CourseSchedule(2,"Math",70,"3/1/2020","3/3/2020","5pm","6pm","Bukit Batok" ); //yiqian
+		csl2.add(cs2); //yiqian
+		//adding items in course category
+		CourseCategory ccM = new CourseCategory("Math", "Math");
+		categoryList.add(ccM);
+		CourseCategory ccS = new CourseCategory("Science", "Science");
+		categoryList.add(ccS);
+		//creating course
+		c1 = new Course(1,"Addition","1+1",ccM,null,"From Jan to June",null); //yiqian
+		c2 = new Course(2,"Subtraction","1-1",ccM,null,"From Jan to June",null); //yiqian
+		c3 = new Course(3,"Science","Plants",ccS,null,"From Feb to June",null); //yiqian
+		
 	}
 
 	@After
@@ -199,53 +210,68 @@ public class C206_CaseStudyTest {
 	//By yiqian
 	@Test
 	public void addCourse() {
+//		 Test if course list is not null but is empty -boundary
 		assertNotNull("Test if there is valid course arraylist to add to", courseList);
-
-		C206_CaseStudy.addCourse(courseList, c1);
+		
+		//Given an empty list, after adding a course, the size of the list is 1
+		C206_CaseStudy.addCourse(1,"Addition","1+1","Math","From Jan to June",null,courseList,categoryList);
 		assertEquals("Test if that course arraylist size is 1?", 1, courseList.size());
+		
+		//The course just added is as same as the first item of the list
+//		assertSame("Test that course is added same as 1st item of the list?", c1, courseList.get(0));
+		assertEquals("Check that getCourseList",c1.toString(), courseList.get(0).toString());
 
-		assertSame("Test that course is added same as 1st item of the list?", c1, courseList.get(0));
-
-		C206_CaseStudy.addCourse(courseList, c2);
+//		//Test that after adding another course, the size of the list is 2
+		C206_CaseStudy.addCourse(2,"Subtraction","1-1","Math","From Jan to June",null,courseList,categoryList);
 		assertEquals("Test that course arraylist size is 2?", 2, courseList.size());
 	}
 
 	@Test
 	public void getCourseList() {
+		//Test if course list is not null but is empty -boundary
 		assertNotNull("Test if there is valid course arraylist to add to", courseList);
-
+		
+		
 		String allCourses= C206_CaseStudy.getCourseList(courseList);
 		String testOutput = "";
 		assertEquals("Check that getCourseList", testOutput, allCourses);
 
-		C206_CaseStudy.addCourse(courseList, c1);
-		C206_CaseStudy.addCourse(courseList, c2);
+		C206_CaseStudy.addCourse(1,"Addition","1+1","Math","From Jan to June",null,courseList,categoryList);
+		C206_CaseStudy.addCourse(2,"Subtraction","1-1","Math","From Jan to June",null,courseList,categoryList);
 		assertEquals("Test if that Camcorder arraylist size is 2?", 2, courseList.size());
 
 		allCourses= C206_CaseStudy.getCourseList(courseList);
 
-		testOutput = String.format("%-10d %-30s %-20s %-20s\n", 1,"SUBTRACTION", "1-1", "MATH", "TUESDAY");
-		testOutput += String.format("%-10d %-30s %-20s %-20s\n", 1,"SUBTRACTION", "1-1", "MATH", "TUESDAY");
+		testOutput = String.format("%-10s %-15s %-15s %-20s %-20s %-22s %-10s\n", "1", "Addition", "Math", "1+1", "From Jan to June", null,"Yes");
+		testOutput += String.format("%-10s %-15s %-15s %-20s %-20s %-22s %-10s\n", "2", "Subtraction", "Math", "1-1", "From Jan to June", null,"Yes");
 
-		assertEquals("Check that getCourseList", testOutput, allCourses);
+		assertEquals("Check that getCourseList",allCourses, testOutput);
 	}
 
 	@Test
 	public void deleteCourse() {
+		//Test if course list is not null but is empty -boundary
 		assertNotNull("Test if there are courses in the course arraylist", courseList);
 		
-		C206_CaseStudy.deleteCourse(courseList);
-		assertEquals("Test that course arraylist size is 0",0,courseList.size());
+		C206_CaseStudy.addCourse(1,"Addition","1+1","Math","From Jan to June",null,courseList,categoryList);
+		C206_CaseStudy.addCourse(2,"Subtraction","1-1","Math","From Jan to June",null,courseList,categoryList);
+		C206_CaseStudy.addCourse(3,"Science","Plants","Science","From Feb to June",null,courseList,categoryList);
 		
-		C206_CaseStudy.deleteCourse(courseList);
-		assertEquals("Test that course arraylist size is 1",1,courseList.size());
+		assertEquals("Test that course arraylist size is 3",3,courseList.size());
+		
+		//Test cannot delete - error
+		C206_CaseStudy.deleteCourse(1,courseList);
+		assertEquals("Test that course arraylist size is 3",3,courseList.size());
+		
+		//Test cannot delete - error
+		C206_CaseStudy.deleteCourse(2,courseList);
+		assertEquals("Test that course arraylist size is 3",3,courseList.size());
+		
 	}
 	
 	@Test
 	public void updateCourse() {
 		assertNotNull("Test if there are courses in the course arraylist", courseList);
-		
-		
 	}
 	
 	@Test
@@ -258,8 +284,17 @@ public class C206_CaseStudyTest {
 	
 	@Test
 	public void listAllCourseSchedulesForACourse() {
+		//Test if course list is not null but empty - boundary
 		assertNotNull("Test if there are courses in the course arraylist", courseList);
 		
+		
+		
+		
+		//Test if schedule list is not null but empty - boundary
+		assertNotNull("Test if there are courses in the schedule arraylist", courseScheduleList);
+		
+		//Test if the expected output string is the same as the one 
+		C206_CaseStudy.listAllCourseSchedulesForACourse("", courseList);
 	}
 
 	//daryl

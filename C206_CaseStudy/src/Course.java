@@ -30,8 +30,8 @@ public class Course {
 		this.course_duration = course_duration;
 		this.pre_requisite_course = pre_requisite_course;
 		this.isAvailable = true;
+		System.out.println(this.toString());
 	}
-	
 	
 	
 	public int getCourse_code() {
@@ -94,7 +94,7 @@ public class Course {
 	
 	@Override
 	public String toString() {
-		String output =String.format("%-10d %-10s %-25s %-15s %-15s %-15s %-15s\n",getCourse_code(), getCourse_title(), getDescription(), getCourse_cat().getCategory(), getCourse_duration(),getPre_requisite_course());
+		String output =String.format("%-10d %-10s %-25s %-15s %-15s %-15s\n",getCourse_code(), getCourse_title(), getDescription(), getCourse_cat().getCategory(), getCourse_duration(),getPre_requisite_course());
 		return output;
 	}
 }
