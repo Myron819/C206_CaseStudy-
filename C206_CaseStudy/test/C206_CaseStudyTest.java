@@ -12,6 +12,8 @@ import org.junit.Test;
 public class C206_CaseStudyTest {
 	private Member m1; //jonathan
 	private Member m2; //jonathan
+	private Member updateM1; //jonathan
+	private Member updateM2; //jonathan
 
 	private Registration r1;
 	private Registration r2;
@@ -109,7 +111,26 @@ public class C206_CaseStudyTest {
 
 		assertEquals("Test that ViewAllCamcorderlist", testOutput, allMember);
 	}
+	@Test //jonathan
+	public void updateMemberTest() {
+		// Test if Member list is not null so there member to delete -boundary
+		assertNotNull("Test if there is valid Member arraylist to retrieve item", MemberList);
+		//Test update - normal
+		updateM1 = new Member("john", "", 84440759, "", "", "Malaysia", "Pass4321");
+		C206_CaseStudy.updateMemberDetails(MemberList,updateM1);
+		String updated = String.format("%-10s %-10s %-10s %-40s %-10s %-20s %-20s\n","John","Male",84440759,"John@gmail.com","22/07/2020","Malaysia","Pass4321");
+		assertEquals("Test update works",MemberList.get(1),updated);
+	}
 	
+	@Test // jonathan
+	public void searchMemberTest() {
+		// Test if Member list is not null so there member to delete -boundary
+		assertNotNull("Test if there is valid Member arraylist to retrieve item", MemberList);
+		//Test search by country - normal
+		String testSearch = String.format("%-10s %-10s %-10s %-40s %-10s %-20s %-20s\n","John","Male",84440720,"John@gmail.com","22/07/2020","Singapore","pass1234");
+		C206_CaseStudy.searchMemberByCountryOfResidence(MemberList,"Singapore");
+		assertEquals("Test right member found",MemberList.get(1),testSearch);
+	}
 	@Test //jonathan
 	public void deleteMemberTest() {
 		// Test if Member list is not null so there member to delete -boundary
@@ -287,7 +308,15 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.deleteCourseCategory(categoryList);
 		assertEquals("Test that Registration arraylist size is 1",1,regList.size());
 	}
-	
+	//daryl
+	public void updateCategoryTest() {
+		C206_CaseStudy.addCourseCategory(categoryList, cc1);
+		C206_CaseStudy.addCourseCategory(categoryList, cc2);
+		C206_CaseStudy.updateCourseCategoryDetails(categoryList);
+		assertEquals("Test if the description have change",categoryList.get(0).getCategoryDesc(),"Something about politics");
+		assertEquals("Test if the description did not change",categoryList.get(1).getCategoryDesc(),"Something about politics");
+		
+	}
 	/* Myron */
 	@Test
 	public void addCourseScheduleTest() {
