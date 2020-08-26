@@ -965,14 +965,39 @@ public class C206_CaseStudy {
 	}
 
 	
-
-	
-	
 	private static void searchRegistrationStatusByCourseID(ArrayList<Registration> registrationList) {
 		// TODO Auto-generated method stub
 		Helper.readString("\nTodo.. (Press Enter)");
+		if(registrationList.isEmpty()) {
+			Helper.readString("\nNo Registrations to search for.... ((Press Enter)");
+			return;
+		}
 		
+		int course_schedule_id = Helper.readInt("Enter Course ID to search for Registration Status > ");
+		
+		ArrayList<Registration> foundRegList = getRegistrationStatusFromListByID(registrationList, course_schedule_id);
+		
+		if(foundRegList.isEmpty()) {
+			Helper.readString("\nNo Registrations found from specified Course Schedule ID.... ((Press Enter)");
+			return;
+		}
+		
+		viewAllRegistrations(registrationList);
+		Helper.readString("\nNo Registrations search results displayed.... ((Press Enter)");
+				
 	}
+	private static ArrayList<Registration> getRegistrationStatusFromListByID(
+			ArrayList<Registration> registrationList, int course_schedule_id) {
+		ArrayList<Registration> foundRegList = new ArrayList<Registration>();
+		for (Registration r : registrationList) {
+			if (r.getCourse_schedule_id() == course_schedule_id) {
+				foundRegList.add(r);
+			}
+		}
+		return foundRegList;
+	}
+	
+	
 
 	private static void listAllCourseSchedulesListedByAMember(ArrayList<Registration> registrationList) {
 		// TODO Auto-generated method stub
