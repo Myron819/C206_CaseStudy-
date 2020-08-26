@@ -27,10 +27,17 @@ public class C206_CaseStudy {
 		CourseList.add(new Course(1,"Addition","1+1",cc1,courseScheduleMathList,"From Jan to June",null));
 		CourseList.add(new Course(2,"Subtraction","1-1",cc1,courseScheduleMathList,"From Jan to June",null));
 		CourseList.add(new Course(3,"Science","Plants",cc2,courseScheduleScienceList,"From Feb to June",null));
-		courseScheduleList.add(new CourseSchedule(1, "Course1", 1, "1/1/1", "2/1/1", "01:00", "01:01", "Location1"));
-		courseScheduleList.add(new CourseSchedule(2, "Course2", 2, "2/2/2", "3/2/2", "02:00", "02:01", "Location2"));
-		courseScheduleList.add(new CourseSchedule(3, "Course3", 3, "3/3/3", "4/2/2", "03:00", "03:01", "Location3"));
-		courseScheduleList.add(new CourseSchedule(4, "Course4", 4, "4/4/4", "5/2/2", "04:00", "04:01", "Location4"));
+		
+		courseScheduleList.add(new CourseSchedule(1, "Course1", 1, "1/1/1", "2/2/2", "01:00", "01:01", "Location1"));
+		courseScheduleList.add(new CourseSchedule(2, "Course2", 2, "2/2/2", "3/3/3", "02:00", "02:02", "Location2"));
+		courseScheduleList.add(new CourseSchedule(3, "Course3", 3, "3/3/3", "4/4/4", "03:00", "03:03", "Location3"));
+		courseScheduleList.add(new CourseSchedule(4, "Course4", 4, "4/4/4", "5/5/5", "04:00", "04:04", "Location4"));
+		registrationList.add(new Registration(1, "1@gmail.com", 1, "1/1/1", "2/2/2", "01:00", "01:01", "Location1", 1, "1/1/1", true, false));
+		registrationList.add(new Registration(2, "2@gmail.com", 2, "2/2/2", "3/3/3", "02:00", "02:02", "Location2", 2, "2/2/2", true, false));
+		registrationList.add(new Registration(3, "3@gmail.com", 3, "3/3/3", "4/4/4", "03:00", "03:03", "Location3", 3, "3/3/3", true, false));
+		MemberList.add(new Member("Name1", "Male", 11111111, "1@gmail.com", "01/01/2020", "Singapore", "password1"));
+		MemberList.add(new Member("Name2", "Male", 22222222, "2@gmail.com", "02/02/2020", "Singapore", "password2"));
+		MemberList.add(new Member("Name3", "Male", 33333333, "3@gmail.com", "03/03/2020", "Singapore", "password3"));
 		
 		int option = -1;
 		while (option != 0) {
@@ -117,7 +124,7 @@ public class C206_CaseStudy {
 				C206_CaseStudy.viewAllCourseSchedules(courseScheduleList);
 			} else if (option == 21) {
 				C206_CaseStudy.setHeader("DELETE COURSE SCHEDULE");	
-				C206_CaseStudy.DeleteCourseSchedule(courseScheduleList);
+				C206_CaseStudy.DeleteCourseSchedule(courseScheduleList, registrationList, MemberList);
 
 			} else if (option == 22) {
 				C206_CaseStudy.setHeader("UPDATE COURSE SCHEDULE DETAILS");	
@@ -127,7 +134,7 @@ public class C206_CaseStudy {
 				C206_CaseStudy.searchCourseScheduleByPrice(courseScheduleList);
 			} else if (option == 24) {
 				C206_CaseStudy.setHeader("LIST ALL MEMBERS REGISTERED FOR A COURSE SCHEDULE");	
-				C206_CaseStudy.listAllMembersRegisteredForASchedule(courseScheduleList);
+				C206_CaseStudy.listAllMembersRegisteredForASchedule(registrationList, MemberList);
 
 			// Registration Options (Boaz)
 
@@ -741,7 +748,7 @@ public class C206_CaseStudy {
 	}
 
 	// Delete Course Schedule 1/2
-	public static void DeleteCourseSchedule(ArrayList<CourseSchedule> courseScheduleList) {
+	public static void DeleteCourseSchedule(ArrayList<CourseSchedule> courseScheduleList, ArrayList<Registration> registrationList, ArrayList<Member> memberList) {
 		// Check that list is not empty.
 		if(courseScheduleList.size() == 0) {
 			Helper.readString("\nNo course schedules to delete.... (Press Enter)");
@@ -749,13 +756,24 @@ public class C206_CaseStudy {
 		}
 
 		printAllCourseschedules(courseScheduleList);
-		int id = Helper.readInt("Enter ID of course schedule to delete > ");
-		CourseSchedule cs = getCoursescheduleFromListByID(courseScheduleList, id);
-
-		// Check that course schedule was found.
+		int csID = Helper.readInt("Enter ID of course schedule to delete > ");
+		
+		// Find course schedule and check that it was found.
+		CourseSchedule cs = getCoursescheduleFromListByID(courseScheduleList, csID);
 		if (cs == null) {
 			Helper.readString("\nCourse schedule not found... (Press Enter)");
 			return;
+		}
+		
+		// Check that course schedule does not have a registered member (if has, cannot delete).
+		// I.e. Check that no registrations exist that link the specified course to an existing member.
+		for (Registration r : registrationList) {
+			for (Member m : memberList) {
+				if (r.getCourse_schedule_id() == csID && r.getMemberEmail().equals(m.getEmail())) { 
+					Helper.readString("\nCourse schedule has a registered member and cannot be deleted... (Press Enter)");
+					return; 
+				}
+			}
 		}
 
 		doDeleteCourseschedule(courseScheduleList, cs);
@@ -770,7 +788,7 @@ public class C206_CaseStudy {
 
 	// Update Course Schedule 1/2
 	private static void updateCourseScheduleDetails(ArrayList<CourseSchedule> courseScheduleList) {
-		if(courseScheduleList.size() == 0) {
+		if(courseScheduleList.isEmpty()) {
 			Helper.readString("\nNo course schedules to update.... (Press Enter)");
 			return;
 		}
@@ -793,8 +811,8 @@ public class C206_CaseStudy {
 		String start_time = Helper.readString("Enter Course Schedule Start Time > ");
 		String end_time= Helper.readString("Enter Course Schedule End Time> ");
 		String location = Helper.readString("Enter Course Schedule Location > ");
+		
 		doUpdateCourseSchedule(courseScheduleList, cs, newID, course, price, start_date, end_date, start_time, end_time, location);
-
 		Helper.readString("\nCourse schedule updated... (Press Enter)");
 
 	}
@@ -833,13 +851,33 @@ public class C206_CaseStudy {
 
 		printAllCourseschedules(foundCsList);
 		Helper.readString("Course schedule search results displayed.. (Press Enter)");
-
 	}
 
 	// List all members registered for a schedule
-	private static void listAllMembersRegisteredForASchedule(ArrayList<CourseSchedule> courseScheduleList) {
+	private static void listAllMembersRegisteredForASchedule(ArrayList<Registration> registrationList, ArrayList<Member> memberList) {
+		int csID = Helper.readInt("Enter course schedule ID to show registered members for > ");
 
-		Helper.readString("\nAll members registered for a Course Schedule listed... (Press Enter)");
+		// For each registration, get the member's email where course schedule ID matches, and store in foundMemberEmails.
+		ArrayList<String> foundMemberEmails = new ArrayList<String>();
+		for (Registration r : registrationList) {
+			if (r.getCourse_schedule_id() == csID)  {
+				foundMemberEmails.add(r.getMemberEmail());
+			}
+		}
+
+		// For each member in memberList, see if the member's email matches an email in foundMemberEmails, and store in foundMembers.
+		ArrayList<Member> foundMembers = new ArrayList<Member>();
+		for (Member m : memberList) {
+			for (String e : foundMemberEmails) {
+				if (m.getEmail().equals(e)) {
+					foundMembers.add(m);
+					break;
+				}
+			}
+		}
+
+		viewAllMembers(foundMembers);
+		Helper.readString("All members registered for a Course Schedule listed... (Press Enter)");
 
 	}
 
@@ -851,19 +889,7 @@ public class C206_CaseStudy {
 		return null;
 	}	
 
-	// CourseSchedule - Other 2
-	public static void printAllCourseschedules(ArrayList<CourseSchedule> courseScheduleList) {
-		String output="";
-		output += String.format("%-10s %-30s %-20s %-20s %-20s %-20s %-20s %-20s\n", "ID", "FOR COURSE", "PRICE", "START DATE", "END DATE", "START TIME", "END TIME", "LOCATION");
-
-		for(int i=0; i<courseScheduleList.size(); i++) {
-			output += String.format("%-10d %-30s %-20d %-20s %-20s %-20s %-20s %-20s\n", courseScheduleList.get(i).getCourse_schedule_id(), courseScheduleList.get(i).getCourse(), courseScheduleList.get(i).getPrice(), courseScheduleList.get(i).getStart_date(), courseScheduleList.get(i).getEnd_date(), courseScheduleList.get(i).getStart_time(), courseScheduleList.get(i).getEnd_time(), courseScheduleList.get(i).getLocation());
-		}
-
-		System.out.println(output);
-	}
-
-	// Course Schedule - Other 3
+	// Course Schedule - Other 2
 	private static ArrayList<CourseSchedule> getCourseschedulesFromListByPrice(
 			ArrayList<CourseSchedule> courseScheduleList, int price) {
 		ArrayList<CourseSchedule> foundCsList = new ArrayList<CourseSchedule>();
@@ -874,13 +900,25 @@ public class C206_CaseStudy {
 		}
 		return foundCsList;
 	}
+
+	// CourseSchedule - Other 3
+	public static void printAllCourseschedules(ArrayList<CourseSchedule> courseScheduleList) {
+		String output="";
+		output += String.format("%-10s %-30s %-20s %-20s %-20s %-20s %-20s %-20s\n", "ID", "FOR COURSE", "PRICE", "START DATE", "END DATE", "START TIME", "END TIME", "LOCATION");
+
+		for(int i=0; i<courseScheduleList.size(); i++) {
+			output += String.format("%-10d %-30s %-20d %-20s %-20s %-20s %-20s %-20s\n", courseScheduleList.get(i).getCourse_schedule_id(), courseScheduleList.get(i).getCourse(), courseScheduleList.get(i).getPrice(), courseScheduleList.get(i).getStart_date(), courseScheduleList.get(i).getEnd_date(), courseScheduleList.get(i).getStart_time(), courseScheduleList.get(i).getEnd_time(), courseScheduleList.get(i).getLocation());
+		}
+
+		System.out.println(output);
+	}
 	
 
 	/* Registration Options by Boaz*/
 
 	public static Registration inputRegistration() {
 		int course_schedule_id = Helper.readInt("Enter course_schedule_id > ");
-		String course = Helper.readString("Enter Course > ");
+		String memberEmail = Helper.readString("Enter Member's Email > ");
 		int price = Helper.readInt("Enter price > ");
 		String start_date = Helper.readString("Enter start_date > ");
 		String end_date = Helper.readString("Enter end_date > ");
@@ -892,7 +930,7 @@ public class C206_CaseStudy {
 		boolean status = Helper.readBoolean("Enter status (true/ false) > ");
 		boolean statuscancel = Helper.readBoolean("Enter statuscancel (true/ false) > ");
 
-		Registration rc = new Registration(course_schedule_id, course, price, start_date, end_date, start_time, end_time, location, course_schedule_id, course, status, statuscancel);
+		Registration rc = new Registration(course_schedule_id, memberEmail, price, start_date, end_date, start_time, end_time, location, reg_id, reg_date, status, statuscancel);
 		return rc;
 	}
 
@@ -908,7 +946,7 @@ public class C206_CaseStudy {
 
 		for (int i = 0; i < registrationList.size(); i++) {
 			output += String.format("%-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-30s\n",
-					registrationList.get(i).getCourse_schedule_id(), registrationList.get(i).getCourse() , 
+					registrationList.get(i).getCourse_schedule_id(), registrationList.get(i).getMemberEmail() , 
 					registrationList.get(i).getPrice(), registrationList.get(i).getStart_date(),
 					registrationList.get(i).getEnd_date(), registrationList.get(i).getStart_time(),
 					registrationList.get(i).getEnd_time(), registrationList.get(i).getLocation(),
@@ -921,7 +959,7 @@ public class C206_CaseStudy {
 	public static void viewAllRegistrations(ArrayList<Registration> registrationList) {
 		C206_CaseStudy.setHeader("REGISTRATION LIST");
 		String output = String.format("%-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-30s\n"
-				,"COURSE SCHEDULE ID", "COURSE ", "PRICE", "START DATE", "END DATE", "START TIME"
+				,"COURSE SCHEDULE ID", "MEMBER EMAIL ", "PRICE", "START DATE", "END DATE", "START TIME"
 				, "END TIME", "LOCATION", "REGISTRATION ID", "REGISTRATION DATE", "STATUS", "STATUS CANCEL");
 		output += retrieveAllRegistrations(registrationList);	  
 		System.out.println(output);

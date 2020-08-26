@@ -1,7 +1,7 @@
 public class Registration{
     
     private int course_schedule_id;
-    private String course;
+    private String memberEmail;
     private int price;
     private String start_date;
     private String end_date;
@@ -13,12 +13,12 @@ public class Registration{
     private boolean status;
     private boolean statuscancel;
     
-    public Registration(int course_schedule_id, String course, int price, String start_date, String end_date,
+    public Registration(int course_schedule_id, String memberEmail, int price, String start_date, String end_date,
             String start_time, String end_time, String location, int reg_id, String reg_date, boolean status,
             boolean statuscancel) {
         super();
         this.course_schedule_id = course_schedule_id;
-        this.course = course;
+        this.memberEmail = memberEmail;
         this.price = price;
         this.start_date = start_date;
         this.end_date = end_date;
@@ -45,14 +45,14 @@ public class Registration{
 
  
 
-    public String getCourse() {
-        return course;
+    public String getMemberEmail() {
+        return memberEmail;
     }
 
  
 
-    public void setCourse(String course) {
-        this.course = course;
+    public void setMemberEmail(String course) {
+        this.memberEmail = course;
     }
 
  
