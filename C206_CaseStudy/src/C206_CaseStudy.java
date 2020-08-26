@@ -863,7 +863,7 @@ public class C206_CaseStudy {
 		boolean status = Helper.readBoolean("Enter status (true/ false) > ");
 		boolean statuscancel = Helper.readBoolean("Enter statuscancel (true/ false) > ");
 
-		Registration rc = new Registration(course_schedule_id, course, price, start_date, end_date, start_time, end_time, location, course_schedule_id, course, price, start_date, end_date, start_time, end_time, location, reg_id, reg_date, status, statuscancel);
+		Registration rc = new Registration(course_schedule_id, course, price, start_date, end_date, start_time, end_time, location, course_schedule_id, course, status, statuscancel);
 		return rc;
 	}
 
@@ -878,15 +878,22 @@ public class C206_CaseStudy {
 		String output = "";
 
 		for (int i = 0; i < registrationList.size(); i++) {
-			output += String.format("%-20s %-20s %-30s\n",registrationList.get(i).getCourse() , registrationList.get(i).getCourse_schedule_id(), 
-					registrationList.get(i).getReg_id());
+			output += String.format("%-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-30s\n",
+					registrationList.get(i).getCourse_schedule_id(), registrationList.get(i).getCourse() , 
+					registrationList.get(i).getPrice(), registrationList.get(i).getStart_date(),
+					registrationList.get(i).getEnd_date(), registrationList.get(i).getStart_time(),
+					registrationList.get(i).getEnd_time(), registrationList.get(i).getLocation(),
+					registrationList.get(i).getReg_id(), registrationList.get(i).getReg_date(),
+					registrationList.get(i).isStatus(), registrationList.get(i).isStatuscancel());
 		}
 		return output;
 	}	
 
 	public static void viewAllRegistrations(ArrayList<Registration> registrationList) {
 		C206_CaseStudy.setHeader("REGISTRATION LIST");
-		String output = String.format("%-20s %-20s %-30s\n","COURSE", "COURSE SCHEDULE ID", "REGISTRATION ID");
+		String output = String.format("%-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-30s\\n"
+				,"COURSE SCHEDULE ID", "COURSE ", "PRICE", "START DATE", "END DATE", "START TIME"
+				, "END TIME", "LOCATION", "REGISTRATION ID", "REGISTRATION DATE", "STATUS", "STATUS CANCEL");
 		output += retrieveAllRegistrations(registrationList);	  
 		System.out.println(output);
 	}
