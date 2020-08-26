@@ -139,8 +139,8 @@ public class C206_CaseStudy {
 				C206_CaseStudy.deleteRegistration(registrationList);
 
 			} else if (option == 28) {
-				C206_CaseStudy.setHeader("UPDATE COURSE REGISTRATION ");
-				C206_CaseStudy.updateCourseRegistration(registrationList);
+				C206_CaseStudy.setHeader("UPDATE COURSE REGISTRATION STATUS ");
+				C206_CaseStudy.updateRegistrationStatus(registrationList);
 			} else if (option == 29) {
 				C206_CaseStudy.setHeader("SEARCH REGISTRATION STATUS BY COURSE ID");		
 				C206_CaseStudy.searchRegistrationStatusByCourseID(registrationList);
@@ -848,7 +848,7 @@ public class C206_CaseStudy {
 		
 		// Check if new list is empty
 		if (foundCsList.isEmpty()) {
-			Helper.readString("No Course Schedules of specified price found.. (Press Enter)");
+			Helper.readString("\nNo Course Schedules of specified price found.. (Press Enter)");
 			return;
 		}
 		
@@ -898,7 +898,7 @@ public class C206_CaseStudy {
 		boolean status = Helper.readBoolean("Enter status (true/ false) > ");
 		boolean statuscancel = Helper.readBoolean("Enter statuscancel (true/ false) > ");
 
-		Registration rc = new Registration(course_schedule_id, course, price, start_date, end_date, start_time, end_time, location, course_schedule_id, course, price, start_date, end_date, start_time, end_time, location, reg_id, reg_date, status, statuscancel);
+		Registration rc = new Registration(course_schedule_id, course, price, start_date, end_date, start_time, end_time, location, course_schedule_id, course, status, statuscancel);
 		return rc;
 	}
 
@@ -913,14 +913,22 @@ public class C206_CaseStudy {
 		String output = "";
 
 		for (int i = 0; i < registrationList.size(); i++) {
-			output += String.format("%-20s %-30s\n", registrationList.get(i).getCourse_name(), registrationList.get(i).getReg_id());
+			output += String.format("%-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-30s\n",
+					registrationList.get(i).getCourse_schedule_id(), registrationList.get(i).getCourse() , 
+					registrationList.get(i).getPrice(), registrationList.get(i).getStart_date(),
+					registrationList.get(i).getEnd_date(), registrationList.get(i).getStart_time(),
+					registrationList.get(i).getEnd_time(), registrationList.get(i).getLocation(),
+					registrationList.get(i).getReg_id(), registrationList.get(i).getReg_date(),
+					registrationList.get(i).isStatus(), registrationList.get(i).isStatuscancel());
 		}
 		return output;
 	}	
 
 	public static void viewAllRegistrations(ArrayList<Registration> registrationList) {
 		C206_CaseStudy.setHeader("REGISTRATION LIST");
-		String output = String.format("%-20s %-30s\n", "COURSE NAME", "REGISTRATION ID");
+		String output = String.format("%-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-30s\n"
+				,"COURSE SCHEDULE ID", "COURSE ", "PRICE", "START DATE", "END DATE", "START TIME"
+				, "END TIME", "LOCATION", "REGISTRATION ID", "REGISTRATION DATE", "STATUS", "STATUS CANCEL");
 		output += retrieveAllRegistrations(registrationList);	  
 		System.out.println(output);
 	}
@@ -933,18 +941,85 @@ public class C206_CaseStudy {
 			}
 		}
 	}
+	
+	
+	public static Registration getRegistrationListByID(ArrayList<Registration> registrationList, int id) {
+		for(Registration r : registrationList) 
+			if(r.getReg_id() == id)
+				return r;		
+		return null;
+	}	
 
-	private static void updateCourseRegistration(ArrayList<Registration> registrationList) {
+	private static void updateRegistrationStatus(ArrayList<Registration> registrationList) {
 		// TODO Auto-generated method stub
-		Helper.readString("\nTodo.. (Press Enter)");
+		if(registrationList.size() == 0) {
+			Helper.readString("\nNo Registration schedules to update.... (Press Enter)");
+			return;
+		}
+		viewAllRegistrations(registrationList);
+		
+		int id = Helper.readInt("Enter ID of Registration Status to update > ");
+		
+		
+		Registration  r = getRegistrationListByID(registrationList, id);
+		if (r == null) {
+			Helper.readString("\nRegistration not found... (Press Enter)");
+			return;
+		}
+		
+		
+		boolean status = Helper.readBoolean("Enter status (true/ false) > ");
+		boolean statuscancel = Helper.readBoolean("Enter statuscancel (true/ false) > ");
+		doUpdateRegistration( r, status, statuscancel);
+		
+		Helper.readString("\nCourse schedule updated... (Press Enter)");
+		
+	}
+	/**
+	 * @param status
+	 * @param statuscancel
+	 */
+	private static void doUpdateRegistration(Registration r, boolean status, boolean statuscancel) {
+		
+		// TODO Auto-generated method stub
+		r.setStatus(status);
+		r.setStatuscancel(statuscancel);
 		
 	}
 
+	
 	private static void searchRegistrationStatusByCourseID(ArrayList<Registration> registrationList) {
 		// TODO Auto-generated method stub
-		Helper.readString("\nTodo.. (Press Enter)");
+		if(registrationList.isEmpty()) {
+			Helper.readString("\nNo Registrations to search for.... ((Press Enter)");
+			return;
+		}
 		
+		int course_schedule_id = Helper.readInt("Enter Course ID to search for Registration Status > ");
+		
+		ArrayList<Registration> foundRegList = getRegistrationStatusFromListByID(registrationList, course_schedule_id);
+		
+		if(foundRegList.isEmpty()) {
+			Helper.readString("\nNo Registrations found from specified Course Schedule ID.... ((Press Enter)");
+			return;
+		}
+		
+		viewAllRegistrations(registrationList);
+		Helper.readString("\nNo Registrations search results displayed.... ((Press Enter)");
+				
 	}
+	private static ArrayList<Registration> getRegistrationStatusFromListByID(
+			ArrayList<Registration> registrationList, int course_schedule_id) {
+		ArrayList<Registration> foundRegList = new ArrayList<Registration>();
+		for (Registration r : registrationList) {
+			if (r.getCourse_schedule_id() == course_schedule_id) {
+				foundRegList.add(r);
+			}
+		}
+		return foundRegList;
+	}
+	
+	
 
 	private static void listAllCourseSchedulesListedByAMember(ArrayList<Registration> registrationList) {
 		// TODO Auto-generated method stub
