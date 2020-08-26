@@ -5,7 +5,7 @@ public class C206_CaseStudy {
 	public static void main(String[] args) {
 
 		ArrayList<Member> MemberList = new ArrayList<Member>();
-		ArrayList<Course> Course = new ArrayList<Course>();
+		ArrayList<Course> CourseList = new ArrayList<Course>();
 		ArrayList<CourseCategory> CourseCategoryList = new ArrayList<CourseCategory>();
 		ArrayList<CourseSchedule> courseScheduleList = new ArrayList<CourseSchedule>();
 		ArrayList<Registration> registrationList = new ArrayList<Registration>();
@@ -24,9 +24,9 @@ public class C206_CaseStudy {
 		CourseCategoryList.add(cc1);
 		CourseCategory cc2 = new CourseCategory("Science", "Science is the pursuit and application of knowledge and understanding of the natural and social world following a systematic methodology based on evidence.");
 		CourseCategoryList.add(cc2);
-		Course.add(new Course(1,"Addition","1+1",cc1,courseScheduleMathList,"From Jan to June",null));
-		Course.add(new Course(2,"Subtraction","1-1",cc1,courseScheduleMathList,"From Jan to June",null));
-		Course.add(new Course(3,"Science","Plants",cc2,courseScheduleScienceList,"From Feb to June",null));
+		CourseList.add(new Course(1,"Addition","1+1",cc1,courseScheduleMathList,"From Jan to June",null));
+		CourseList.add(new Course(2,"Subtraction","1-1",cc1,courseScheduleMathList,"From Jan to June",null));
+		CourseList.add(new Course(3,"Science","Plants",cc2,courseScheduleScienceList,"From Feb to June",null));
 		
 		int option = -1;
 		while (option != 0) {
@@ -64,22 +64,22 @@ public class C206_CaseStudy {
 				
 			} else if (option == 7) {
 				C206_CaseStudy.setHeader("ADD COURSE");	
-				C206_CaseStudy.addCourse(Course, CourseCategoryList);
+				C206_CaseStudy.addCourseUser(CourseList, CourseCategoryList);
 			} else if (option == 8) {
 				C206_CaseStudy.setHeader("VIEW ALL COURSES");	
-				C206_CaseStudy.viewCourseList(Course);
+				C206_CaseStudy.viewCourseList(CourseList);
 			} else if (option == 9) {
 				C206_CaseStudy.setHeader("DELETE COURSE");
-				C206_CaseStudy.deleteCourse(Course);
+				C206_CaseStudy.deleteCourseUser(CourseList);
 
 			} else if (option == 10) {
-				C206_CaseStudy.updateCourseDetails(Course,CourseCategoryList);
+				C206_CaseStudy.updateCourseDetails(CourseList,CourseCategoryList);
 			} else if (option == 11) {
 				C206_CaseStudy.setHeader("SEARCH COURSE BY CATEGORY NAME");
-				C206_CaseStudy.searchCourseByCategoryName(Course,CourseCategoryList);
+				C206_CaseStudy.searchCourseByCategoryName(CourseList,CourseCategoryList);
 			} else if (option == 12) {
 				C206_CaseStudy.setHeader("LIST ALL COURSE SCHEDULES FOR COURSE");
-				C206_CaseStudy.listAllCourseSchedulesForACourse(Course);
+				C206_CaseStudy.listAllCourseSchedulesForACourse(CourseList);
 
 			// Course Category Options (Daryl)
 				
@@ -333,10 +333,8 @@ public class C206_CaseStudy {
 
 	/* Course Options By yiqian*/
 	//add course
-	public static void addCourse(ArrayList<Course> courseList, ArrayList<CourseCategory> catList) {
-		boolean unique=false;
-		boolean categoryFound=false;
-		CourseCategory cc1 = null;
+	public static void addCourseUser(ArrayList<Course> courseList, ArrayList<CourseCategory> catList) {
+		
 		int code = Helper.readInt("Enter course code > ");
 		String name = Helper.readString("Enter course name > ");
 		String des = Helper.readString("Enter description > ");
@@ -344,36 +342,41 @@ public class C206_CaseStudy {
 		String duration = Helper.readString("Enter course duration > ");
 		String pre_requisite = Helper.readString("Enter pre_requisite course > ");
 		
+		//call addCourse
+		addCourse(code, name, des, cat, duration, pre_requisite, courseList, catList);
+	}
+	
+	public static void addCourse(int code, String name, String des, String cat, String duration, String pre_requisite, ArrayList<Course> courseList, ArrayList<CourseCategory> catList) {
+		boolean unique=false;
+		boolean categoryFound=false;
+		CourseCategory cc1 = null;
+		
 		//check whether course code entered is inside the course list
 		for(int i=0; i<courseList.size(); i++) {
 			if(courseList.get(i).getCourse_code()!=code) {
 				unique=true;
+				}
 			}
-		}
 		//check whether course category is inside the course list
 		for(int i=0; i<catList.size();i++) {
 			if(catList.get(i).getCategory().equalsIgnoreCase(cat)) {
 				categoryFound=true;
 				cc1=catList.get(i);
+				}
 			}
-		}
 		//if the course is unique and the category can be found
 		if(unique==true && categoryFound==true) {
 			Course co = new Course(code,name,des,cc1,duration,pre_requisite);
 			courseList.add(co);
-			System.out.println("Course added.");
-		}
+			System.out.println("Course added."); 
+			}
 		else if(categoryFound==false) {
-			System.out.println("Course's category not found.");
-		}
+			System.out.println("Course's category not found."); 
+			}
 		else if(unique==false) {
-			System.out.println("Course code not unique, cannot add!");
-		}
-	}
-	public static void addCourse(ArrayList<Course> courseList, Course co) {
-		courseList.add(co);
-		System.out.println("Course added.");
-	}	
+			System.out.println("Course code not unique, cannot add!"); 
+			}
+		}	
 
 	//view courseList
 	public static String getCourseList(ArrayList<Course> courseList) {
@@ -411,9 +414,14 @@ public class C206_CaseStudy {
 	}
 
 	//delete course
-	public static void deleteCourse(ArrayList<Course> courseList) {
-		Course toDelete = null;
+	public static void deleteCourseUser(ArrayList<Course> courseList) {
 		int code = Helper.readInt("Enter course code > ");
+		deleteCourse(code, courseList);
+		
+	}
+	
+	public static void deleteCourse(int code, ArrayList<Course> courseList) {
+		Course toDelete = null;
 		if(courseList==null) {
 			System.out.println("No course to delete!");
 		}
@@ -433,7 +441,7 @@ public class C206_CaseStudy {
 		}
 	}
 
-	private static void updateCourseDetails(ArrayList<Course> course, ArrayList<CourseCategory> catList) {
+	public static void updateCourseDetails(ArrayList<Course> course, ArrayList<CourseCategory> catList) {
 		boolean CourseFound=false;
 		Course object=null;
 		int editCourseCode = Helper.readInt("Enter the course code you want to edit >" );
@@ -458,18 +466,21 @@ public class C206_CaseStudy {
 			}
 			else if(option==2) {
 				CourseCategory found=null;
+				boolean f=false;
 				String cat = Helper.readString("Enter new course category > ");
 				for(int i=0; i<catList.size();i++) {
 					if(catList.get(i).getCategory().equalsIgnoreCase(cat)) {
 						found=catList.get(i);
-						object.setCourse_cat(found);
-						System.out.println("Course category updated!");
-					}
-					else {
-						System.out.println("Course category not found!");
+						f=true;
 					}
 				}
-				
+				if(f==true) {
+					object.setCourse_cat(found);
+					System.out.println("Course category updated!");
+				}
+				else {
+					System.out.println("Course category not found!");
+				}
 			}
 			else if(option==3) {
 				String des = Helper.readString("Enter new description > ");
