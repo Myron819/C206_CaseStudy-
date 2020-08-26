@@ -553,6 +553,7 @@ public class C206_CaseStudy {
 			if(course.get(i).getCourse_title().equalsIgnoreCase(courseSearch)) {
 				courseFound=course.get(i);
 				found=true;
+				
 			}
 		}
 		if(found==true) {

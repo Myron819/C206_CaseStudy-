@@ -16,8 +16,13 @@ public class C206_CaseStudyTest {
 	private Registration r1;
 	private Registration r2;
 
-	private Course c1;
-	private Course c2;
+	private Course c1; //yiqian
+	private Course c2; //yiqian
+	private Course c3; //yiqian
+	private CourseSchedule cs1; //yiqian
+	private CourseSchedule cs2; //yiqian
+	private ArrayList<CourseSchedule> csl1; //yiqian
+	private ArrayList<CourseSchedule> csl2; //yiqian
 
 	private CourseCategory cc1;
 	private CourseCategory cc2;
@@ -37,8 +42,13 @@ public class C206_CaseStudyTest {
 		r1 = new Registration("DBIS", 1234); //Boaz
 		r2 = new Registration("DBA", 4321); //Boaz
 
-		c1 = new Course(1,"Addition","1+1","Math","Tuesdays", true); //yiqian
-		c2 = new Course(2,"Subtraction","1-1","Math","Tuesdays", false); //yiqian
+		cs1 = new CourseSchedule(1,"Math",50,"1/1/2020","1/5/2020","12pm","2pm","Woodlands"); //yiqian
+		csl1.add(cs1); //yiqian
+		cs2 = new CourseSchedule(2,"Math",70,"3/1/2020","3/3/2020","5pm","6pm","Bukit Batok" ); //yiqian
+		csl2.add(cs2); //yiqian
+		c1 = new Course(1,"Addition","1+1",cc1,csl1,"From Jan to June",null); //yiqian
+		c2 = new Course(2,"Subtraction","1-1",cc1,csl1,"From Jan to June",null); //yiqian
+		c3 = new Course(3,"Science","Plants",cc2,csl2,"From Feb to June",null); //yiqian
 
 		cc1 = new CourseCategory("Political Science", "Something about politics"); //daryl
 		cc2 = new CourseCategory("English", "Something about england"); //daryl
@@ -181,7 +191,6 @@ public class C206_CaseStudyTest {
 
 	@Test
 	public void getCourseList() {
-
 		assertNotNull("Test if there is valid course arraylist to add to", courseList);
 
 		String allCourses= C206_CaseStudy.getCourseList(courseList);
@@ -203,10 +212,33 @@ public class C206_CaseStudyTest {
 	@Test
 	public void deleteCourse() {
 		assertNotNull("Test if there are courses in the course arraylist", courseList);
+		
 		C206_CaseStudy.deleteCourse(courseList);
 		assertEquals("Test that course arraylist size is 0",0,courseList.size());
+		
 		C206_CaseStudy.deleteCourse(courseList);
 		assertEquals("Test that course arraylist size is 1",1,courseList.size());
+	}
+	
+	@Test
+	public void updateCourse() {
+		assertNotNull("Test if there are courses in the course arraylist", courseList);
+		
+		
+	}
+	
+	@Test
+	public void searchCourseByCategoryName() {
+		assertNotNull("Test if there are courses in the course arraylist", courseList);
+		
+		assertNotNull("Test if there are courses in the course category arraylist", categoryList);
+		
+	}
+	
+	@Test
+	public void listAllCourseSchedulesForACourse() {
+		assertNotNull("Test if there are courses in the course arraylist", courseList);
+		
 	}
 
 	//daryl
