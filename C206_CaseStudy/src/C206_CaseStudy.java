@@ -73,13 +73,13 @@ public class C206_CaseStudy {
 				C206_CaseStudy.deleteCourseUser(CourseList);
 
 			} else if (option == 10) {
-				C206_CaseStudy.updateCourseDetails(CourseList,CourseCategoryList);
+				C206_CaseStudy.updateCourseDetailsUser(CourseList,CourseCategoryList);
 			} else if (option == 11) {
 				C206_CaseStudy.setHeader("SEARCH COURSE BY CATEGORY NAME");
-				C206_CaseStudy.searchCourseByCategoryName(CourseList,CourseCategoryList);
+				C206_CaseStudy.searchCourseByCategoryNameUser(CourseList,CourseCategoryList);
 			} else if (option == 12) {
 				C206_CaseStudy.setHeader("LIST ALL COURSE SCHEDULES FOR COURSE");
-				C206_CaseStudy.listAllCourseSchedulesForACourse(CourseList);
+				C206_CaseStudy.listAllCourseSchedulesForACourseUser(CourseList);
 
 			// Course Category Options (Daryl)
 				
@@ -332,31 +332,35 @@ public class C206_CaseStudy {
 	}
 
 	/* Course Options By yiqian*/
-	//add course
+	//add course user input
 	public static void addCourseUser(ArrayList<Course> courseList, ArrayList<CourseCategory> catList) {
-		
 		int code = Helper.readInt("Enter course code > ");
 		String name = Helper.readString("Enter course name > ");
 		String des = Helper.readString("Enter description > ");
 		String cat = Helper.readString("Enter course category > ");
 		String duration = Helper.readString("Enter course duration > ");
 		String pre_requisite = Helper.readString("Enter pre_requisite course > ");
-		
 		//call addCourse
 		addCourse(code, name, des, cat, duration, pre_requisite, courseList, catList);
 	}
-	
+	//add course
 	public static void addCourse(int code, String name, String des, String cat, String duration, String pre_requisite, ArrayList<Course> courseList, ArrayList<CourseCategory> catList) {
 		boolean unique=false;
 		boolean categoryFound=false;
 		CourseCategory cc1 = null;
 		
-		//check whether course code entered is inside the course list
-		for(int i=0; i<courseList.size(); i++) {
-			if(courseList.get(i).getCourse_code()!=code) {
-				unique=true;
+		if(courseList.size()==0) {
+			unique=true;
+		}
+		else {
+			//check whether course code entered is inside the course list
+			for(int i=0; i<courseList.size(); i++) {
+				if(courseList.get(i).getCourse_code()!=code) {
+					unique=true;
+					}
 				}
-			}
+		}
+		
 		//check whether course category is inside the course list
 		for(int i=0; i<catList.size();i++) {
 			if(catList.get(i).getCategory().equalsIgnoreCase(cat)) {
@@ -368,7 +372,8 @@ public class C206_CaseStudy {
 		if(unique==true && categoryFound==true) {
 			Course co = new Course(code,name,des,cc1,duration,pre_requisite);
 			courseList.add(co);
-			System.out.println("Course added."); 
+			System.out.println("Course added.");
+			System.out.println(co.toString());
 			}
 		else if(categoryFound==false) {
 			System.out.println("Course's category not found."); 
@@ -413,13 +418,13 @@ public class C206_CaseStudy {
 		}
 	}
 
-	//delete course
+	//delete course user inputs
 	public static void deleteCourseUser(ArrayList<Course> courseList) {
 		int code = Helper.readInt("Enter course code > ");
 		deleteCourse(code, courseList);
 		
 	}
-	
+	//delete course
 	public static void deleteCourse(int code, ArrayList<Course> courseList) {
 		Course toDelete = null;
 		if(courseList==null) {
@@ -440,17 +445,23 @@ public class C206_CaseStudy {
 			}
 		}
 	}
-
-	public static void updateCourseDetails(ArrayList<Course> course, ArrayList<CourseCategory> catList) {
+	
+	//update course user input
+	private static void updateCourseDetailsUser(ArrayList<Course> courseList, ArrayList<CourseCategory> catList) {
+		int editCourseCode = Helper.readInt("Enter the course code you want to edit >" );
+		updateCourseDetails(editCourseCode, courseList, catList);
+	}
+	
+	//update course
+	public static void updateCourseDetails(int editCourseCode, ArrayList<Course> courseList, ArrayList<CourseCategory> catList) {
 		boolean CourseFound=false;
 		Course object=null;
-		int editCourseCode = Helper.readInt("Enter the course code you want to edit >" );
-		
+
 		//find whether the course code entered is inside the list
-		for(int i=0; i<course.size();i++) {
-			if(course.get(i).getCourse_code()==editCourseCode) {
+		for(int i=0; i<courseList.size();i++) {
+			if(courseList.get(i).getCourse_code()==editCourseCode) {
 				CourseFound=true;
-				object=course.get(i);
+				object=courseList.get(i);
 			}
 		}
 		if(CourseFound==true) {
@@ -537,11 +548,16 @@ public class C206_CaseStudy {
 		Helper.line(80, "-");
 	}
 	
+	//search course user input
+	private static void searchCourseByCategoryNameUser(ArrayList<Course> courseList, ArrayList<CourseCategory> catList) {
+		String cat = Helper.readString("Enter the course category you want to search for >");
+		viewCourseList(searchCourseByCategoryName(cat, courseList, catList));
+	}
+	
 	//search course by category name
-	private static void searchCourseByCategoryName(ArrayList<Course> course, ArrayList<CourseCategory> catList) {
+	public static ArrayList<Course> searchCourseByCategoryName(String cat, ArrayList<Course> courseList, ArrayList<CourseCategory> catList) {
 		boolean found=false;
 		ArrayList<Course> courseFound = new ArrayList<Course>();
-		String cat = Helper.readString("Enter the course category you want to search for >");
 		// find whether the category input is inside the category list
 		for(int i=0; i<catList.size();i++) {
 			if(catList.get(i).getCategory().equalsIgnoreCase(cat)) {
@@ -549,24 +565,32 @@ public class C206_CaseStudy {
 			}
 		}
 		if(found==true) {
-			for(int i=0;i<course.size();i++) {
-				if(course.get(i).getCourse_cat().getCategory().equalsIgnoreCase(cat)) {
-					courseFound.add(course.get(i));
+			for(int i=0;i<courseList.size();i++) {
+				if(courseList.get(i).getCourse_cat().getCategory().equalsIgnoreCase(cat)) {
+					courseFound.add(courseList.get(i));
 				}
 			}
-			viewCourseList(courseFound);
+//			viewCourseList(courseFound);
+			 return courseFound;
 		}
+		
+		return courseFound;
 	}
 	
 	//list all course schedule
-	private static void listAllCourseSchedulesForACourse(ArrayList<Course> course) {
+	public static void listAllCourseSchedulesForACourseUser(ArrayList<Course> courseList) {
+		String courseSearch = Helper.readString("Enter the course you want to search for >");
+		listAllCourseSchedulesForACourse(courseSearch, courseList);
+	}
+	
+	//list all course schedule
+	public static void listAllCourseSchedulesForACourse(String courseSearch, ArrayList<Course> courseList) {
 		boolean found=false;
 		Course courseFound=null;
-		String courseSearch = Helper.readString("Enter the course you want to search for >");
 		// find whether the course input is inside the course list
-		for(int i=0; i<course.size();i++) {
-			if(course.get(i).getCourse_title().equalsIgnoreCase(courseSearch)) {
-				courseFound=course.get(i);
+		for(int i=0; i<courseList.size();i++) {
+			if(courseList.get(i).getCourse_title().equalsIgnoreCase(courseSearch)) {
+				courseFound=courseList.get(i);
 				found=true;
 				
 			}
@@ -1009,7 +1033,7 @@ public class C206_CaseStudy {
 				foundRegList = registrationList.get(i);
 				found = true;
 			}
-		}
+		} 
 		if(found == true) {
 			if(foundRegList.getCourse() !=null) {
 				ArrayList<Registration> getSchedule = foundRegList.getCourse();	
