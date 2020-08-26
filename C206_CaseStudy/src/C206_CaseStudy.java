@@ -580,11 +580,17 @@ public class C206_CaseStudy {
 	//list all course schedule
 	public static void listAllCourseSchedulesForACourseUser(ArrayList<Course> courseList) {
 		String courseSearch = Helper.readString("Enter the course you want to search for >");
-		listAllCourseSchedulesForACourse(courseSearch, courseList);
+		ArrayList<CourseSchedule> result = listAllCourseSchedulesForACourse(courseSearch, courseList);
+		String output = String.format("%-15s %-15s %-15s %-20s %-20s %-22s %-15s %-15s\n", "SCHEDULE ID", "TITLE", "COURSE", "START DATE", "END DATE", "START TIMING", "END TIMING", "LOCATION");
+		for(int i=0; i<result.size();i++) {
+			output += String.format("%-15d %-15s %-15s %-20s %-20s %-22s %-15s %-15s\n", result.get(i).getCourse_schedule_id(), result.get(i).getCourse(), result.get(i).getPrice(), result.get(i).getStart_date(), result.get(i).getEnd_date(), result.get(i).getStart_time(), result.get(i).getEnd_time(), result.get(i).getLocation());
+		}
+		System.out.println(output);
+
 	}
 	
 	//list all course schedule
-	public static void listAllCourseSchedulesForACourse(String courseSearch, ArrayList<Course> courseList) {
+	public static ArrayList<CourseSchedule> listAllCourseSchedulesForACourse(String courseSearch, ArrayList<Course> courseList) {
 		boolean found=false;
 		Course courseFound=null;
 		// find whether the course input is inside the course list
@@ -598,13 +604,10 @@ public class C206_CaseStudy {
 		if(found==true) {
 			if(courseFound.getCourse_schedule()!=null) {
 				ArrayList<CourseSchedule> scheduleGet = courseFound.getCourse_schedule();
-				String output = String.format("%-15s %-15s %-15s %-20s %-20s %-22s %-15s %-15s\n", "SCHEDULE ID", "TITLE", "COURSE", "START DATE", "END DATE", "START TIMING", "END TIMING", "LOCATION");
-				for(int i=0; i<scheduleGet.size();i++) {
-					output += String.format("%-15d %-15s %-15s %-20s %-20s %-22s %-15s %-15s\n", scheduleGet.get(i).getCourse_schedule_id(), scheduleGet.get(i).getCourse(), scheduleGet.get(i).getPrice(), scheduleGet.get(i).getStart_date(), scheduleGet.get(i).getEnd_date(), scheduleGet.get(i).getStart_time(), scheduleGet.get(i).getEnd_time(), scheduleGet.get(i).getLocation());
-				}
-				System.out.println(output);
+				return scheduleGet;
 			}
 		}
+		return null;
 	}
 
 	/* Course Category Options Daryl*/
