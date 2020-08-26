@@ -525,7 +525,8 @@ public class C206_CaseStudy {
 				);
 		Helper.line(80, "-");
 	}
-
+	
+	//search course by category name
 	private static void searchCourseByCategoryName(ArrayList<Course> course, ArrayList<CourseCategory> catList) {
 		boolean found=false;
 		ArrayList<Course> courseFound = new ArrayList<Course>();
@@ -545,7 +546,8 @@ public class C206_CaseStudy {
 			viewCourseList(courseFound);
 		}
 	}
-
+	
+	//list all course schedule
 	private static void listAllCourseSchedulesForACourse(ArrayList<Course> course) {
 		boolean found=false;
 		Course courseFound=null;
@@ -561,16 +563,14 @@ public class C206_CaseStudy {
 		if(found==true) {
 			if(courseFound.getCourse_schedule()!=null) {
 				ArrayList<CourseSchedule> scheduleGet = courseFound.getCourse_schedule();
+				String output = String.format("%-15s %-15s %-15s %-20s %-20s %-22s %-15s %-15s\n", "SCHEDULE ID", "TITLE", "COURSE", "START DATE", "END DATE", "START TIMING", "END TIMING", "LOCATION");
 				for(int i=0; i<scheduleGet.size();i++) {
-					String output = String.format("%-10s %-15s %-15s %-20s %-20s %-22s %-10s\n", "CODE", "TITLE", "CATEGORY", "DESCRIPTION", "DURATION", "PRE-REQUISITE COURSE", "AVAILABLE");
-					System.out.println("");
+					output += String.format("%-15d %-15s %-15s %-20s %-20s %-22s %-15s %-15s\n", scheduleGet.get(i).getCourse_schedule_id(), scheduleGet.get(i).getCourse(), scheduleGet.get(i).getPrice(), scheduleGet.get(i).getStart_date(), scheduleGet.get(i).getEnd_date(), scheduleGet.get(i).getStart_time(), scheduleGet.get(i).getEnd_time(), scheduleGet.get(i).getLocation());
 				}
+				System.out.println(output);
 			}
 		}
-		
 	}
-
-
 
 	/* Course Category Options Daryl*/
 
