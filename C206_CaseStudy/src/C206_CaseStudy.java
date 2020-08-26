@@ -10,10 +10,10 @@ public class C206_CaseStudy {
 		ArrayList<CourseSchedule> courseScheduleList = new ArrayList<CourseSchedule>();
 		ArrayList<Registration> registrationList = new ArrayList<Registration>();
 		
-		MemberList.add(new Member("John","Male",84440720,"John@gmail.com","22/07/2020","Singapore","pass1234"));
-		
 		ArrayList<CourseSchedule> courseScheduleMathList = new ArrayList<CourseSchedule>();
 		ArrayList<CourseSchedule> courseScheduleScienceList = new ArrayList<CourseSchedule>();
+		
+		MemberList.add(new Member("John","Male",84440720,"John@gmail.com","22/07/2020","Singapore","pass1234"));
 		CourseSchedule cs1 = new CourseSchedule(1,"Math",50,"1/1/2020","1/5/2020","12pm","2pm","Woodlands");
 		courseScheduleMathList.add(cs1);
 		CourseSchedule cs2 = new CourseSchedule(2,"Math",70,"3/1/2020","3/3/2020","5pm","6pm","Bukit Batok" );
@@ -27,6 +27,10 @@ public class C206_CaseStudy {
 		CourseList.add(new Course(1,"Addition","1+1",cc1,courseScheduleMathList,"From Jan to June",null));
 		CourseList.add(new Course(2,"Subtraction","1-1",cc1,courseScheduleMathList,"From Jan to June",null));
 		CourseList.add(new Course(3,"Science","Plants",cc2,courseScheduleScienceList,"From Feb to June",null));
+		courseScheduleList.add(new CourseSchedule(1, "Course1", 1, "1/1/1", "2/1/1", "01:00", "01:01", "Location1"));
+		courseScheduleList.add(new CourseSchedule(2, "Course2", 2, "2/2/2", "3/2/2", "02:00", "02:01", "Location2"));
+		courseScheduleList.add(new CourseSchedule(3, "Course3", 3, "3/3/3", "4/2/2", "03:00", "03:01", "Location3"));
+		courseScheduleList.add(new CourseSchedule(4, "Course4", 4, "4/4/4", "5/2/2", "04:00", "04:01", "Location4"));
 		
 		int option = -1;
 		while (option != 0) {
@@ -764,28 +768,6 @@ public class C206_CaseStudy {
 		courseScheduleList.remove(cs);
 	}
 
-	// CourseSchedule Other - 1
-	public static CourseSchedule getCoursescheduleFromListByID(ArrayList<CourseSchedule> courseScheduleList, int id) {
-		for(CourseSchedule cs : courseScheduleList) 
-			if(cs.getCourse_schedule_id() == id)
-				return cs;		
-		return null;
-	}	
-
-	// CourseSchedule Other - 2
-	public static void printAllCourseschedules(ArrayList<CourseSchedule> courseScheduleList) {
-		String output="";
-		output += String.format("%-10s %-30s %-20s %-20s %-20s %-20s %-20s %-20s\n", "ID", "FOR COURSE", "PRICE", "START DATE", "END DATE", "START TIME", "END TIME", "LOCATION");
-
-		for(int i=0; i<courseScheduleList.size(); i++) {
-			output += String.format("%-10d %-30s %-20d %-20s %-20s %-20s %-20s %-20s\n", courseScheduleList.get(i).getCourse_schedule_id(), courseScheduleList.get(i).getCourse(), courseScheduleList.get(i).getPrice(), courseScheduleList.get(i).getStart_date(), courseScheduleList.get(i).getEnd_date(), courseScheduleList.get(i).getStart_time(), courseScheduleList.get(i).getEnd_time(), courseScheduleList.get(i).getLocation());
-		}
-
-		System.out.println(output);
-	}
-
-	// -----------
-
 	// Update Course Schedule 1/2
 	private static void updateCourseScheduleDetails(ArrayList<CourseSchedule> courseScheduleList) {
 		if(courseScheduleList.size() == 0) {
@@ -854,7 +836,34 @@ public class C206_CaseStudy {
 
 	}
 
-	// Course Schedule - Other 8
+	// List all members registered for a schedule
+	private static void listAllMembersRegisteredForASchedule(ArrayList<CourseSchedule> courseScheduleList) {
+
+		Helper.readString("\nAll members registered for a Course Schedule listed... (Press Enter)");
+
+	}
+
+	// CourseSchedule - Other 1
+	public static CourseSchedule getCoursescheduleFromListByID(ArrayList<CourseSchedule> courseScheduleList, int id) {
+		for(CourseSchedule cs : courseScheduleList) 
+			if(cs.getCourse_schedule_id() == id)
+				return cs;		
+		return null;
+	}	
+
+	// CourseSchedule - Other 2
+	public static void printAllCourseschedules(ArrayList<CourseSchedule> courseScheduleList) {
+		String output="";
+		output += String.format("%-10s %-30s %-20s %-20s %-20s %-20s %-20s %-20s\n", "ID", "FOR COURSE", "PRICE", "START DATE", "END DATE", "START TIME", "END TIME", "LOCATION");
+
+		for(int i=0; i<courseScheduleList.size(); i++) {
+			output += String.format("%-10d %-30s %-20d %-20s %-20s %-20s %-20s %-20s\n", courseScheduleList.get(i).getCourse_schedule_id(), courseScheduleList.get(i).getCourse(), courseScheduleList.get(i).getPrice(), courseScheduleList.get(i).getStart_date(), courseScheduleList.get(i).getEnd_date(), courseScheduleList.get(i).getStart_time(), courseScheduleList.get(i).getEnd_time(), courseScheduleList.get(i).getLocation());
+		}
+
+		System.out.println(output);
+	}
+
+	// Course Schedule - Other 3
 	private static ArrayList<CourseSchedule> getCourseschedulesFromListByPrice(
 			ArrayList<CourseSchedule> courseScheduleList, int price) {
 		ArrayList<CourseSchedule> foundCsList = new ArrayList<CourseSchedule>();
@@ -864,12 +873,6 @@ public class C206_CaseStudy {
 			}
 		}
 		return foundCsList;
-	}
-
-	private static void listAllMembersRegisteredForASchedule(ArrayList<CourseSchedule> courseScheduleList) {
-
-		Helper.readString("\nAll members registered for a Course Schedule listed... (Press Enter)");
-
 	}
 	
 
