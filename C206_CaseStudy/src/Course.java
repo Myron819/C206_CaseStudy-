@@ -30,7 +30,6 @@ public class Course {
 		this.course_duration = course_duration;
 		this.pre_requisite_course = pre_requisite_course;
 		this.isAvailable = true;
-		System.out.println(this.toString());
 	}
 	
 	

@@ -73,7 +73,7 @@ public class C206_CaseStudy {
 				C206_CaseStudy.deleteCourseUser(CourseList);
 
 			} else if (option == 10) {
-				C206_CaseStudy.updateCourseDetailsUser(CourseList,CourseCategoryList);
+				C206_CaseStudy.updateCourseDetails(CourseList,CourseCategoryList);
 			} else if (option == 11) {
 				C206_CaseStudy.setHeader("SEARCH COURSE BY CATEGORY NAME");
 				C206_CaseStudy.searchCourseByCategoryNameUser(CourseList,CourseCategoryList);
@@ -446,17 +446,11 @@ public class C206_CaseStudy {
 		}
 	}
 	
-	//update course user input
-	private static void updateCourseDetailsUser(ArrayList<Course> courseList, ArrayList<CourseCategory> catList) {
-		int editCourseCode = Helper.readInt("Enter the course code you want to edit >" );
-		updateCourseDetails(editCourseCode, courseList, catList);
-	}
-	
 	//update course
-	public static void updateCourseDetails(int editCourseCode, ArrayList<Course> courseList, ArrayList<CourseCategory> catList) {
+	public static void updateCourseDetails(ArrayList<Course> courseList, ArrayList<CourseCategory> catList) {
 		boolean CourseFound=false;
 		Course object=null;
-
+		int editCourseCode = Helper.readInt("Enter the course code you want to edit >" );
 		//find whether the course code entered is inside the list
 		for(int i=0; i<courseList.size();i++) {
 			if(courseList.get(i).getCourse_code()==editCourseCode) {
