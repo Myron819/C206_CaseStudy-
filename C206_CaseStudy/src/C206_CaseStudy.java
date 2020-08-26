@@ -706,7 +706,7 @@ public class C206_CaseStudy {
 
 	// View All Course Schedules
 	public static void viewAllCourseSchedules(ArrayList<CourseSchedule> courseScheduleList) {
-		if (courseScheduleList.size() == 0) {
+		if (courseScheduleList.isEmpty()) {
 			Helper.readString("\nNo course schedules to display... (Press Enter)");
 			return;
 		}
@@ -762,32 +762,119 @@ public class C206_CaseStudy {
 
 		System.out.println(output);
 	}
-
+	
+	// -----------
+	
+	// Update Course Schedule 1/2
 	private static void updateCourseScheduleDetails(ArrayList<CourseSchedule> courseScheduleList) {
-		// TODO Auto-generated method stub
-		Helper.readString("\nTodo.. (Press Enter)");
+		if(courseScheduleList.size() == 0) {
+			Helper.readString("\nNo course schedules to update.... (Press Enter)");
+			return;
+		}
+		printAllCourseschedules(courseScheduleList);
+		
+		int id = Helper.readInt("Enter ID of course schedule to update > ");
+		
+		// Get all course schedules from list by
+		CourseSchedule cs = getCoursescheduleFromListByID(courseScheduleList, id);
+		if (cs == null) {
+			Helper.readString("\nCourse schedule not found... (Press Enter)");
+			return;
+		}
+		
+		int newID = Helper.readInt("Enter new Course Schedule ID > ");
+		String course = Helper.readString("Enter Course that the Schedule is for > ");
+		int price = Helper.readInt("Enter Course Schedule Price > ");
+		String start_date = Helper.readString("Enter Course Schedule Start Date> ");
+		String end_date = Helper.readString("Enter Course Schedule End Date> ");
+		String start_time = Helper.readString("Enter Course Schedule Start Time > ");
+		String end_time= Helper.readString("Enter Course Schedule End Time> ");
+		String location = Helper.readString("Enter Course Schedule Location > ");
+		doUpdateCourseSchedule(courseScheduleList, cs, newID, course, price, start_date, end_date, start_time, end_time, location);
+		
+		Helper.readString("\nCourse schedule updated... (Press Enter)");
+		
+	}
+	
+	// Update Course Schedule 2/2
+	public static void doUpdateCourseSchedule(ArrayList<CourseSchedule> courseScheduleList, CourseSchedule cs, int newID,
+			String course, int price, String start_date, String end_date, String start_time, String end_time, String location) {
+		cs.setCourse_schedule_id(newID);
+		cs.setCourse(course);
+		cs.setPrice(price);
+		cs.setStart_date(start_date);
+		cs.setEnd_date(end_date);
+		cs.setStart_time(start_time);
+		cs.setEnd_time(end_time);
+		cs.setLocation(location);
+	}
+
+	// Search Course Schedule by Price
+	private static void searchCourseScheduleByPrice(ArrayList<CourseSchedule> courseScheduleList) {
+		// Check if list is empty
+		if(courseScheduleList.isEmpty()) {
+			Helper.readString("\nNo course schedules to search.... (Press Enter)");
+			return;
+		}
+		
+		int price = Helper.readInt("Enter Price to Search Course Schedules By > ");
+		
+		// Get all course schedules of specified price from list and put into new list
+		ArrayList<CourseSchedule> foundCsList = getCourseschedulesFromListByPrice(courseScheduleList, price);
+		
+		// Check if new list is empty
+		if (foundCsList.isEmpty()) {
+			Helper.readString("No Course Schedules of specified price found.. (Press Enter)");
+			return;
+		}
+		
+		printAllCourseschedules(foundCsList);
+		Helper.readString("\nCourse schedule search results displayed.. (Press Enter)");
 		
 	}
 
-	private static void searchCourseScheduleByPrice(ArrayList<CourseSchedule> courseScheduleList) {
-		// TODO Auto-generated method stub
-		Helper.readString("\nTodo.. (Press Enter)");
-		
+	// Course Schedule - Other 8
+	private static ArrayList<CourseSchedule> getCourseschedulesFromListByPrice(
+			ArrayList<CourseSchedule> courseScheduleList, int price) {
+		ArrayList<CourseSchedule> foundCsList = new ArrayList<CourseSchedule>();
+		for (CourseSchedule cs : courseScheduleList) {
+			if (cs.getPrice() == price) {
+				foundCsList.add(cs);
+			}
+		}
+		return foundCsList;
 	}
 
 	private static void listAllMembersRegisteredForASchedule(ArrayList<CourseSchedule> courseScheduleList) {
-		// TODO Auto-generated method stub
-		Helper.readString("\nTodo.. (Press Enter)");
+		
+		
+		
+		
+		
+		
+		
+		Helper.readString("\nAll members registered for a Course Schedule listed... (Press Enter)");
 		
 	}
+	
 
 	/* Registration Options by Boaz*/
 
 	public static Registration inputRegistration() {
-		int reg_id = Helper.readInt("Enter Registration ID > ");
-		String course_name = Helper.readString("Enter Course to register for > ");
+		int course_schedule_id = Helper.readInt("Enter course_schedule_id > ");
+		String course = Helper.readString("Enter Course > ");
+		int price = Helper.readInt("Enter price > ");
+		String start_date = Helper.readString("Enter start_date > ");
+		String end_date = Helper.readString("Enter end_date > ");
+		String start_time = Helper.readString("Enter start_time > ");
+		String end_time = Helper.readString("Enter end_time > ");
+		String location = Helper.readString("Enter location > ");
+		int reg_id = Helper.readInt("Enter reg_id > ");
+		String reg_date = Helper.readString("Enter reg_date > ");
+		boolean status = Helper.readBoolean("Enter status (true/ false) > ");
+		boolean statuscancel = Helper.readBoolean("Enter statuscancel (true/ false) > ");
 
-		Registration rc = new Registration(course_name, reg_id);
+		Registration rc = new Registration(course_schedule_id, course, price, start_date, end_date, start_time, end_time, location, course_schedule_id, course, price, start_date, end_date, start_time, end_time, location, reg_id, reg_date, status, statuscancel);
 		return rc;
 	}
 
