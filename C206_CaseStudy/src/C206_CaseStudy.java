@@ -695,7 +695,7 @@ public class C206_CaseStudy {
 
 	// View All Course Schedules
 	public static void viewAllCourseSchedules(ArrayList<CourseSchedule> courseScheduleList) {
-		if (courseScheduleList.size() == 0) {
+		if (courseScheduleList.isEmpty()) {
 			Helper.readString("\nNo course schedules to display... (Press Enter)");
 			return;
 		}
@@ -751,24 +751,99 @@ public class C206_CaseStudy {
 
 		System.out.println(output);
 	}
-
+	
+	// -----------
+	
+	// Update Course Schedule 1/2
 	private static void updateCourseScheduleDetails(ArrayList<CourseSchedule> courseScheduleList) {
-		// TODO Auto-generated method stub
-		Helper.readString("\nTodo.. (Press Enter)");
+		if(courseScheduleList.size() == 0) {
+			Helper.readString("\nNo course schedules to update.... (Press Enter)");
+			return;
+		}
+		printAllCourseschedules(courseScheduleList);
+		
+		int id = Helper.readInt("Enter ID of course schedule to update > ");
+		CourseSchedule cs = getCoursescheduleFromListByID(courseScheduleList, id);
+		if (cs == null) {
+			Helper.readString("\nCourse schedule not found... (Press Enter)");
+			return;
+		}
+		
+		int newID = Helper.readInt("Enter new Course Schedule ID > ");
+		String course = Helper.readString("Enter Course that the Schedule is for > ");
+		int price = Helper.readInt("Enter Course Schedule Price > ");
+		String start_date = Helper.readString("Enter Course Schedule Start Date> ");
+		String end_date = Helper.readString("Enter Course Schedule End Date> ");
+		String start_time = Helper.readString("Enter Course Schedule Start Time > ");
+		String end_time= Helper.readString("Enter Course Schedule End Time> ");
+		String location = Helper.readString("Enter Course Schedule Location > ");
+		doUpdateCourseSchedule(courseScheduleList, cs, newID, course, price, start_date, end_date, start_time, end_time, location);
+		
+		Helper.readString("\nCourse schedule updated... (Press Enter)");
+		
+	}
+	
+	// Update Course Schedule 2/2
+	public static void doUpdateCourseSchedule(ArrayList<CourseSchedule> courseScheduleList, CourseSchedule cs, int newID,
+			String course, int price, String start_date, String end_date, String start_time, String end_time, String location) {
+		cs.setCourse_schedule_id(newID);
+		cs.setCourse(course);
+		cs.setPrice(price);
+		cs.setStart_date(start_date);
+		cs.setEnd_date(end_date);
+		cs.setStart_time(start_time);
+		cs.setEnd_time(end_time);
+		cs.setLocation(location);
+	}
+
+	// Search Course Schedule by Price 1/2
+	private static void searchCourseScheduleByPrice(ArrayList<CourseSchedule> courseScheduleList) {
+		// Check if list is empty
+		if(courseScheduleList.isEmpty()) {
+			Helper.readString("\nNo course schedules to search.... (Press Enter)");
+			return;
+		}
+		
+		int price = Helper.readInt("Enter Price to Search Course Schedules By > ");
+		
+		// Get all course schedules of specified price from list and put into new list
+		ArrayList<CourseSchedule> foundCsList = getListOfCourseschedulesByPrice(courseScheduleList, price);
+		
+		// Check if new list is empty
+		if (foundCsList.isEmpty()) {
+			Helper.readString("No Course Schedules of specified price found.. (Press Enter)");
+			return;
+		}
+		
+		printAllCourseschedules(foundCsList);
+		Helper.readString("\nCourse schedule search results displayed.. (Press Enter)");
 		
 	}
 
-	private static void searchCourseScheduleByPrice(ArrayList<CourseSchedule> courseScheduleList) {
-		// TODO Auto-generated method stub
-		Helper.readString("\nTodo.. (Press Enter)");
-		
+	// Search Course Schedule by Price 2/2
+	private static ArrayList<CourseSchedule> getListOfCourseschedulesByPrice(
+			ArrayList<CourseSchedule> courseScheduleList, int price) {
+		ArrayList<CourseSchedule> foundCsList = new ArrayList<CourseSchedule>();
+		for (CourseSchedule cs : courseScheduleList) {
+			if (cs.getPrice() == price) {
+				foundCsList.add(cs);
+			}
+		}
+		return foundCsList;
 	}
 
 	private static void listAllMembersRegisteredForASchedule(ArrayList<CourseSchedule> courseScheduleList) {
 		// TODO Auto-generated method stub
-		Helper.readString("\nTodo.. (Press Enter)");
+		
+		
+		
+		
+		
+		
+		Helper.readString("\nAll members registered for a Course Schedule listed... (Press Enter)");
 		
 	}
+	
 
 	/* Registration Options by Boaz*/
 
