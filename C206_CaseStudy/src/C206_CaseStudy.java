@@ -1066,15 +1066,15 @@ public class C206_CaseStudy {
 			}
 		} 
 		if(found == true) {
-			if(foundRegList.getCourse() !=null) {
-				ArrayList<Registration> getSchedule = foundRegList.getCourse();	
+			if(foundRegList.getMemberEmail() !=null) {
+				ArrayList<Registration> getSchedule = new ArrayList<Registration>();	
 				String output = String.format("%-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-30s\n"
 						,"COURSE SCHEDULE ID", "COURSE ", "PRICE", "START DATE", "END DATE", "START TIME"
 						, "END TIME", "LOCATION", "REGISTRATION ID", "REGISTRATION DATE", "STATUS", "STATUS CANCEL");
 				
 				for(int i = 0; i < getSchedule.size(); i++) {
 					output += String.format("%-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-30s\n",
-							getSchedule.get(i).getCourse_schedule_id(), getSchedule.get(i).getCourse() , 
+							getSchedule.get(i).getCourse_schedule_id(), getSchedule.get(i).getMemberEmail() , 
 							getSchedule.get(i).getPrice(), getSchedule.get(i).getStart_date(),
 							getSchedule.get(i).getEnd_date(), getSchedule.get(i).getStart_time(),
 							getSchedule.get(i).getEnd_time(), getSchedule.get(i).getLocation(),
