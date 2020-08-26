@@ -737,7 +737,7 @@ public class C206_CaseStudy {
 		Helper.readString("\nCourse schedule deleted successfully... (Press Enter)");
 
 	}
-	
+
 	// Delete Course Schedule 2/2
 	public static void doDeleteCourseschedule(ArrayList<CourseSchedule> courseScheduleList, CourseSchedule cs) {
 		courseScheduleList.remove(cs);
@@ -762,9 +762,9 @@ public class C206_CaseStudy {
 
 		System.out.println(output);
 	}
-	
+
 	// -----------
-	
+
 	// Update Course Schedule 1/2
 	private static void updateCourseScheduleDetails(ArrayList<CourseSchedule> courseScheduleList) {
 		if(courseScheduleList.size() == 0) {
@@ -772,16 +772,16 @@ public class C206_CaseStudy {
 			return;
 		}
 		printAllCourseschedules(courseScheduleList);
-		
+
 		int id = Helper.readInt("Enter ID of course schedule to update > ");
-		
-		// Get all course schedules from list by
+
+		// Get a course schedule from list by ID
 		CourseSchedule cs = getCoursescheduleFromListByID(courseScheduleList, id);
 		if (cs == null) {
 			Helper.readString("\nCourse schedule not found... (Press Enter)");
 			return;
 		}
-		
+
 		int newID = Helper.readInt("Enter new Course Schedule ID > ");
 		String course = Helper.readString("Enter Course that the Schedule is for > ");
 		int price = Helper.readInt("Enter Course Schedule Price > ");
@@ -791,11 +791,11 @@ public class C206_CaseStudy {
 		String end_time= Helper.readString("Enter Course Schedule End Time> ");
 		String location = Helper.readString("Enter Course Schedule Location > ");
 		doUpdateCourseSchedule(courseScheduleList, cs, newID, course, price, start_date, end_date, start_time, end_time, location);
-		
+
 		Helper.readString("\nCourse schedule updated... (Press Enter)");
-		
+
 	}
-	
+
 	// Update Course Schedule 2/2
 	public static void doUpdateCourseSchedule(ArrayList<CourseSchedule> courseScheduleList, CourseSchedule cs, int newID,
 			String course, int price, String start_date, String end_date, String start_time, String end_time, String location) {
@@ -816,21 +816,21 @@ public class C206_CaseStudy {
 			Helper.readString("\nNo course schedules to search.... (Press Enter)");
 			return;
 		}
-		
+
 		int price = Helper.readInt("Enter Price to Search Course Schedules By > ");
-		
+
 		// Get all course schedules of specified price from list and put into new list
 		ArrayList<CourseSchedule> foundCsList = getCourseschedulesFromListByPrice(courseScheduleList, price);
-		
+
 		// Check if new list is empty
 		if (foundCsList.isEmpty()) {
 			Helper.readString("\nNo Course Schedules of specified price found.. (Press Enter)");
 			return;
 		}
-		
+
 		printAllCourseschedules(foundCsList);
 		Helper.readString("\nCourse schedule search results displayed.. (Press Enter)");
-		
+
 	}
 
 	// Course Schedule - Other 8
@@ -846,15 +846,9 @@ public class C206_CaseStudy {
 	}
 
 	private static void listAllMembersRegisteredForASchedule(ArrayList<CourseSchedule> courseScheduleList) {
-		
-		
-		
-		
-		
-		
-		
+
 		Helper.readString("\nAll members registered for a Course Schedule listed... (Press Enter)");
-		
+
 	}
 	
 
