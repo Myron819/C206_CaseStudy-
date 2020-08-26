@@ -146,7 +146,7 @@ public class C206_CaseStudy {
 				C206_CaseStudy.searchRegistrationStatusByCourseID(registrationList);
 			} else if (option == 30) {
 				C206_CaseStudy.setHeader("LIST ALL COURSE SCHEDULES LISTED BY A MEMBER");	
-				C206_CaseStudy.listAllCourseSchedulesListedByAMember(registrationList);
+				C206_CaseStudy.listAllCourseSchedulesRegisteredByAMember(registrationList);
 
 				// Other Options
 			} else if (option == 0) {
@@ -926,7 +926,7 @@ public class C206_CaseStudy {
 		return null;
 	}	
 
-	private static void updateRegistrationStatus(ArrayList<Registration> registrationList) {
+	public static void updateRegistrationStatus(ArrayList<Registration> registrationList) {
 		// TODO Auto-generated method stub
 		if(registrationList.size() == 0) {
 			Helper.readString("\nNo Registration schedules to update.... (Press Enter)");
@@ -964,7 +964,7 @@ public class C206_CaseStudy {
 	}
 
 	
-	private static void searchRegistrationStatusByCourseID(ArrayList<Registration> registrationList) {
+	static void searchRegistrationStatusByCourseID(ArrayList<Registration> registrationList) {
 		// TODO Auto-generated method stub
 		if(registrationList.isEmpty()) {
 			Helper.readString("\nNo Registrations to search for.... ((Press Enter)");
@@ -997,10 +997,40 @@ public class C206_CaseStudy {
 	
 	
 
-	private static void listAllCourseSchedulesListedByAMember(ArrayList<Registration> registrationList) {
+	private static void listAllCourseSchedulesRegisteredByAMember(ArrayList<Registration> registrationList) {
 		// TODO Auto-generated method stub
-		Helper.readString("\nTodo.. (Press Enter)");
+		boolean found = false;
 		
+		Registration foundRegList = null;
+		int regSearch = Helper.readInt("Enter Registration ID of member > ");
+		
+		for(int i = 0; i < registrationList.size(); i++) {
+			if(registrationList.get(i).getReg_id() == regSearch) {
+				foundRegList = registrationList.get(i);
+				found = true;
+			}
+		}
+		if(found == true) {
+			if(foundRegList.getCourse() !=null) {
+				ArrayList<Registration> getSchedule = foundRegList.getCourse();	
+				String output = String.format("%-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-30s\n"
+						,"COURSE SCHEDULE ID", "COURSE ", "PRICE", "START DATE", "END DATE", "START TIME"
+						, "END TIME", "LOCATION", "REGISTRATION ID", "REGISTRATION DATE", "STATUS", "STATUS CANCEL");
+				
+				for(int i = 0; i < getSchedule.size(); i++) {
+					output += String.format("%-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-30s\n",
+							getSchedule.get(i).getCourse_schedule_id(), getSchedule.get(i).getCourse() , 
+							getSchedule.get(i).getPrice(), getSchedule.get(i).getStart_date(),
+							getSchedule.get(i).getEnd_date(), getSchedule.get(i).getStart_time(),
+							getSchedule.get(i).getEnd_time(), getSchedule.get(i).getLocation(),
+							getSchedule.get(i).getReg_id(), getSchedule.get(i).getReg_date(),
+							getSchedule.get(i).isStatus(), getSchedule.get(i).isStatuscancel());				
+					
+				}
+				System.out.println(output);
+				
+			}
+		}
 	}
 }
 
