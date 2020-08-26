@@ -902,7 +902,7 @@ public class C206_CaseStudy {
 
 	public static void viewAllRegistrations(ArrayList<Registration> registrationList) {
 		C206_CaseStudy.setHeader("REGISTRATION LIST");
-		String output = String.format("%-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-30s\\n"
+		String output = String.format("%-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-30s\n"
 				,"COURSE SCHEDULE ID", "COURSE ", "PRICE", "START DATE", "END DATE", "START TIME"
 				, "END TIME", "LOCATION", "REGISTRATION ID", "REGISTRATION DATE", "STATUS", "STATUS CANCEL");
 		output += retrieveAllRegistrations(registrationList);	  
@@ -928,7 +928,6 @@ public class C206_CaseStudy {
 
 	private static void updateRegistrationStatus(ArrayList<Registration> registrationList) {
 		// TODO Auto-generated method stub
-		Helper.readString("Update Registration Status");
 		if(registrationList.size() == 0) {
 			Helper.readString("\nNo Registration schedules to update.... (Press Enter)");
 			return;
@@ -967,7 +966,6 @@ public class C206_CaseStudy {
 	
 	private static void searchRegistrationStatusByCourseID(ArrayList<Registration> registrationList) {
 		// TODO Auto-generated method stub
-		Helper.readString("\nTodo.. (Press Enter)");
 		if(registrationList.isEmpty()) {
 			Helper.readString("\nNo Registrations to search for.... ((Press Enter)");
 			return;
