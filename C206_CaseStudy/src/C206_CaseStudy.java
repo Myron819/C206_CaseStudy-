@@ -660,7 +660,7 @@ public class C206_CaseStudy {
 	}
 	
 
-	private static void updateCourseCategoryDetails(ArrayList<CourseCategory> courseCategoryList) {
+	static void updateCourseCategoryDetails(ArrayList<CourseCategory> courseCategoryList) {
 		// TODO Auto-generated method stub
 		String category=Helper.readString("Enter Category Name >");
 		String categoryDescription=Helper.readString("Enter Category Description >");
