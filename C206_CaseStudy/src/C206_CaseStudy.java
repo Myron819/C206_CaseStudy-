@@ -850,7 +850,7 @@ public class C206_CaseStudy {
 		}
 
 		printAllCourseschedules(foundCsList);
-		Helper.readString("\nCourse schedule search results displayed.. (Press Enter)");
+		Helper.readString("Course schedule search results displayed.. (Press Enter)");
 
 	}
 
