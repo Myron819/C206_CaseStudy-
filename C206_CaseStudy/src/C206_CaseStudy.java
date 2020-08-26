@@ -824,7 +824,7 @@ public class C206_CaseStudy {
 		
 		// Check if new list is empty
 		if (foundCsList.isEmpty()) {
-			Helper.readString("No Course Schedules of specified price found.. (Press Enter)");
+			Helper.readString("\nNo Course Schedules of specified price found.. (Press Enter)");
 			return;
 		}
 		
