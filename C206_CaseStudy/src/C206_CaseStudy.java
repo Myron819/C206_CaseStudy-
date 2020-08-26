@@ -76,10 +76,10 @@ public class C206_CaseStudy {
 				C206_CaseStudy.updateCourseDetails(CourseList,CourseCategoryList);
 			} else if (option == 11) {
 				C206_CaseStudy.setHeader("SEARCH COURSE BY CATEGORY NAME");
-				C206_CaseStudy.searchCourseByCategoryName(CourseList,CourseCategoryList);
+				C206_CaseStudy.searchCourseByCategoryNameUser(CourseList,CourseCategoryList);
 			} else if (option == 12) {
 				C206_CaseStudy.setHeader("LIST ALL COURSE SCHEDULES FOR COURSE");
-				C206_CaseStudy.listAllCourseSchedulesForACourse(CourseList);
+				C206_CaseStudy.listAllCourseSchedulesForACourseUser(CourseList);
 
 			// Course Category Options (Daryl)
 				
@@ -139,14 +139,14 @@ public class C206_CaseStudy {
 				C206_CaseStudy.deleteRegistration(registrationList);
 
 			} else if (option == 28) {
-				C206_CaseStudy.setHeader("UPDATE COURSE REGISTRATION ");
-				C206_CaseStudy.updateCourseRegistration(registrationList);
+				C206_CaseStudy.setHeader("UPDATE COURSE REGISTRATION STATUS ");
+				C206_CaseStudy.updateRegistrationStatus(registrationList);
 			} else if (option == 29) {
 				C206_CaseStudy.setHeader("SEARCH REGISTRATION STATUS BY COURSE ID");		
 				C206_CaseStudy.searchRegistrationStatusByCourseID(registrationList);
 			} else if (option == 30) {
 				C206_CaseStudy.setHeader("LIST ALL COURSE SCHEDULES LISTED BY A MEMBER");	
-				C206_CaseStudy.listAllCourseSchedulesListedByAMember(registrationList);
+				C206_CaseStudy.listAllCourseSchedulesRegisteredByAMember(registrationList);
 
 				// Other Options
 			} else if (option == 0) {
@@ -332,31 +332,35 @@ public class C206_CaseStudy {
 	}
 
 	/* Course Options By yiqian*/
-	//add course
+	//add course user input
 	public static void addCourseUser(ArrayList<Course> courseList, ArrayList<CourseCategory> catList) {
-		
 		int code = Helper.readInt("Enter course code > ");
 		String name = Helper.readString("Enter course name > ");
 		String des = Helper.readString("Enter description > ");
 		String cat = Helper.readString("Enter course category > ");
 		String duration = Helper.readString("Enter course duration > ");
 		String pre_requisite = Helper.readString("Enter pre_requisite course > ");
-		
 		//call addCourse
 		addCourse(code, name, des, cat, duration, pre_requisite, courseList, catList);
 	}
-	
+	//add course
 	public static void addCourse(int code, String name, String des, String cat, String duration, String pre_requisite, ArrayList<Course> courseList, ArrayList<CourseCategory> catList) {
 		boolean unique=false;
 		boolean categoryFound=false;
 		CourseCategory cc1 = null;
 		
-		//check whether course code entered is inside the course list
-		for(int i=0; i<courseList.size(); i++) {
-			if(courseList.get(i).getCourse_code()!=code) {
-				unique=true;
+		if(courseList.size()==0) {
+			unique=true;
+		}
+		else {
+			//check whether course code entered is inside the course list
+			for(int i=0; i<courseList.size(); i++) {
+				if(courseList.get(i).getCourse_code()!=code) {
+					unique=true;
+					}
 				}
-			}
+		}
+		
 		//check whether course category is inside the course list
 		for(int i=0; i<catList.size();i++) {
 			if(catList.get(i).getCategory().equalsIgnoreCase(cat)) {
@@ -368,7 +372,8 @@ public class C206_CaseStudy {
 		if(unique==true && categoryFound==true) {
 			Course co = new Course(code,name,des,cc1,duration,pre_requisite);
 			courseList.add(co);
-			System.out.println("Course added."); 
+			System.out.println("Course added.");
+			System.out.println(co.toString());
 			}
 		else if(categoryFound==false) {
 			System.out.println("Course's category not found."); 
@@ -413,13 +418,13 @@ public class C206_CaseStudy {
 		}
 	}
 
-	//delete course
+	//delete course user inputs
 	public static void deleteCourseUser(ArrayList<Course> courseList) {
 		int code = Helper.readInt("Enter course code > ");
 		deleteCourse(code, courseList);
 		
 	}
-	
+	//delete course
 	public static void deleteCourse(int code, ArrayList<Course> courseList) {
 		Course toDelete = null;
 		if(courseList==null) {
@@ -440,17 +445,17 @@ public class C206_CaseStudy {
 			}
 		}
 	}
-
-	public static void updateCourseDetails(ArrayList<Course> course, ArrayList<CourseCategory> catList) {
+	
+	//update course
+	public static void updateCourseDetails(ArrayList<Course> courseList, ArrayList<CourseCategory> catList) {
 		boolean CourseFound=false;
 		Course object=null;
 		int editCourseCode = Helper.readInt("Enter the course code you want to edit >" );
-		
 		//find whether the course code entered is inside the list
-		for(int i=0; i<course.size();i++) {
-			if(course.get(i).getCourse_code()==editCourseCode) {
+		for(int i=0; i<courseList.size();i++) {
+			if(courseList.get(i).getCourse_code()==editCourseCode) {
 				CourseFound=true;
-				object=course.get(i);
+				object=courseList.get(i);
 			}
 		}
 		if(CourseFound==true) {
@@ -537,11 +542,16 @@ public class C206_CaseStudy {
 		Helper.line(80, "-");
 	}
 	
+	//search course user input
+	private static void searchCourseByCategoryNameUser(ArrayList<Course> courseList, ArrayList<CourseCategory> catList) {
+		String cat = Helper.readString("Enter the course category you want to search for >");
+		viewCourseList(searchCourseByCategoryName(cat, courseList, catList));
+	}
+	
 	//search course by category name
-	private static void searchCourseByCategoryName(ArrayList<Course> course, ArrayList<CourseCategory> catList) {
+	public static ArrayList<Course> searchCourseByCategoryName(String cat, ArrayList<Course> courseList, ArrayList<CourseCategory> catList) {
 		boolean found=false;
 		ArrayList<Course> courseFound = new ArrayList<Course>();
-		String cat = Helper.readString("Enter the course category you want to search for >");
 		// find whether the category input is inside the category list
 		for(int i=0; i<catList.size();i++) {
 			if(catList.get(i).getCategory().equalsIgnoreCase(cat)) {
@@ -549,24 +559,38 @@ public class C206_CaseStudy {
 			}
 		}
 		if(found==true) {
-			for(int i=0;i<course.size();i++) {
-				if(course.get(i).getCourse_cat().getCategory().equalsIgnoreCase(cat)) {
-					courseFound.add(course.get(i));
+			for(int i=0;i<courseList.size();i++) {
+				if(courseList.get(i).getCourse_cat().getCategory().equalsIgnoreCase(cat)) {
+					courseFound.add(courseList.get(i));
 				}
 			}
-			viewCourseList(courseFound);
+//			viewCourseList(courseFound);
+			 return courseFound;
 		}
+		
+		return courseFound;
 	}
 	
 	//list all course schedule
-	private static void listAllCourseSchedulesForACourse(ArrayList<Course> course) {
+	public static void listAllCourseSchedulesForACourseUser(ArrayList<Course> courseList) {
+		String courseSearch = Helper.readString("Enter the course you want to search for >");
+		ArrayList<CourseSchedule> result = listAllCourseSchedulesForACourse(courseSearch, courseList);
+		String output = String.format("%-15s %-15s %-15s %-20s %-20s %-22s %-15s %-15s\n", "SCHEDULE ID", "TITLE", "COURSE", "START DATE", "END DATE", "START TIMING", "END TIMING", "LOCATION");
+		for(int i=0; i<result.size();i++) {
+			output += String.format("%-15d %-15s %-15s %-20s %-20s %-22s %-15s %-15s\n", result.get(i).getCourse_schedule_id(), result.get(i).getCourse(), result.get(i).getPrice(), result.get(i).getStart_date(), result.get(i).getEnd_date(), result.get(i).getStart_time(), result.get(i).getEnd_time(), result.get(i).getLocation());
+		}
+		System.out.println(output);
+
+	}
+	
+	//list all course schedule
+	public static ArrayList<CourseSchedule> listAllCourseSchedulesForACourse(String courseSearch, ArrayList<Course> courseList) {
 		boolean found=false;
 		Course courseFound=null;
-		String courseSearch = Helper.readString("Enter the course you want to search for >");
 		// find whether the course input is inside the course list
-		for(int i=0; i<course.size();i++) {
-			if(course.get(i).getCourse_title().equalsIgnoreCase(courseSearch)) {
-				courseFound=course.get(i);
+		for(int i=0; i<courseList.size();i++) {
+			if(courseList.get(i).getCourse_title().equalsIgnoreCase(courseSearch)) {
+				courseFound=courseList.get(i);
 				found=true;
 				
 			}
@@ -574,13 +598,10 @@ public class C206_CaseStudy {
 		if(found==true) {
 			if(courseFound.getCourse_schedule()!=null) {
 				ArrayList<CourseSchedule> scheduleGet = courseFound.getCourse_schedule();
-				String output = String.format("%-15s %-15s %-15s %-20s %-20s %-22s %-15s %-15s\n", "SCHEDULE ID", "TITLE", "COURSE", "START DATE", "END DATE", "START TIMING", "END TIMING", "LOCATION");
-				for(int i=0; i<scheduleGet.size();i++) {
-					output += String.format("%-15d %-15s %-15s %-20s %-20s %-22s %-15s %-15s\n", scheduleGet.get(i).getCourse_schedule_id(), scheduleGet.get(i).getCourse(), scheduleGet.get(i).getPrice(), scheduleGet.get(i).getStart_date(), scheduleGet.get(i).getEnd_date(), scheduleGet.get(i).getStart_time(), scheduleGet.get(i).getEnd_time(), scheduleGet.get(i).getLocation());
-				}
-				System.out.println(output);
+				return scheduleGet;
 			}
 		}
+		return null;
 	}
 
 	/* Course Category Options Daryl*/
@@ -868,7 +889,7 @@ public class C206_CaseStudy {
 		boolean status = Helper.readBoolean("Enter status (true/ false) > ");
 		boolean statuscancel = Helper.readBoolean("Enter statuscancel (true/ false) > ");
 
-		Registration rc = new Registration(course_schedule_id, course, price, start_date, end_date, start_time, end_time, location, course_schedule_id, course, price, start_date, end_date, start_time, end_time, location, reg_id, reg_date, status, statuscancel);
+		Registration rc = new Registration(course_schedule_id, course, price, start_date, end_date, start_time, end_time, location, course_schedule_id, course, status, statuscancel);
 		return rc;
 	}
 
@@ -883,14 +904,22 @@ public class C206_CaseStudy {
 		String output = "";
 
 		for (int i = 0; i < registrationList.size(); i++) {
-			output += String.format("%-20s %-30s\n", registrationList.get(i).getCourse_name(), registrationList.get(i).getReg_id());
+			output += String.format("%-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-30s\n",
+					registrationList.get(i).getCourse_schedule_id(), registrationList.get(i).getCourse() , 
+					registrationList.get(i).getPrice(), registrationList.get(i).getStart_date(),
+					registrationList.get(i).getEnd_date(), registrationList.get(i).getStart_time(),
+					registrationList.get(i).getEnd_time(), registrationList.get(i).getLocation(),
+					registrationList.get(i).getReg_id(), registrationList.get(i).getReg_date(),
+					registrationList.get(i).isStatus(), registrationList.get(i).isStatuscancel());
 		}
 		return output;
 	}	
 
 	public static void viewAllRegistrations(ArrayList<Registration> registrationList) {
 		C206_CaseStudy.setHeader("REGISTRATION LIST");
-		String output = String.format("%-20s %-30s\n", "COURSE NAME", "REGISTRATION ID");
+		String output = String.format("%-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-30s\n"
+				,"COURSE SCHEDULE ID", "COURSE ", "PRICE", "START DATE", "END DATE", "START TIME"
+				, "END TIME", "LOCATION", "REGISTRATION ID", "REGISTRATION DATE", "STATUS", "STATUS CANCEL");
 		output += retrieveAllRegistrations(registrationList);	  
 		System.out.println(output);
 	}
@@ -903,23 +932,120 @@ public class C206_CaseStudy {
 			}
 		}
 	}
+	
+	
+	public static Registration getRegistrationListByID(ArrayList<Registration> registrationList, int id) {
+		for(Registration r : registrationList) 
+			if(r.getReg_id() == id)
+				return r;		
+		return null;
+	}	
 
-	private static void updateCourseRegistration(ArrayList<Registration> registrationList) {
+	public static void updateRegistrationStatus(ArrayList<Registration> registrationList) {
 		// TODO Auto-generated method stub
-		Helper.readString("\nTodo.. (Press Enter)");
+		if(registrationList.size() == 0) {
+			Helper.readString("\nNo Registration schedules to update.... (Press Enter)");
+			return;
+		}
+		viewAllRegistrations(registrationList);
+		
+		int id = Helper.readInt("Enter ID of Registration Status to update > ");
+		
+		
+		Registration  r = getRegistrationListByID(registrationList, id);
+		if (r == null) {
+			Helper.readString("\nRegistration not found... (Press Enter)");
+			return;
+		}
+		
+		
+		boolean status = Helper.readBoolean("Enter status (true/ false) > ");
+		boolean statuscancel = Helper.readBoolean("Enter statuscancel (true/ false) > ");
+		doUpdateRegistration( r, status, statuscancel);
+		
+		Helper.readString("\nCourse schedule updated... (Press Enter)");
+		
+	}
+	/**
+	 * @param status
+	 * @param statuscancel
+	 */
+	private static void doUpdateRegistration(Registration r, boolean status, boolean statuscancel) {
+		
+		// TODO Auto-generated method stub
+		r.setStatus(status);
+		r.setStatuscancel(statuscancel);
 		
 	}
 
-	private static void searchRegistrationStatusByCourseID(ArrayList<Registration> registrationList) {
+	
+	static void searchRegistrationStatusByCourseID(ArrayList<Registration> registrationList) {
 		// TODO Auto-generated method stub
-		Helper.readString("\nTodo.. (Press Enter)");
+		if(registrationList.isEmpty()) {
+			Helper.readString("\nNo Registrations to search for.... ((Press Enter)");
+			return;
+		}
 		
+		int course_schedule_id = Helper.readInt("Enter Course ID to search for Registration Status > ");
+		
+		ArrayList<Registration> foundRegList = getRegistrationStatusFromListByID(registrationList, course_schedule_id);
+		
+		if(foundRegList.isEmpty()) {
+			Helper.readString("\nNo Registrations found from specified Course Schedule ID.... ((Press Enter)");
+			return;
+		}
+		
+		viewAllRegistrations(registrationList);
+		Helper.readString("\nNo Registrations search results displayed.... ((Press Enter)");
+				
 	}
+	private static ArrayList<Registration> getRegistrationStatusFromListByID(
+			ArrayList<Registration> registrationList, int course_schedule_id) {
+		ArrayList<Registration> foundRegList = new ArrayList<Registration>();
+		for (Registration r : registrationList) {
+			if (r.getCourse_schedule_id() == course_schedule_id) {
+				foundRegList.add(r);
+			}
+		}
+		return foundRegList;
+	}
+	
+	
 
-	private static void listAllCourseSchedulesListedByAMember(ArrayList<Registration> registrationList) {
+	private static void listAllCourseSchedulesRegisteredByAMember(ArrayList<Registration> registrationList) {
 		// TODO Auto-generated method stub
-		Helper.readString("\nTodo.. (Press Enter)");
+		boolean found = false;
 		
+		Registration foundRegList = null;
+		int regSearch = Helper.readInt("Enter Registration ID of member > ");
+		
+		for(int i = 0; i < registrationList.size(); i++) {
+			if(registrationList.get(i).getReg_id() == regSearch) {
+				foundRegList = registrationList.get(i);
+				found = true;
+			}
+		} 
+		if(found == true) {
+			if(foundRegList.getCourse() !=null) {
+				ArrayList<Registration> getSchedule = foundRegList.getCourse();	
+				String output = String.format("%-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-30s\n"
+						,"COURSE SCHEDULE ID", "COURSE ", "PRICE", "START DATE", "END DATE", "START TIME"
+						, "END TIME", "LOCATION", "REGISTRATION ID", "REGISTRATION DATE", "STATUS", "STATUS CANCEL");
+				
+				for(int i = 0; i < getSchedule.size(); i++) {
+					output += String.format("%-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-30s\n",
+							getSchedule.get(i).getCourse_schedule_id(), getSchedule.get(i).getCourse() , 
+							getSchedule.get(i).getPrice(), getSchedule.get(i).getStart_date(),
+							getSchedule.get(i).getEnd_date(), getSchedule.get(i).getStart_time(),
+							getSchedule.get(i).getEnd_time(), getSchedule.get(i).getLocation(),
+							getSchedule.get(i).getReg_id(), getSchedule.get(i).getReg_date(),
+							getSchedule.get(i).isStatus(), getSchedule.get(i).isStatuscancel());				
+					
+				}
+				System.out.println(output);
+				
+			}
+		}
 	}
 }
 

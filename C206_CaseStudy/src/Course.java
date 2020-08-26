@@ -33,7 +33,6 @@ public class Course {
 	}
 	
 	
-	
 	public int getCourse_code() {
 		return course_code;
 	}
@@ -94,7 +93,7 @@ public class Course {
 	
 	@Override
 	public String toString() {
-		String output =String.format("%-10d %-10s %-25s %-15s %-15s %-15s %-15s\n",getCourse_code(), getCourse_title(), getDescription(), getCourse_cat().getCategory(), getCourse_duration(),getPre_requisite_course());
+		String output =String.format("%-10d %-10s %-25s %-15s %-15s %-15s\n",getCourse_code(), getCourse_title(), getDescription(), getCourse_cat().getCategory(), getCourse_duration(),getPre_requisite_course());
 		return output;
 	}
 }
