@@ -878,14 +878,15 @@ public class C206_CaseStudy {
 		String output = "";
 
 		for (int i = 0; i < registrationList.size(); i++) {
-			output += String.format("%-20s %-30s\n", registrationList.get(i).getCourse_name(), registrationList.get(i).getReg_id());
+			output += String.format("%-20s %-20s %-30s\n",registrationList.get(i).getCourse() , registrationList.get(i).getCourse_schedule_id(), 
+					registrationList.get(i).getReg_id());
 		}
 		return output;
 	}	
 
 	public static void viewAllRegistrations(ArrayList<Registration> registrationList) {
 		C206_CaseStudy.setHeader("REGISTRATION LIST");
-		String output = String.format("%-20s %-30s\n", "COURSE NAME", "REGISTRATION ID");
+		String output = String.format("%-20s %-20s %-30s\n","COURSE", "COURSE SCHEDULE ID", "REGISTRATION ID");
 		output += retrieveAllRegistrations(registrationList);	  
 		System.out.println(output);
 	}
