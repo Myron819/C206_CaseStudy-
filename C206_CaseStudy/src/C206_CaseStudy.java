@@ -361,10 +361,12 @@ public class C206_CaseStudy {
 			unique=true;
 		}
 		else {
+			unique=true;
 			//check whether course code entered is inside the course list
 			for(int i=0; i<courseList.size(); i++) {
-				if(courseList.get(i).getCourse_code()!=code) {
-					unique=true;
+				if(courseList.get(i).getCourse_code()==code) {
+					unique=false;
+					break;
 					}
 				}
 		}
