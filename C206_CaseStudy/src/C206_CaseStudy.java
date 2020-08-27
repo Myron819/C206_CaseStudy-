@@ -381,7 +381,6 @@ public class C206_CaseStudy {
 			Course co = new Course(code,name,des,cc1,duration,pre_requisite);
 			courseList.add(co);
 			System.out.println("Course added.");
-			System.out.println(co.toString());
 			}
 		else if(categoryFound==false) {
 			System.out.println("Course's category not found."); 
