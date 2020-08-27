@@ -14,15 +14,13 @@ public class C206_CaseStudy {
 		ArrayList<CourseSchedule> courseScheduleScienceList = new ArrayList<CourseSchedule>();
 		
 		MemberList.add(new Member("John","Male",84440720,"John@gmail.com","22/07/2020","Singapore","pass1234"));
-		CourseSchedule cs1 = new CourseSchedule(1,"Math",50,"1/1/2020","1/5/2020","12pm","2pm","Woodlands");
-		courseScheduleMathList.add(cs1);
-		CourseSchedule cs2 = new CourseSchedule(2,"Math",70,"3/1/2020","3/3/2020","5pm","6pm","Bukit Batok" );
-		courseScheduleMathList.add(cs2);
-		CourseSchedule cs3 = new CourseSchedule(3,"Science",100,"1/1/2020","1/5/2020","12pm","2pm","Pasir Ris" );
-		courseScheduleScienceList.add(cs3);
+		
+		courseScheduleMathList.add(new CourseSchedule(1,"Math",50,"1/1/2020","1/5/2020","12pm","2pm","Woodlands"));
+		courseScheduleMathList.add(new CourseSchedule(2,"Math",70,"3/1/2020","3/3/2020","5pm","6pm","Bukit Batok"));
+		courseScheduleScienceList.add(new CourseSchedule(3,"Science",100,"1/1/2020","1/5/2020","12pm","2pm","Pasir Ris"));
 		CourseCategory cc1 = new CourseCategory("Math","Mathematics is the study of numbers, shapes and patterns.");
-		CourseCategoryList.add(cc1);
 		CourseCategory cc2 = new CourseCategory("Science", "Science is the pursuit and application of knowledge and understanding of the natural and social world following a systematic methodology based on evidence.");
+		CourseCategoryList.add(cc1);
 		CourseCategoryList.add(cc2);
 		CourseList.add(new Course(1,"Addition","1+1",cc1,courseScheduleMathList,"From Jan to June",null));
 		CourseList.add(new Course(2,"Subtraction","1-1",cc1,courseScheduleMathList,"From Jan to June",null));
@@ -351,7 +349,6 @@ public class C206_CaseStudy {
 		String cat = Helper.readString("Enter course category > ");
 		String duration = Helper.readString("Enter course duration > ");
 		String pre_requisite = Helper.readString("Enter pre_requisite course > ");
-		//call addCourse
 		addCourse(code, name, des, cat, duration, pre_requisite, courseList, catList);
 	}
 	//add course
@@ -582,7 +579,7 @@ public class C206_CaseStudy {
 		return courseFound;
 	}
 	
-	//list all course schedule
+	//list all course schedule user input
 	public static void listAllCourseSchedulesForACourseUser(ArrayList<Course> courseList) {
 		String courseSearch = Helper.readString("Enter the course you want to search for >");
 		ArrayList<CourseSchedule> result = listAllCourseSchedulesForACourse(courseSearch, courseList);
